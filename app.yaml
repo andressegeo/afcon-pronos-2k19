@@ -1,0 +1,33 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+service: default
+
+default_expiration: "10m"
+
+handlers:
+- url: /.*
+  script: app.APP
+  login: required
+  secure: always
+
+skip_files:
+  - ^(.*/)?#.*#$
+  - ^(.*/)?.*~$
+  - ^(.*/)?.*\.py[co]$
+  - ^(.*/)?.*\.ts$
+  - ^(.*/)?.*\.js.map$
+  - ^(.*/)?.*/RCS/.*$
+  - ^(.*/)?\..*$
+  - ^node_modules$
+  - ^venv$
+  - ^log\.txt$
+  - ^\.idea$
+  - ^\.git$
+  - ^\.vscode$
+  - ^configs$
+  - venv-doc
+  - ^launch\.sh$
+  - ^webpack.*\.js$
+  - ^(.*/)?.*\.md$
+  - ^e2e$
