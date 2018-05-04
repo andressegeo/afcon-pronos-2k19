@@ -4,7 +4,8 @@ import {
   MatButtonModule,
   MatRippleModule,
   MatToolbarModule,
-  MatIconModule
+  MatIconModule,
+  MatSelectModule
 } from "@angular/material";
 
 import {
@@ -16,7 +17,8 @@ let materialModules = [
   MatRippleModule,
   MatToolbarModule,
   FlexLayoutModule,
-  MatIconModule
+  MatIconModule,
+  MatSelectModule
 ];
 
 @NgModule({

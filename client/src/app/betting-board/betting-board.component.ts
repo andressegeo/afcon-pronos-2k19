@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BettingBoardComponent implements OnInit {
 
+  stages: any[];
+
   constructor() { }
 
   ngOnInit() {
+    this.stages = [{
+      name: 'Groupe A'
+    },
+    {
+      name: 'Groupe B'
+    }]
   }
 
 }

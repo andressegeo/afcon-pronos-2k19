@@ -1,5 +1,5 @@
 .navbar__brand {
-    height: 100%;
+    height: 80%;
 
     img {
       height: 100%;
@@ -16,6 +16,12 @@
 }
 
 mat-toolbar {
-  background-color: red;
+  background: url('/assets/darkbluebg.png');
   color: #fff;
+}
+
+a {
+  font-family: Dusha;
+  font-weight: lighter;
+  font-size: 1.5em;
 }

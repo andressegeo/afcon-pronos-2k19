@@ -1,3 +1,25 @@
-<p>
-  betting-board works!
-</p>
+<h1>
+  Matches
+  <span>
+    (<a rel="noopener noreferrer" href="https://docs.google.com/document/d/1LcIlcV-xp078Im1b-ks6DUtkCz5fegglGiM1L4IPxqg/edit?usp=sharing">règles</a>)
+  </span>
+</h1>
+
+<section>
+  <h2>
+    Vainqueur Coupe du monde
+  </h2>
+
+</section>
+
+<section>
+  <h2>
+    <mat-form-field *ngIf="stages && stages.length">
+      <mat-select >
+        <mat-option *ngFor="let stage of stages" [value]="stage">
+          {{ stage.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </h2>
+</section>

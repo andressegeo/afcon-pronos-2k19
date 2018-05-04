@@ -1,5 +1,10 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+@font-face {
+    font-family: Dusha;
+    src: url('/assets/dusha-regular.woff');
+}
+
 html, body {
   height: 100%;
   width: 100%;

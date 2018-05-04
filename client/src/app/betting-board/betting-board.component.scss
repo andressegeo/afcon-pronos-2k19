@@ -1,0 +1,17 @@
+h1 {
+  font-family: Dusha;
+  font-weight: lighter;
+  font-size: 3em;
+
+  span {
+    font-size: 0.5em;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

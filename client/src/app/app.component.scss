@@ -1,10 +1,14 @@
 main {
   position: absolute;
-  width: 100%;
+  width: 80%;
+  min-width: 600px;
+  max-width: 1400px;
   top: 64px;
   right: 0;
   left: 0;
   bottom: 0;
+  margin: auto;
+  padding-top: 50px;
 }
 
 navbar {
