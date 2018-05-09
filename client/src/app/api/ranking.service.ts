@@ -1,10 +1,22 @@
 import { Injectable } from '@angular/core';
 import { User } from './user.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ApiService } from './api.service';
 
 @Injectable()
 export class RankingService {
 
-  constructor() { }
+  globalRanking: BehaviorSubject<Rank>;
+
+  constructor(private apiService: ApiService) {
+    this.globalRanking = new BehaviorSubject(undefined);
+
+    this.getGlobalRanking();
+  }
+
+  getGlobalRanking() {
+    // TODO
+  }
 
 }
 

@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { ApiService } from './api.service';
 import { environment } from './../../environments/environment';
-import { Prediction } from '../rankings/rankings.component';
+import { Prediction } from './prediction.service';
 import { Team } from './team.service';
 
 @Injectable()
