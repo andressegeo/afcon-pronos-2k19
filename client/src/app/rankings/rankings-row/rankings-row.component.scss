@@ -1,0 +1,59 @@
+@import "../../common/colors";
+
+.row {
+  padding: 10px 50px;
+
+  &.highlighted {
+    background-color: rgba($app-cyan, 0.1)
+  }
+
+  .item-picture {
+    width: 100px;
+
+    div {
+      border-radius: 25px;
+      height:50px;
+      width: 50px;
+      display: inline-block;
+      overflow: hidden;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .item-score {
+    font-size: 20px;
+    line-height: 40px;
+    padding: 0 16px;
+    text-align: center;
+    color: white;
+    min-width: 70px;
+    box-sizing: border-box;
+    background-color: $app-cyan;
+  }
+
+  .item-medal {
+    width: 100px;
+    height: 40px;
+    text-align: center;
+
+    img {
+      height: 100%;
+    }
+
+    .no-medal-rank {
+      border: solid orange 1px;
+      border-radius: 20px;
+      height: 40px;
+      width: 40px;
+      box-sizing: border-box;
+      text-align: center;
+      color: orange;
+      display: inline-block;
+      line-height: 40px;
+    }
+  }
+}

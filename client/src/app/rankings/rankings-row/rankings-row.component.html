@@ -1,0 +1,34 @@
+<div class="row"
+     fxLayout fxLayoutAlign="start center"
+     [ngClass]="{highlighted: item.highlighted}">
+
+  <div class="item-medal">
+    <img src="/assets/gold-medal.svg" *ngIf="item.rank === 1"/>
+    <img src="/assets/silver-medal.svg" *ngIf="item.rank === 2"/>
+    <img src="/assets/bronze-medal.svg" *ngIf="item.rank === 3"/>
+    <div class="no-medal-rank" *ngIf="item.rank > 3">
+      {{ item.rank }}
+    </div>
+  </div>
+
+  <div class="item-picture" fxLayout fxLayoutAlign="start center">
+    <div>
+      <img [src]="item.user.picture_url" />
+    </div>
+  </div>
+
+  <div fxFlex class="item-name">
+    {{ item.user.name }}
+  </div>
+
+  <div class="item-picture" fxLayout fxLayoutAlign="start center">
+    <div>
+      <img [src]="item.user.worldcup_winner.flag_url" />
+    </div>
+  </div>
+
+  <div class="item-score">
+    {{ item.user.points }}
+  </div>
+
+</div>

@@ -14,6 +14,8 @@ import { ApiService } from './api/api.service';
 import { RankingsComponent } from './rankings/rankings.component';
 import { BettingBoardComponent } from './betting-board/betting-board.component';
 import { AdminBoardComponent } from './admin-board/admin-board.component';
+import { RankingsRowComponent } from './rankings/rankings-row/rankings-row.component';
+import { RankingService } from './api/ranking.service';
 
 
 const appRoutes: Routes = [
@@ -43,6 +45,7 @@ const appRoutes: Routes = [
     RankingsComponent,
     BettingBoardComponent,
     AdminBoardComponent,
+    RankingsRowComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ const appRoutes: Routes = [
   providers: [
     RestService,
     UserService,
-    ApiService
+    ApiService,
+    RankingService
   ],
   bootstrap: [AppComponent]
 })
