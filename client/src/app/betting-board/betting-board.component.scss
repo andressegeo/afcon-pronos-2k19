@@ -15,3 +15,24 @@ h1 {
     }
   }
 }
+
+
+#worldcup-winner {
+  mat-form-field {
+    width: 100%;
+    max-width: 500px;
+
+    mat-option {
+      img.flag {
+        height: 24px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      span.label {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+

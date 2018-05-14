@@ -5,7 +5,9 @@ import {
   MatRippleModule,
   MatToolbarModule,
   MatIconModule,
-  MatSelectModule
+  MatSelectModule,
+  MatAutocompleteModule,
+  MatInputModule
 } from "@angular/material";
 
 import {
@@ -18,7 +20,9 @@ let materialModules = [
   MatToolbarModule,
   FlexLayoutModule,
   MatIconModule,
-  MatSelectModule
+  MatSelectModule,
+  MatAutocompleteModule,
+  MatInputModule
 ];
 
 @NgModule({

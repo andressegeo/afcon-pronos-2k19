@@ -8,16 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class BettingBoardComponent implements OnInit {
 
   stages: any[];
+  teams: any[];
+  worldcupWinner: any;
 
   constructor() { }
 
   ngOnInit() {
-    this.stages = [{
-      name: 'Groupe A'
-    },
-    {
-      name: 'Groupe B'
-    }]
+    /* TODO: fetch teams, stages */
   }
 
 }
