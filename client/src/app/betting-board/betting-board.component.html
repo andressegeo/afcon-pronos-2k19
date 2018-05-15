@@ -11,7 +11,7 @@
   </h2>
 
     <mat-form-field>
-      <input type="text" placeholder="Choisir le futur vainqueur" aria-label="Vainqueur" matInput
+      <input type="text" placeholder="Pronostique le futur vainqueur" aria-label="Vainqueur" matInput
              [(ngModel)]="worldcupWinner" name="worldcupWinner" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let team of teams" [value]="team">
