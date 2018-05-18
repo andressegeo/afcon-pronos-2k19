@@ -10,16 +10,35 @@
     Vainqueur Coupe du monde
   </h2>
 
-    <mat-form-field>
-      <input type="text" placeholder="Pronostique le futur vainqueur" aria-label="Vainqueur" matInput
-             [(ngModel)]="worldcupWinner" name="worldcupWinner" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let team of teams" [value]="team">
-          <img class="flag" [src]="team.flag_url" />
-          <span class="label">{{ team.name }}</span>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+  <div class="betting-row" fxLayout>
+    <div fxFlex><!-- stay empty --></div>
+    <div class="betting-col" fxLayout="column">
+      <div class="col-title">
+        Pronostic
+      </div>
+      <div class="col-content" [ngClass]="{unknown: worldcupWinner == null}" fxFlex>
+        <div class="flag-content">
+          <img [src]="worldcupWinner.flag_url" *ngIf="worldcupWinner">
+        </div>
+      </div>
+    </div>
+    <div class="betting-col" fxLayout="column">
+      <div class="col-title">
+        Résultat
+      </div>
+      <div class="col-content empty" fxFlex>
+        <div class="flag-content">
+        </div>
+      </div>
+    </div>
+    <div class="betting-col" fxLayout="column">
+      <div class="col-title">
+        Points
+      </div>
+      <div class="col-content empty" fxFlex>
+      </div>
+    </div>
+  </div>
 
 </section>
 

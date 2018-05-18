@@ -26,20 +26,56 @@ section {
   }
 }
 
-#worldcup-winner {
-  mat-form-field {
-    width: 100%;
-    max-width: 500px;
+mat-option {
+  img.flag {
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  span.label {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
 
-    mat-option {
-      img.flag {
-        height: 24px;
-        display: inline-block;
-        vertical-align: middle;
+.betting-row {
+  .betting-col {
+    height: 200px;
+    width: 200px;
+
+    .col-title {
+      color: #808080;
+      font-size: 2em;
+      text-align: center;
+    }
+
+    .col-content {
+
+      &%bg {
+        background-size: 100%, 25%;
+        background-position: center center;
+        background-repeat: no-repeat;
       }
-      span.label {
-        display: inline-block;
-        vertical-align: middle;
+
+      &.unknown {
+        background-image: linear-gradient(
+          rgba(255, 255, 255, 0.6),
+          rgba(255, 255, 255, 0.6)
+        ), url('/assets/question-mark.png');
+        @extend %bg;
+      }
+
+      &.empty {
+        background-image:linear-gradient(
+          rgba(255, 255, 255, 0.6),
+          rgba(255, 255, 255, 0.6)
+        ), url('/assets/line.png');
+        @extend %bg;
+      }
+
+      .flag-content {
+        width: 100%;
+        height: 100%;
       }
     }
   }

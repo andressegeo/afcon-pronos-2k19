@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-betting-board',
@@ -15,6 +15,13 @@ export class BettingBoardComponent implements OnInit {
 
   ngOnInit() {
     /* TODO: fetch teams, stages */
+    this.teams = [{
+      name: 'Andorre',
+      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/ad.svg'
+    },{
+      name: 'Belgique',
+      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/be.svg'
+    }]
   }
 
 }
