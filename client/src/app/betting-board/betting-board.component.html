@@ -10,8 +10,13 @@
     Vainqueur Coupe du monde
   </h2>
 
-  <div class="betting-row" fxLayout>
-    <div fxFlex><!-- stay empty --></div>
+  <div class="betting-row" fxLayout fxLayoutGap="20px">
+    <div id="team-picker-col" fxFlex>
+      <div class="strut"></div>
+      <button mat-raised-button (click)="openTeamPickerDialog()" class="need-strut">
+        Choisis ton équipe
+      </button>
+    </div>
     <div class="betting-col" fxLayout="column">
       <div class="col-title">
         Pronostic

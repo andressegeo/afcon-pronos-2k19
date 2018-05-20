@@ -1,0 +1,6 @@
+<div class="team" *ngFor="let team of data.teams" (click)="pickTeam(team)">
+  <img class="flag" [src]="team.flag_url">
+  <div class="name">
+    {{ team.name }}
+  </div>
+</div>

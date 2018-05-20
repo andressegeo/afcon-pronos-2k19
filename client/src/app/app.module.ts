@@ -15,6 +15,7 @@ import { ApiService } from './api/api.service';
 import { RankingsComponent } from './rankings/rankings.component';
 import { BettingBoardComponent } from './betting-board/betting-board.component';
 import { AdminBoardComponent } from './admin-board/admin-board.component';
+import { TeamPickerDialogComponent } from './team-picker-dialog/team-picker-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
     RankingsComponent,
     BettingBoardComponent,
     AdminBoardComponent,
+    TeamPickerDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +62,9 @@ const appRoutes: Routes = [
     RestService,
     UserService,
     ApiService
+  ],
+  entryComponents: [
+    TeamPickerDialogComponent
   ],
   bootstrap: [AppComponent]
 })
