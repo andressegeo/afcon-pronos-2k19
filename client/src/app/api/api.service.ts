@@ -19,4 +19,14 @@ export class ApiService {
     let url = this.makeUrl('users/me');
     return this.restService.get(url);
   }
+
+  getMatches() {
+    let url = this.makeUrl('/matches');
+    return this.restService.get(url);
+  }
+
+  getTeams() {
+    let url = this.makeUrl('/teams');
+    return this.restService.get(url);
+  }
 }

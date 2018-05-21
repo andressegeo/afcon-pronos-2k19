@@ -14,10 +14,14 @@ import { UserService } from './api/user.service';
 import { ApiService } from './api/api.service';
 import { RankingsComponent } from './rankings/rankings.component';
 import { BettingBoardComponent } from './betting-board/betting-board.component';
-import { AdminBoardComponent } from './admin-board/admin-board.component';
 import { TeamPickerDialogComponent } from './team-picker-dialog/team-picker-dialog.component';
 import { RankingsRowComponent } from './rankings/rankings-row/rankings-row.component';
 import { RankingService } from './api/ranking.service';
+import { StageService } from './api/stage.service';
+import { MatchService } from './api/match.service';
+import { TeamService } from './api/team.service';
+import { StadiumService } from './api/stadium.service';
+import { FakeService } from './api/fake.service';
 
 
 const appRoutes: Routes = [
@@ -28,10 +32,6 @@ const appRoutes: Routes = [
   {
     path: 'matches',
     component: BettingBoardComponent
-  },
-  {
-    path: 'admin',
-    component: AdminBoardComponent
   },
   {
     path: '',
@@ -46,7 +46,6 @@ const appRoutes: Routes = [
     NavbarComponent,
     RankingsComponent,
     BettingBoardComponent,
-    AdminBoardComponent,
     TeamPickerDialogComponent,
     RankingsRowComponent
   ],
@@ -65,7 +64,12 @@ const appRoutes: Routes = [
     RestService,
     UserService,
     ApiService,
-    RankingService
+    RankingService,
+    StageService,
+    FakeService,
+    StadiumService,
+    TeamService,
+    MatchService
   ],
   entryComponents: [
     TeamPickerDialogComponent

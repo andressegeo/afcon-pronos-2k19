@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { TeamPickerDialogComponent } from './../team-picker-dialog/team-picker-dialog.component';
+import { StageService } from './../api/stage.service';
+import { TeamService } from './../api/team.service';
 
 @Component({
   selector: 'app-betting-board',
@@ -14,52 +16,19 @@ export class BettingBoardComponent implements OnInit {
   teams: any[];
   worldcupWinner: any;
 
-  constructor(private matDialog: MatDialog) { }
+  constructor(private matDialog: MatDialog,
+    private stageService: StageService,
+    private teamService: TeamService) { }
 
   ngOnInit() {
-    /* TODO: fetch teams, stages */
-    this.teams = [{
-      name: 'Andorre',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/ad.svg'
-    },{
-      name: 'Belgique',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/be.svg'
-    },{
-      name: 'Andorre',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/ad.svg'
-    },{
-      name: 'Belgique',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/be.svg'
-    },{
-      name: 'Andorre',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/ad.svg'
-    },{
-      name: 'Belgique',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/be.svg'
-    },{
-      name: 'Andorre',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/ad.svg'
-    },{
-      name: 'Belgique',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/be.svg'
-    },{
-      name: 'Andorre',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/ad.svg'
-    },{
-      name: 'Belgique',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/be.svg'
-    },{
-      name: 'Andorre',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/ad.svg'
-    },{
-      name: 'Belgique',
-      flag_url: 'https://storage.cloud.google.com/dgc-worldcup-russia-2018.appspot.com/flags/be.svg'
-    }];
+    this.stageService.getStagesWithMatches().subscribe(stages => this.stages = stages);
+    this.teamService.getTeams().subscribe(teams => this.teams = teams);
   }
 
   openTeamPickerDialog(): void {
     let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
-      data: { teams: this.teams }
+      data: { teams: this.teams },
+      height: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
