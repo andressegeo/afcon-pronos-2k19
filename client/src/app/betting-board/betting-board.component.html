@@ -21,7 +21,8 @@
       <div class="col-title">
         Pronostic
       </div>
-      <div class="col-content" [ngClass]="{unknown: worldcupWinnerPrediction == null}" (click)="openTeamPickerDialog()" fxFlex>
+      <div class="col-content clickable" [ngClass]="{unknown: worldcupWinnerPrediction == null}"
+           (click)="openTeamPickerDialog()" fxFlex>
         <div class="flag-content">
           <img [src]="worldcupWinnerPrediction.flag_url" *ngIf="worldcupWinnerPrediction">
         </div>
@@ -32,7 +33,7 @@
         Résultat
       </div>
       <div class="col-content" fxFlex (click)="selectWorldcupWinner()"
-           [ngClass]="{empty: worldcupWinner == null}">
+           [ngClass]="{empty: worldcupWinner == null, clickable: isAdmin()}">
         <div class="flag-content">
           <img [src]="worldcupWinner.flag_url" *ngIf="worldcupWinner">
         </div>
@@ -42,7 +43,8 @@
       <div class="col-title">
         Points
       </div>
-      <div class="col-content empty" fxFlex>
+      <div class="col-content points" [ngClass]="{empty: worldcupWinnerPredictionPoints == null}" fxFlex>
+        {{ worldcupWinnerPredictionPoints }}
       </div>
     </div>
   </div>

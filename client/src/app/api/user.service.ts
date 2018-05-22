@@ -16,7 +16,7 @@ export class UserService {
     this.userSubject = new BehaviorSubject(undefined);
   }
 
-  getCurrentUser() {
+  getCurrentUser(): void {
     this.apiService.getCurrentUser().subscribe(user => {
       this.user = user;
       this.userSubject.next(this.user);
@@ -25,8 +25,8 @@ export class UserService {
     });
   }
 
-  isAdmin() {
-    return true && this.user !== undefined && this.user.is_admin;
+  isAdmin(): boolean {
+    return this.user !== undefined && this.user.is_admin;
   }
 
 }
