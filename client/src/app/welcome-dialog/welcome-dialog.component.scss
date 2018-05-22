@@ -1,0 +1,17 @@
+& > div {
+  background: url('/assets/welcome.jpg');
+
+  .action-button {
+    background: url('/assets/darkbluebg.png') -5px;
+    cursor: pointer;
+    bottom: 10px;
+    display: inline-block;
+    width: 25%;
+    min-width: 200px;
+    margin: 0 12.5%;
+    color: white;
+    font-family: Dusha;
+    font-weight: lighter;
+    font-size: 3em;
+  }
+}
