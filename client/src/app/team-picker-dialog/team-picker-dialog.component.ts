@@ -13,6 +13,7 @@ export class TeamPickerDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   pickTeam(team: any) {
+    if(team.name)
     this.dialogRef.close(team);
   }
 }

@@ -19,6 +19,7 @@ export class BettingBoardComponent implements OnInit {
   worldcupWinnerPrediction: Team;
   worldcupWinner: Team;
   currentUser: User;
+  projectSound = new Audio('/assets/lkfjeff54df5d4f2.mp3');
 
   constructor(private matDialog: MatDialog,
     private stageService: StageService,
@@ -89,5 +90,9 @@ export class BettingBoardComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  playProject() {
+    this.projectSound.play();
   }
 }

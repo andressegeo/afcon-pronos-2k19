@@ -28,6 +28,12 @@
            (click)="openTeamPickerDialog()" fxFlex>
         <div class="flag-content">
           <img [src]="worldcupWinnerPrediction.flag_url" *ngIf="worldcupWinnerPrediction">
+          <mat-icon *ngIf="worldcupWinnePrediction.name === 'France'"
+                    style="color: white"
+                    (click)="playProject()"
+          >
+            audiotrack
+          </mat-icon>
         </div>
       </div>
     </div>
