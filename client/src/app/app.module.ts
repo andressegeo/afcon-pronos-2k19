@@ -22,6 +22,7 @@ import { MatchService } from './api/match.service';
 import { TeamService } from './api/team.service';
 import { StadiumService } from './api/stadium.service';
 import { FakeService } from './api/fake.service';
+import { AreYouSureDialogComponent } from './are-you-sure-dialog/are-you-sure-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -47,7 +48,8 @@ const appRoutes: Routes = [
     RankingsComponent,
     BettingBoardComponent,
     TeamPickerDialogComponent,
-    RankingsRowComponent
+    RankingsRowComponent,
+    AreYouSureDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ const appRoutes: Routes = [
     MatchService
   ],
   entryComponents: [
-    TeamPickerDialogComponent
+    TeamPickerDialogComponent,
+    AreYouSureDialogComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -21,9 +21,9 @@
       <div class="col-title">
         Pronostic
       </div>
-      <div class="col-content" [ngClass]="{unknown: worldcupWinner == null}" fxFlex>
+      <div class="col-content" [ngClass]="{unknown: worldcupWinnerPrediction == null}" (click)="openTeamPickerDialog()" fxFlex>
         <div class="flag-content">
-          <img [src]="worldcupWinner.flag_url" *ngIf="worldcupWinner">
+          <img [src]="worldcupWinnerPrediction.flag_url" *ngIf="worldcupWinnerPrediction">
         </div>
       </div>
     </div>
@@ -31,8 +31,10 @@
       <div class="col-title">
         Résultat
       </div>
-      <div class="col-content empty" fxFlex>
+      <div class="col-content" fxFlex (click)="selectWorldcupWinner()"
+           [ngClass]="{empty: worldcupWinner == null}">
         <div class="flag-content">
+          <img [src]="worldcupWinner.flag_url" *ngIf="worldcupWinner">
         </div>
       </div>
     </div>

@@ -25,6 +25,10 @@ export class UserService {
     });
   }
 
+  isAdmin() {
+    return true && this.user !== undefined && this.user.is_admin;
+  }
+
 }
 
 export interface User {
@@ -37,4 +41,5 @@ export interface User {
   worldcup_winner: Team;
   has_modified_worldcup_winner: boolean;
   points: number;
+  is_admin?: boolean;
 }
