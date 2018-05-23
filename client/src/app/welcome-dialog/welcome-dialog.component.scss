@@ -1,17 +1,51 @@
-& > div {
-  background: url('/assets/welcome.jpg');
+div.with-background {
+  background-image: url('/assets/welcome.jpg');
+  background-size: cover;
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  position: relative;
 
   .action-button {
     background: url('/assets/darkbluebg.png') -5px;
     cursor: pointer;
-    bottom: 10px;
-    display: inline-block;
+    position: absolute;
+    bottom: 20px;
     width: 25%;
     min-width: 200px;
-    margin: 0 12.5%;
+    height: 80px;
+    line-height: 80px;
     color: white;
     font-family: Dusha;
     font-weight: lighter;
-    font-size: 3em;
+    font-size: 2em;
+    text-align: center;
+    border-radius: 2px;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),
+      0 2px 2px 0 rgba(0,0,0,.14),
+      0 1px 5px 0 rgba(0,0,0,.12);
+
+    &.left {
+      left: 20px;
+    }
+
+    &.right {
+      right: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    @media screen and (max-width: 700px) {
+      height: 50px;
+      line-height: 50px;
+      font-size: 1.5em;
+    }
   }
 }

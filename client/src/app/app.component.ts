@@ -17,13 +17,18 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrentUser();
 
-    if(!localStorage.getItem('isFirstVisitGuuuuuys')) {
+    if(localStorage.getItem('isFirstVisitGuuuuuys') !== 'yes') {
        let dialogRef = this.matDialog.open(WelcomeDialogComponent, {
-        width: '600px'
+        height: '90%',
+        minHeight: '400px',
+        width: '35%',
+        minWidth: '500px',
+        panelClass: 'dialog-without-padding',
+        backdropClass: 'darker-backdrop'
       });
 
       dialogRef.afterClosed().subscribe(() => {
-        localStorage.setItem('isFirstVisitGuuuuuys', true);
+        localStorage.setItem('isFirstVisitGuuuuuys', 'yes');
       });
     }
   }

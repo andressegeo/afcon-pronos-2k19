@@ -32,3 +32,13 @@ body {
 .clickable {
   cursor: pointer;
 }
+
+div.cdk-overlay-pane.dialog-without-padding {
+  mat-dialog-container {
+    padding: 0;
+  }
+}
+
+div.cdk-overlay-backdrop.darker-backdrop {
+      background: rgba(0, 0, 0, 0.75);
+}
