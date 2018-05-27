@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Rank, RankingService } from '../api/ranking.service';
+import { UserService, User } from '../api/user.service';
 
 const ELEMENT_DATA: Rank[] = [
   {
@@ -66,18 +67,23 @@ const ELEMENT_DATA: Rank[] = [
 })
 export class RankingsComponent implements OnInit {
 
-  ranking = ELEMENT_DATA;
+  ranking = [];
   /*applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }*/
 
-  constructor(private rankingService: RankingService) { }
+  constructor(private rankingService: RankingService, private userService: UserService) { }
 
   ngOnInit() {
-    this.rankingService.globalRanking.subscribe(ranking => {
-      // TODO
+    this.userService.userSubject.subscribe(user => {
+      this.rankingService.globalRanking.subscribe(ranking => {
+        ranking.forEach(rank => {
+          rank.highlighted = rank.user.id == user.id;
+          this.ranking.push(rank);
+        });
+      });
     });
   }
 
