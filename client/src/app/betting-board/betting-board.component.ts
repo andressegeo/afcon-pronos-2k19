@@ -19,6 +19,10 @@ import {Match} from "../api/match.service";
 })
 export class BettingBoardComponent implements OnInit {
 
+  OPENING_TIME: number = 1528927200000;
+  END_OF_GROUPS_TIME: number = 1530223200000;
+  START_OF_FINAL_PHASE_TIME: number = 1530309600000;
+
   stages: Stage[];
   teams: Team[];
   worldcupWinnerPrediction: Team;
@@ -26,7 +30,7 @@ export class BettingBoardComponent implements OnInit {
   currentUser: User;
   projectSound = new Audio('/assets/lkfjeff54df5d4f2.mp3');
   stageSelected: Stage;
-  today = new Date().valueOf();
+  today: number = new Date().valueOf();
 
   constructor(private matDialog: MatDialog,
               private stageService: StageService,
@@ -69,7 +73,8 @@ export class BettingBoardComponent implements OnInit {
   openTeamPickerDialog(): void {
     let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
       data: { teams: this.teams },
-      height: '600px'
+      height: '600px',
+      maxWidth: '1400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -248,5 +253,18 @@ export class BettingBoardComponent implements OnInit {
 
   getTime(time) {
     return new Date(time).toLocaleTimeString();
+  }
+
+  isWorldcupWinnerPredictionOpen(): boolean {
+    return this.today < this.OPENING_TIME ||
+      (this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME);
+  }
+
+  get teamPickerLabel(): string {
+    if(this.today < this.OPENING_TIME) {
+      return `Jusqu'à la veille du premier match, pronostique qui va gagner la coupe !`;
+    } else if(this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME) {
+      return `Tu peux modifier ton prono jusqu'à minuit. Mais tu gagneras moitié moins de points.'`
+    }
   }
 }

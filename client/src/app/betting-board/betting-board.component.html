@@ -10,24 +10,27 @@
 
 <section id="worldcup-winner">
   <h2>
-    Vainqueur Coupe du monde
+    Vainqueur de la Coupe
   </h2>
 
 <div class="betting-row" fxLayout fxLayoutGap="20px">
     <div id="team-picker-col" fxFlex>
-      <div class="strut"></div>
-      <button mat-raised-button (click)="openTeamPickerDialog()" class="need-strut">
-        Choisis ton équipe
-      </button>
+      <div class="strut"></div><!--
+      --><div class="need-strut clickable" (click)="openTeamPickerDialog()" *ngIf="isWorldcupWinnerPredictionOpen()">
+        {{ teamPickerLabel }}
+      </div>
     </div>
     <div class="betting-col" fxLayout="column">
       <div class="col-title">
         Pronostic
       </div>
-      <div class="col-content clickable" [ngClass]="{unknown: worldcupWinnerPrediction == null}"
-           (click)="openTeamPickerDialog()" fxFlex>
+      <div class="col-content"
+           [ngClass]="{unknown: worldcupWinnerPrediction == null, 'clickable': isWorldcupWinnerPredictionOpen()}"
+           (click)="isWorldcupWinnerPredictionOpen() && openTeamPickerDialog()" fxFlex>
         <div class="flag-content">
+
           <img [src]="worldcupWinnerPrediction.flag_url" *ngIf="worldcupWinnerPrediction">
+
           <button mat-icon-button id="glloq"
                   *ngIf="worldcupWinnerPrediction && worldcupWinnerPrediction.name === 'France'"
                   (click)="playProject($event)">

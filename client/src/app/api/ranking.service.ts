@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 @Injectable()
 export class RankingService {
 
-  globalRanking: BehaviorSubject<Rank>;
+  globalRanking: BehaviorSubject<Rank[]>;
 
   constructor(private apiService: ApiService) {
     this.globalRanking = new BehaviorSubject(undefined);
@@ -23,4 +23,5 @@ export class RankingService {
 export interface Rank {
   rank: number;
   user: User;
+  highlighted?: boolean;
 }
