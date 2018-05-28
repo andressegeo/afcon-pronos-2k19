@@ -136,7 +136,22 @@ mat-option {
 #matches {
   mat-form-field {
     width: 100%;
+    color: white;
+
+    & /deep/ .mat-select-value-text {
+      color: white;
+    }
+
+    & /deep/ .mat-select-arrow {
+      color: white;
+    }
+
+    & /deep/ .mat-input-underline {
+      background-color: white;
+    }
+
   }
+
 }
 
 
