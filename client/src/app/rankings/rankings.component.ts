@@ -79,10 +79,12 @@ export class RankingsComponent implements OnInit {
   ngOnInit() {
     this.userService.userSubject.subscribe(user => {
       this.rankingService.globalRanking.subscribe(ranking => {
-        ranking.forEach(rank => {
-          rank.highlighted = rank.user.id == user.id;
-          this.ranking.push(rank);
-        });
+        if(ranking) {
+          ranking.forEach(rank => {
+            rank.highlighted = rank.user.id == user.id;
+            this.ranking.push(rank);
+          });
+        }
       });
     });
   }
