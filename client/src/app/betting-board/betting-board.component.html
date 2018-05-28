@@ -1,7 +1,10 @@
 <h1>
   Matches
   <span>
-    (<a rel="noopener noreferrer" href="https://docs.google.com/document/d/1LcIlcV-xp078Im1b-ks6DUtkCz5fegglGiM1L4IPxqg/edit?usp=sharing">règles</a>)
+    (<a rel="noopener noreferrer" target="_blank"
+        href="https://docs.google.com/document/d/1LcIlcV-xp078Im1b-ks6DUtkCz5fegglGiM1L4IPxqg/edit?usp=sharing">
+      règles
+    </a>)
   </span>
 </h1>
 
@@ -10,7 +13,7 @@
     Vainqueur Coupe du monde
   </h2>
 
-  <div class="betting-row" fxLayout fxLayoutGap="20px">
+<div class="betting-row" fxLayout fxLayoutGap="20px">
     <div id="team-picker-col" fxFlex>
       <div class="strut"></div>
       <button mat-raised-button (click)="openTeamPickerDialog()" class="need-strut">
@@ -21,9 +24,15 @@
       <div class="col-title">
         Pronostic
       </div>
-      <div class="col-content" [ngClass]="{unknown: worldcupWinner == null}" fxFlex>
+      <div class="col-content clickable" [ngClass]="{unknown: worldcupWinnerPrediction == null}"
+           (click)="openTeamPickerDialog()" fxFlex>
         <div class="flag-content">
-          <img [src]="worldcupWinner.flag_url" *ngIf="worldcupWinner">
+          <img [src]="worldcupWinnerPrediction.flag_url" *ngIf="worldcupWinnerPrediction">
+          <button mat-icon-button id="glloq"
+                  *ngIf="worldcupWinnerPrediction && worldcupWinnerPrediction.name === 'France'"
+                  (click)="playProject($event)">
+            <mat-icon>audiotrack</mat-icon>
+          </button>
         </div>
       </div>
     </div>
@@ -31,30 +40,132 @@
       <div class="col-title">
         Résultat
       </div>
-      <div class="col-content empty" fxFlex>
+      <div class="col-content" fxFlex (click)="selectWorldcupWinner()"
+           [ngClass]="{empty: worldcupWinner == null, clickable: isAdmin()}">
         <div class="flag-content">
+          <img [src]="worldcupWinner.flag_url" *ngIf="worldcupWinner">
         </div>
       </div>
     </div>
-    <div class="betting-col" fxLayout="column">
+    <div class="betting-col" fxLayout="column" >
       <div class="col-title">
         Points
       </div>
-      <div class="col-content empty" fxFlex>
+      <div class="col-content points" [ngClass]="{empty: worldcupWinnerPredictionPoints == null}" fxFlex>
+        {{ worldcupWinnerPredictionPoints }}
       </div>
     </div>
   </div>
+
 
 </section>
 
 <section id="matches">
   <h2>
     <mat-form-field *ngIf="stages && stages.length">
-      <mat-select >
+      <mat-select placeholder="Choisis un groupe" [(ngModel)]="stageSelected" (change)="test()">
         <mat-option *ngFor="let stage of stages" [value]="stage">
           {{ stage.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </h2>
+</section>
+
+<section id="group-matches" *ngIf="stageSelected">
+
+  <div class="titles" fxLayout="row">
+
+    <div fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
+      <span class="col-content" *ngIf="today < stageSelected.opening_time*1000">
+        Ouverture : {{ stageSelected.opening_time*1000 | date }}
+      </span>
+      <span class="col-content" *ngIf="today > stageSelected.opening_time*1000">
+        Fermeture : {{ stageSelected.closing_time*1000 | date }}
+      </span>
+    </div>
+
+    <div fxFlex="70" fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex class="col-title">Pronostiques</div>
+      <div fxFlex class="col-title">Résultats</div>
+      <div fxFlex class="col-title">Points</div>
+    </div>
+
+  </div>
+
+  <div class="row-match" fxLayout="row" *ngFor="let match of stageSelected.matches">
+
+    <div class="teams-match" fxFlex="15" fxLayout="row">
+      <div class="team" fxLayout="column" fxFlex>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+          <img *ngIf="match.team_1" src="{{ match.team_1.flag_url }}">
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+          <span *ngIf="match.team_1" class="col-content">{{ match.team_1.name }}</span>
+          <span *ngIf="!match.team_1" class="col-content">{{ match.placeholder_1 }}</span>
+        </div>
+
+      </div>
+
+      <div class="team" fxLayout="column" fxFlex>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+          <img *ngIf="match.team_2" src="{{ match.team_2.flag_url }}">
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+          <span *ngIf="match.team_2" class="col-content">{{ match.team_2.name }}</span>
+          <span *ngIf="!match.team_2" class="col-content">{{ match.placeholder_2 }}</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="teams-match" fxFlex="15" fxLayout="column" fxLayoutAlign="center center">
+
+      <div fxFlex="33">
+        <span class="col-content">{{ getDate(match.match_time) }}</span>
+      </div>
+
+      <div fxFlex="33">
+        <span class="col-content">{{ getTime(match.match_time) }}</span>
+      </div>
+
+      <div fxFlex="33">
+        <a href="https://www.google.com/maps/?q={{ match.stadium.lat }},{{ match.stadium.lng }}" target="_blank" class="col-content">Stade</a>
+      </div>
+
+    </div>
+
+    <div fxFlex="70" fxLayout="row" fxLayoutAlign="center center" class="user-action-row">
+
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center" class="full-height">
+        <button mat-button
+                class="clickable"
+                (click)="openPronoDialog(match);"
+                [disabled]="!canPredict(match)">
+          {{ getPrediction(match).score }}
+        </button>
+      </div>
+
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center" class="full-height">
+        <div (click)="setMatchResult(match);"
+             class="full-height full-width clickable"
+             fxLayout="row" fxLayoutAlign="center center"
+             [ngClass]="{empty: !match.score}">
+          {{ match.score }}
+        </div>
+      </div>
+
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center" class="full-height">
+        <div class="points-container" [ngClass]="{empty: !match.score}" fxLayout="row" fxLayoutAlign="center center">
+          <span>{{ calculatePoints(getPrediction(match),match) }}</span>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
 </section>

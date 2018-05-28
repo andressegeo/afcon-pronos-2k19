@@ -1,8 +1,8 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 @font-face {
-    font-family: Dusha;
-    src: url('/assets/dusha-regular.woff');
+  font-family: Dusha;
+  src: url('/assets/dusha-regular.woff');
 }
 
 html, body {
@@ -27,4 +27,26 @@ body {
 .need-strut {
   vertical-align: middle;
   display: inline-block;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+div.cdk-overlay-pane.dialog-without-padding {
+  mat-dialog-container {
+    padding: 0;
+  }
+}
+
+div.cdk-overlay-backdrop.darker-backdrop {
+      background: rgba(0, 0, 0, 0.75);
+}
+
+.full-height {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
 }

@@ -16,7 +16,27 @@ export class TeamService {
       return this.fakeService.getTeams();
     } else {
       return this.apiService.getTeams().map(data => {
-        return data.teams;
+        return data.items;
+      });
+    }
+  }
+
+  getWorldcupWinner() {
+    if(!environment.production) {
+      return this.fakeService.getWorldcupWinner();
+    } else {
+      return this.apiService.getWorldcupWinner().map(data => {
+        return data.items;
+      });
+    }
+  }
+
+  getOneTeam(team_id) {
+    if(!environment.production) {
+      // return this.fakeService.getWorldcupWinner();
+    } else {
+      return this.apiService.getTeam(team_id).map(data => {
+        return data.items;
       });
     }
   }

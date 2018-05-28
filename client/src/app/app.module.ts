@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
+import { registerLocaleData } from "@angular/common";
+import localeFr from '@angular/common/locales/fr';
 
 import { MaterialModule } from './material/material.module';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -20,9 +22,15 @@ import { RankingService } from './api/ranking.service';
 import { StageService } from './api/stage.service';
 import { MatchService } from './api/match.service';
 import { TeamService } from './api/team.service';
+import { PredictionService } from './api/prediction.service';
 import { StadiumService } from './api/stadium.service';
 import { FakeService } from './api/fake.service';
+import { AreYouSureDialogComponent } from './are-you-sure-dialog/are-you-sure-dialog.component';
+import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
+import { PronoDialogComponent } from './prono-dialog/prono-dialog.component';
+import { MatchResultEntryComponent } from './match-result-entry/match-result-entry.component';
 
+registerLocaleData(localeFr, 'fr');
 
 const appRoutes: Routes = [
   {
@@ -47,7 +55,12 @@ const appRoutes: Routes = [
     RankingsComponent,
     BettingBoardComponent,
     TeamPickerDialogComponent,
-    RankingsRowComponent
+    RankingsRowComponent,
+    AreYouSureDialogComponent,
+    WelcomeDialogComponent,
+    RankingsRowComponent,
+    PronoDialogComponent,
+    MatchResultEntryComponent
   ],
   imports: [
     BrowserModule,
@@ -69,10 +82,16 @@ const appRoutes: Routes = [
     FakeService,
     StadiumService,
     TeamService,
-    MatchService
+    MatchService,
+    PredictionService
   ],
   entryComponents: [
-    TeamPickerDialogComponent
+    TeamPickerDialogComponent,
+    AreYouSureDialogComponent,
+    WelcomeDialogComponent,
+    TeamPickerDialogComponent,
+    PronoDialogComponent,
+    MatchResultEntryComponent
   ],
   bootstrap: [AppComponent]
 })

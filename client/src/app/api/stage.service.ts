@@ -17,7 +17,7 @@ export class StageService {
     } else {
       /* matches are actually returned contained in their stage */
       return this.apiService.getMatches().map(data => {
-        return data.stages;
+        return data.items;
       });
     }
   }
