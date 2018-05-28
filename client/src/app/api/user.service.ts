@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 import { ApiService } from './api.service';
 import { environment } from './../../environments/environment';
 import { Prediction } from './prediction.service';
 import { Team } from './team.service';
 import { FakeService } from "./fake.service";
-import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class UserService {
@@ -32,19 +34,10 @@ export class UserService {
         console.error('error fetching user', err);
       });
     } else {
-      this.userSubject.next(this.fakeService.getFakeUser());
-    }
-  }
-
-  postWorldcupWinnerPrediction(team) {
-    if (environment.production) {
-      return this.apiService.postWorldcupWinnerPrediction(team, this.user).subscribe(response => {
-
-      }, err => {
-        console.error('error fetching user', err);
+      this.fakeService.getFakeUser().subscribe(user =>  {
+        this.user = user;
+        this.userSubject.next(this.user);
       });
-    } else {
-      return this.fakeService.postWorldcupWinnerPrediction(team);
     }
   }
 
@@ -52,23 +45,29 @@ export class UserService {
     return this.user !== undefined && this.user.is_admin;
   }
 
+  predictWorldcupWinner(team) {
+    return this.apiService.predictWorldcupWinner(team).map(data => {
+      let winner = data.winner;
+      this.user.worldcup_winner = winner;
+      this.userSubject.next(this.user) ;
+      return winner;
+    });
+
+  }
+
   enterMatchResult(score, match): Observable<any> {
     if (this.isAdmin()) {
-      if (environment.production) {
-        return this.apiService.postFinalScore(score, match);
-      } else {
-        return this.fakeService.postFinalScore(score, match);
-      }
+      return this.apiService.postFinalScore(score, match);
+    } else {
+      return Observable.throw("You're not admin...");
     }
   }
 
   enterWorldcupWinner(winner): Observable<any> {
     if (this.isAdmin()) {
-      if (environment.production) {
-        return this.apiService.postWorldcupWinner(winner);
-      } else {
-        return this.fakeService.postWorldcupWinner(winner);
-      }
+      return this.apiService.enterWorldcupWinner(winner).map(data => data.winner);
+    } else {
+      return  Observable.throw("You're not admin...");
     }
   }
 

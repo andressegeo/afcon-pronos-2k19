@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 import { TeamPickerDialogComponent } from './../team-picker-dialog/team-picker-dialog.component';
 import { StageService, Stage } from './../api/stage.service';
@@ -36,7 +36,8 @@ export class BettingBoardComponent implements OnInit {
               private stageService: StageService,
               private teamService: TeamService,
               private userService: UserService,
-              private predictionService: PredictionService) { }
+              private predictionService: PredictionService,
+              private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.teamService.getTeams().subscribe(teams => {
@@ -78,8 +79,17 @@ export class BettingBoardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      let previousPrediction = this.worldcupWinnerPrediction;
       this.worldcupWinnerPrediction = result;
-      this.userService.postWorldcupWinnerPrediction(result);
+      this.userService.predictWorldcupWinner(result).subscribe(winner => {
+        this.worldcupWinnerPrediction = winner;
+      }, err => {
+        console.error(err);
+        this.matSnackBar.open('Erreur. Réessayez...', undefined, {
+          duration: 3000
+        });
+        this.worldcupWinnerPrediction = previousPrediction;
+      });
     });
   }
 
@@ -94,7 +104,8 @@ export class BettingBoardComponent implements OnInit {
 
     let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
       data: { teams: this.teams },
-      height: '600px'
+      height: '600px',
+      maxWidth: '1400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -102,10 +113,19 @@ export class BettingBoardComponent implements OnInit {
         let otherDialogRef = this.matDialog.open(AreYouSureDialogComponent);
         otherDialogRef.afterClosed().subscribe(sure => {
           if(sure === true) {
+            let previousWinner = this.worldcupWinner;
             this.worldcupWinner = result;
-            this.userService.enterWorldcupWinner(result).subscribe();
+            this.userService.enterWorldcupWinner(result).subscribe(winner => {
+              this.worldcupWinner = winner;
+            }, err => {
+              console.error(err);
+              this.matSnackBar.open('Erreur. Réessayez...', undefined, {
+                duration: 3000
+              });
+              this.worldcupWinner = previousWinner;
+            });
           }
-        })
+        });
       }
     });
   }

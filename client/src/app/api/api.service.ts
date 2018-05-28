@@ -36,7 +36,7 @@ export class ApiService {
   }
 
   getWorldcupWinner() {
-    let url = this.makeUrl('url_to_get_winner');
+    let url = this.makeUrl('/winner');
     return this.restService.get(url);
   }
 
@@ -56,14 +56,14 @@ export class ApiService {
     return this.restService.post(url, {result: score});
   }
 
-  postWorldcupWinner(winner) {
-    let url = this.makeUrl('winner_prediction/winner_is');
+  enterWorldcupWinner(winner) {
+    let url = this.makeUrl('winner');
     return this.restService.post(url, {winner: winner});
   }
 
-  postWorldcupWinnerPrediction(winner, user) {
-    let url = this.makeUrl('winner_prediction/');
-    return this.restService.post(url, {winner: winner, user: user});
+  predictWorldcupWinner(winner) {
+    let url = this.makeUrl('winner_prediction');
+    return this.restService.post(url, {winner: winner});
   }
 
   getWorldcupWinnerPrediction(user) {
