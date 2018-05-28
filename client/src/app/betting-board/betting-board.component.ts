@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 import { TeamPickerDialogComponent } from './../team-picker-dialog/team-picker-dialog.component';
 import { StageService, Stage } from './../api/stage.service';
@@ -19,6 +19,10 @@ import {Match} from "../api/match.service";
 })
 export class BettingBoardComponent implements OnInit {
 
+  OPENING_TIME: number = 1528927200000;
+  END_OF_GROUPS_TIME: number = 1530223200000;
+  START_OF_FINAL_PHASE_TIME: number = 1530309600000;
+
   stages: Stage[];
   teams: Team[];
   worldcupWinnerPrediction: Team;
@@ -26,13 +30,14 @@ export class BettingBoardComponent implements OnInit {
   currentUser: User;
   projectSound = new Audio('/assets/lkfjeff54df5d4f2.mp3');
   stageSelected: Stage;
-  today = new Date().valueOf();
+  today: number = new Date().valueOf();
 
   constructor(private matDialog: MatDialog,
               private stageService: StageService,
               private teamService: TeamService,
               private userService: UserService,
-              private predictionService: PredictionService) { }
+              private predictionService: PredictionService,
+              private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.teamService.getTeams().subscribe(teams => {
@@ -69,12 +74,22 @@ export class BettingBoardComponent implements OnInit {
   openTeamPickerDialog(): void {
     let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
       data: { teams: this.teams },
-      height: '600px'
+      height: '600px',
+      maxWidth: '1400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      let previousPrediction = this.worldcupWinnerPrediction;
       this.worldcupWinnerPrediction = result;
-      this.userService.postWorldcupWinnerPrediction(result);
+      this.userService.predictWorldcupWinner(result).subscribe(winner => {
+        this.worldcupWinnerPrediction = winner;
+      }, err => {
+        console.error(err);
+        this.matSnackBar.open('Erreur. Réessayez...', undefined, {
+          duration: 3000
+        });
+        this.worldcupWinnerPrediction = previousPrediction;
+      });
     });
   }
 
@@ -89,7 +104,8 @@ export class BettingBoardComponent implements OnInit {
 
     let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
       data: { teams: this.teams },
-      height: '600px'
+      height: '600px',
+      maxWidth: '1400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -97,10 +113,19 @@ export class BettingBoardComponent implements OnInit {
         let otherDialogRef = this.matDialog.open(AreYouSureDialogComponent);
         otherDialogRef.afterClosed().subscribe(sure => {
           if(sure === true) {
+            let previousWinner = this.worldcupWinner;
             this.worldcupWinner = result;
-            this.userService.enterWorldcupWinner(result).subscribe();
+            this.userService.enterWorldcupWinner(result).subscribe(winner => {
+              this.worldcupWinner = winner;
+            }, err => {
+              console.error(err);
+              this.matSnackBar.open('Erreur. Réessayez...', undefined, {
+                duration: 3000
+              });
+              this.worldcupWinner = previousWinner;
+            });
           }
-        })
+        });
       }
     });
   }
@@ -248,5 +273,18 @@ export class BettingBoardComponent implements OnInit {
 
   getTime(time) {
     return new Date(time).toLocaleTimeString();
+  }
+
+  isWorldcupWinnerPredictionOpen(): boolean {
+    return this.today < this.OPENING_TIME ||
+      (this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME);
+  }
+
+  get teamPickerLabel(): string {
+    if(this.today < this.OPENING_TIME) {
+      return `Jusqu'à la veille du premier match, pronostique qui va gagner la coupe !`;
+    } else if(this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME) {
+      return `Tu peux modifier ton prono jusqu'à minuit. Mais tu gagneras moitié moins de points.'`
+    }
   }
 }

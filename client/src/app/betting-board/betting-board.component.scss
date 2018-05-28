@@ -47,8 +47,14 @@ mat-option {
 .betting-row {
 
   #team-picker-col {
-    text-align: right;
+    text-align: center;
     min-width: 155px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 35px;
+
+    @media screen and (max-width: 1100px) {
+      font-size: 25px;
+    }
   }
 
   .betting-col {

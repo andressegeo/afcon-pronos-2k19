@@ -45,7 +45,7 @@ export class FakeService {
   }
 
   getFakeUser() {
-    return <User>{
+    return Observable.of(<User>{
       id: 1,
       email: 'dgc@devoteamgcloud.com',
       name: 'DGC',
@@ -56,7 +56,7 @@ export class FakeService {
       has_modified_worldcup_winner: false,
       points: 0,
       is_admin: true
-    };
+    });
   }
 
   postFinalScore(score, match) {

@@ -8,6 +8,7 @@ import {
   MatSelectModule,
   MatAutocompleteModule,
   MatInputModule,
+  MatSnackBarModule,
   MatDialogModule
 } from "@angular/material";
 
@@ -24,7 +25,8 @@ let materialModules = [
   MatSelectModule,
   MatAutocompleteModule,
   MatInputModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
