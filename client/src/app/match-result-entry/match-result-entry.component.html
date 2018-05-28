@@ -1,0 +1,53 @@
+<div fxLayout="column" *ngIf="data.match.team_1 && data.match.team_2">
+
+  <div fxLayout="row">
+    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center" class="teams">
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <img src="{{data.match.team_1.flag_url}}">
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <h3>{{data.match.team_1.name}}</h3>
+      </div>
+    </div>
+    <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+      <h2>-</h2>
+    </div>
+    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center" class="teams">
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <img src="{{data.match.team_2.flag_url}}">
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <h3>{{data.match.team_2.name}}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h4>Score final</h4>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="40" fxLayout="row" fxLayoutAlign="center center">
+      <mat-form-field class="">
+        <input matInput type="number" [(ngModel)]="team_1_score">
+      </mat-form-field>
+    </div>
+    <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+      <h2>-</h2>
+    </div>
+    <div fxFlex="40" fxLayout="row" fxLayoutAlign="center center">
+      <mat-form-field class="example-full-width">
+        <input matInput type="number" [(ngModel)]="team_2_score">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-button (click)="validateScore(team_1_score, team_2_score)" [disabled]="!isValidScore()">Valider</button>
+  </div>
+
+</div>
+
+<div *ngIf="!(data.match.team_1 && data.match.team_2)" fxLayout="row" fxLayoutAlign="center center">
+  <h3>Impossible d'entrer les résultats, les équipes du matchs ne sont pas encore connues</h3>
+</div>

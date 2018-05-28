@@ -11,7 +11,7 @@ export class MatchService {
 
 export interface Match {
   id: number;
-  stage_id: number;
+  stages_id: number;
   match_time: number;
   team_1: Team;
   team_2: Team;

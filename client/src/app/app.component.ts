@@ -11,6 +11,8 @@ import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.componen
 })
 export class AppComponent implements OnInit {
 
+  magic = new Audio('/assets/jfhfjfhgugur.mp3')
+
   constructor(private userService: UserService,
     private matDialog: MatDialog) {}
 
@@ -27,7 +29,10 @@ export class AppComponent implements OnInit {
         backdropClass: 'darker-backdrop'
       });
 
+      this.magic.play();
+
       dialogRef.afterClosed().subscribe(() => {
+        this.magic.pause();
         localStorage.setItem('isFirstVisitGuuuuuys', 'yes');
       });
     }

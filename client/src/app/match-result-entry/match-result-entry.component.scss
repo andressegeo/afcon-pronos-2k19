@@ -1,0 +1,11 @@
+@import "./../../colors.scss";
+.teams {
+  img {
+    width: 150px;
+  }
+}
+
+button {
+  background-color: $app-blue;
+  color: white;
+}
