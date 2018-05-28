@@ -33,19 +33,19 @@ div.with-background {
       right: 20px;
     }
 
-    a {
-      text-decoration: none;
-      color: white;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-
     @media screen and (max-width: 700px) {
       height: 50px;
       line-height: 50px;
       font-size: 1.5em;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+      text-decoration: none;
     }
   }
 }
