@@ -13,7 +13,9 @@ export class TeamService {
 
   getTeams() {
     return this.apiService.getTeams().map(data => {
-      return data.items;
+      return data.items.sort((t1, t2) => {
+        return t1['name'] < t2['name'] ? -1 : 1;
+      });
     });
   }
 

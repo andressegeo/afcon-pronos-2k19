@@ -21,7 +21,7 @@
         {{ teamPickerLabel }}
       </div>
     </div>
-    <div class="betting-col" fxLayout="column">
+    <div class="betting-col" fxLayout="column" fxLayoutGap="20px">
       <div class="col-title">
         Pronostic
       </div>
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="betting-col" fxLayout="column">
+    <div class="betting-col" fxLayout="column" fxLayoutGap="20px">
       <div class="col-title">
         Résultat
       </div>
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <div class="betting-col" fxLayout="column" >
+    <div class="betting-col" fxLayout="column" fxLayoutGap="20px">
       <div class="col-title">
         Points
       </div>
@@ -68,7 +68,7 @@
   <h2>
     <mat-form-field *ngIf="stages && stages.length">
       <mat-label></mat-label>
-      <mat-select placeholder="Choisis un groupe" [(ngModel)]="stageSelected" (change)="test()">
+      <mat-select placeholder="Choisis un groupe" [(ngModel)]="stageSelected">
         <mat-option *ngFor="let stage of stages" [value]="stage">
           {{ stage.name }}
         </mat-option>
@@ -80,26 +80,26 @@
 
     <div class="titles" fxLayout="row">
 
-      <div fxFlex="30" fxLayout="row" fxLayoutAlign="center center">
-        <span class="col-content" *ngIf="today < stageSelected.opening_time*1000">
-          Ouverture : {{ stageSelected.opening_time*1000 | date }}
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <span class="col-content" *ngIf="today < stageSelected.opening_time">
+          Ouverture : {{ stageSelected.opening_time | date }}
         </span>
-        <span class="col-content" *ngIf="today > stageSelected.opening_time*1000">
-          Fermeture : {{ stageSelected.closing_time*1000 | date }}
+        <span class="col-content" *ngIf="today > stageSelected.opening_time">
+          Fermeture : {{ stageSelected.closing_time | date }}
         </span>
       </div>
 
-      <div fxFlex="70" fxLayout="row" fxLayoutAlign="center center">
-        <div fxFlex class="col-title">Pronostiques</div>
-        <div fxFlex class="col-title">Résultats</div>
-        <div fxFlex class="col-title">Points</div>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div class="col-title">Pronostic</div>
+        <div class="col-title">Résultat</div>
+        <div class="col-title">Points</div>
       </div>
 
     </div>
 
-    <div class="row-match" fxLayout="row" *ngFor="let match of stageSelected.matches">
+    <div class="row-match" fxLayout="row" fxLayoutGap="20px" *ngFor="let match of stageSelected.matches">
 
-      <div class="teams-match" fxFlex="15" fxLayout="row">
+      <div class="teams-match" fxFlex fxLayout="row">
         <div class="team" fxLayout="column" fxFlex>
 
           <div fxFlex fxLayout="row" fxLayoutAlign="center center">
@@ -125,25 +125,27 @@
         </div>
       </div>
 
-      <div class="teams-match" fxFlex="15" fxLayout="column" fxLayoutAlign="center center">
+      <div class="teams-match" fxFlex fxLayout="column" fxLayoutAlign="center center">
 
-        <div fxFlex="33">
+        <div>
           <span class="col-content">{{ getDate(match.match_time) }}</span>
         </div>
 
-        <div fxFlex="33">
+        <div>
           <span class="col-content">{{ getTime(match.match_time) }}</span>
         </div>
 
-        <div fxFlex="33">
-          <a href="https://www.google.com/maps/?q={{ match.stadium.lat }},{{ match.stadium.lng }}" target="_blank" class="col-content">Stade</a>
+        <div>
+          <a href="https://www.google.com/maps/?q={{ match.stadium.lat }},{{ match.stadium.lng }}" target="_blank" class="col-content">
+            {{ match.stadium.name }}
+          </a>
         </div>
 
       </div>
 
-      <div fxFlex="70" fxLayout="row" fxLayoutAlign="center center" class="user-action-row">
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="user-action-row">
 
-        <div fxFlex fxLayout="row" fxLayoutAlign="center center" class="full-height">
+        <div fxLayout="row" fxLayoutAlign="center center">
           <button mat-button
                   class="clickable"
                   (click)="openPronoDialog(match);"
@@ -152,7 +154,7 @@
           </button>
         </div>
 
-        <div fxFlex fxLayout="row" fxLayoutAlign="center center" class="full-height">
+        <div fxLayout="row" fxLayoutAlign="center center">
           <div (click)="setMatchResult(match);"
                class="full-height full-width clickable"
                fxLayout="row" fxLayoutAlign="center center"
@@ -161,7 +163,7 @@
           </div>
         </div>
 
-        <div fxFlex fxLayout="row" fxLayoutAlign="center center" class="full-height">
+        <div fxLayout="row" fxLayoutAlign="center center">
           <div class="points-container" [ngClass]="{empty: !match.score}" fxLayout="row" fxLayoutAlign="center center">
             <span>{{ calculatePoints(getPrediction(match),match) }}</span>
           </div>

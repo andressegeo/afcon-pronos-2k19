@@ -13,7 +13,23 @@ export class FakeService {
 
   stadiums = STADIUMS;
   teams = TEAMS;
-  stages = STAGES;
+  stages = STAGES.map(stage => {
+    if(stage.opening_time) {
+      stage.opening_time = stage.opening_time * 1000;
+    }
+    if(stage.closing_time) {
+      stage.closing_time = stage.closing_time * 1000;
+    }
+
+    for(let i = 0; i < stage.matches.length; i++) {
+      if(stage.matches[i].match_time) {
+        stage.matches[i].match_time = stage.matches[i].match_time * 1000;
+      }
+    }
+
+    return stage;
+  });
+
   nbFakePred = 0;
 
   constructor() { }
