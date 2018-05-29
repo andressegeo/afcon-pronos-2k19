@@ -16,7 +16,7 @@ export class ApiService {
   }
 
   getCurrentUser() {
-    let url = this.makeUrl('users/me'/);
+    let url = this.makeUrl('users/me/');
     return this.restService.get(url);
   }
 
