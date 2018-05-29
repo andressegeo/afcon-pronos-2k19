@@ -1,25 +1,36 @@
 @import "./../../colors.scss";
 
 h1 {
-  font-family: Dusha;
-  font-weight: lighter;
-  font-size: 3em;
+  font-size: 2em;
+  text-align: right;
+  margin-bottom: 0;
 
-  span {
-    font-size: 0.5em;
+  div {
+    background: url('/assets/darkbluebg.png');
+    background-position-y: -5px;
+    padding: 15px;
+    display: inline-block;
+    font-family: 'Amatic SC', cursive;
 
     a {
-      text-decoration: none;
-      color: #000;
+      color: white;
+      display: inline-block;
+      vertical-align: middle;
 
-      &:hover {
-        text-decoration: underline;
+      img {
+        height: 48px;
       }
     }
   }
+
 }
 
 section {
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
   margin: 50px 0;
 
   h2 {

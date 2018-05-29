@@ -42,19 +42,24 @@ export class BettingBoardComponent implements OnInit {
   ngOnInit() {
     this.teamService.getTeams().subscribe(teams => {
       this.teams = teams;
+      this.stageSelected = undefined;
+
       this.stageService.getStagesWithMatches().subscribe(stages => {
         console.log('stages', stages);
-        stages.forEach((stage, index) => {
-          stage.matches.forEach((value, index_match) => {
-            stages[index].matches[index_match].team_1 = teams.find(team => {
-              return value.team_1 === team.id;
-            });
-            stages[index].matches[index_match].team_2 = teams.find(team => {
-              return value.team_2 === team.id;
+        if(stages && stages.length) {
+          stages.forEach((stage, index) => {
+            stage.matches.forEach((value, index_match) => {
+              stages[index].matches[index_match].team_1 = teams.find(team => {
+                return value.team_1 === team.id;
+              });
+              stages[index].matches[index_match].team_2 = teams.find(team => {
+                return value.team_2 === team.id;
+              });
             });
           });
-        });
-        this.stages = stages
+          this.stageSelected = stages[0];
+        }
+        this.stages = stages;
       });
     });
     this.userService.userSubject.subscribe(user => {
