@@ -1,5 +1,5 @@
 <h1>
-  <div>
+  <div (mouseenter)="whistle(true)" (mouseleave)="whistle(false)">
     <a rel="noopener noreferrer" target="_blank"
           href="https://docs.google.com/document/d/1LcIlcV-xp078Im1b-ks6DUtkCz5fegglGiM1L4IPxqg/edit?usp=sharing">
       <img src="/assets/yellow-card.png"></a>
@@ -146,19 +146,17 @@
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="user-action-row">
 
         <div fxLayout="row" fxLayoutAlign="center center">
-          <button mat-button
-                  class="clickable"
-                  (click)="openPronoDialog(match);"
-                  [disabled]="!canPredict(match)">
-            {{ getPrediction(match).score }}
-          </button>
+          <div class="full-height" [ngClass]="{'unknown': getPrediction(match) == null,'clickable': canPredict(match)}"
+               (click)="canPredict(match) && openPronoDialog(match)">
+            {{ getPrediction(match) ? getPrediction(match).score : '' }}
+          </div>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="center center">
           <div (click)="setMatchResult(match);"
-               class="full-height full-width clickable"
+               class="full-height full-width"
                fxLayout="row" fxLayoutAlign="center center"
-               [ngClass]="{empty: !match.score}">
+               [ngClass]="{'empty': !match.score, 'clickable': isAdmin()}">
             {{ match.score }}
           </div>
         </div>
