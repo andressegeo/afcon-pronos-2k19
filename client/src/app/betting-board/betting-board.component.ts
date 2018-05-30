@@ -29,6 +29,7 @@ export class BettingBoardComponent implements OnInit {
   worldcupWinner: Team;
   currentUser: User;
   projectSound = new Audio('/assets/lkfjeff54df5d4f2.mp3');
+  whistleSound = new Audio('/assets/whistle.mp3');
   stageSelected: Stage;
   today: number = new Date().valueOf();
 
@@ -47,16 +48,6 @@ export class BettingBoardComponent implements OnInit {
       this.stageService.getStagesWithMatches().subscribe(stages => {
         console.log('stages', stages);
         if(stages && stages.length) {
-          stages.forEach((stage, index) => {
-            stage.matches.forEach((value, index_match) => {
-              stages[index].matches[index_match].team_1 = teams.find(team => {
-                return value.team_1 === team.id;
-              });
-              stages[index].matches[index_match].team_2 = teams.find(team => {
-                return value.team_2 === team.id;
-              });
-            });
-          });
           this.stageSelected = stages[0];
         }
         this.stages = stages;
@@ -177,16 +168,14 @@ export class BettingBoardComponent implements OnInit {
   }
 
   getPrediction(match): any {
-    const match_found = this.currentUser.predictions.find(pred => {
+    if(match.id === 1) {
+      console.log(this.currentUser.predictions.find(pred => {
+        return pred.matches_id === match.id;
+      }));
+    }
+    return this.currentUser.predictions.find(pred => {
       return pred.matches_id === match.id;
     });
-    if (match_found) {
-      return match_found;
-    } else {
-      return {
-        score: 'Pronostiquer'
-      };
-    }
   }
 
   setMatchResult(match) {
@@ -226,7 +215,7 @@ export class BettingBoardComponent implements OnInit {
   }
 
   calculatePoints(prediction, match) {
-    if (prediction.score !== 'Pronostiquer') {
+    if (prediction) {
       if (match.score) {
         if (prediction.score === match.score) {
           return 3;
@@ -272,6 +261,15 @@ export class BettingBoardComponent implements OnInit {
     this.projectSound.play();
   }
 
+  whistle(toPlay: boolean) {
+    if(toPlay) {
+      this.whistleSound.play();
+    } else {
+      this.whistleSound.pause();
+      this.whistleSound.currentTime = 0;
+    }
+  }
+
   getDate(time) {
     return new Date(time).toLocaleDateString();
   }
@@ -289,7 +287,7 @@ export class BettingBoardComponent implements OnInit {
     if(this.today < this.OPENING_TIME) {
       return `Jusqu'à la veille du premier match, pronostique qui va gagner la coupe !`;
     } else if(this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME) {
-      return `Tu peux modifier ton prono jusqu'à minuit. Mais tu gagneras moitié moins de points.'`
+      return `Tu peux modifier ton prono jusqu'à minuit. Mais tu gagneras moitié moins de points.`
     }
   }
 }
