@@ -80,7 +80,7 @@ export interface User {
   email: string;
   entity: string;
   picture_url: string;
-  predictions: Array<Prediction>;
+  predictions?: Array<Prediction>;
   worldcup_winner: Team;
   has_modified_worldcup_winner: boolean;
   points: number;
