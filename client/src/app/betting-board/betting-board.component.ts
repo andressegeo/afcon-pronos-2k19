@@ -41,6 +41,9 @@ export class BettingBoardComponent implements OnInit {
               private matSnackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.projectSound.volume = 0.2;
+    this.whistleSound.volume = 0.2;
+
     this.teamService.getTeams().subscribe(teams => {
       this.teams = teams;
       this.stageSelected = undefined;
@@ -181,11 +184,6 @@ export class BettingBoardComponent implements OnInit {
   }
 
   getPrediction(match): any {
-    if(match.id === 1) {
-      console.log(this.currentUser.predictions.find(pred => {
-        return pred.matches_id === match.id;
-      }));
-    }
     return this.currentUser.predictions.find(pred => {
       return pred.matches_id === match.id;
     });

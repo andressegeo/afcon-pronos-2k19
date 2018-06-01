@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getCurrentUser();
+    this.magic.volume = 0.2;
 
     if(localStorage.getItem('isFirstVisitGuuuuuys') !== 'yes') {
        let dialogRef = this.matDialog.open(WelcomeDialogComponent, {

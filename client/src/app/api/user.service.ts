@@ -25,20 +25,12 @@ export class UserService {
 
 
   getCurrentUser() {
-    if (environment.production) {
-      this.apiService.getCurrentUser().subscribe(user => {
-        this.user = user.items[0]['Me'][0];
-        this.user['predictions'] = user.items[1]['predictions'];
-        this.userSubject.next(this.user);
-      }, err => {
-        console.error('error fetching user', err);
-      });
-    } else {
-      this.fakeService.getFakeUser().subscribe(user =>  {
-        this.user = user;
-        this.userSubject.next(this.user);
-      });
-    }
+    this.apiService.getCurrentUser().subscribe(user => {
+      this.user = user;
+      this.userSubject.next(this.user);
+    }, err => {
+      console.error('error fetching user', err);
+    });
   }
 
   isAdmin(): boolean {
