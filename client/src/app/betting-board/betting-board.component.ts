@@ -30,7 +30,7 @@ export class BettingBoardComponent implements OnInit {
   currentUser: User;
   projectSound = new Audio('/assets/lkfjeff54df5d4f2.mp3');
   whistleSound = new Audio('/assets/whistle.mp3');
-  stageSelected: Stage;
+  stageSelected;
   today: number = new Date().valueOf();
 
   constructor(private matDialog: MatDialog,
@@ -46,9 +46,8 @@ export class BettingBoardComponent implements OnInit {
       this.stageSelected = undefined;
 
       this.stageService.getStagesWithMatches().subscribe(stages => {
-        console.log('stages', stages);
         if(stages && stages.length) {
-          this.stageSelected = stages[0];
+          this.stageSelected = 'all';
         }
         this.stages = stages;
       });
@@ -124,6 +123,20 @@ export class BettingBoardComponent implements OnInit {
         });
       }
     });
+  }
+
+  get selectedMatches() {
+    if(this.stageSelected !== 'all') {
+      return this.stageSelected.matches;
+    } else {
+      let fullList = [];
+      this.stages.forEach(stage => {
+        fullList.push(...stage.matches);
+      });
+      return fullList.sort((m1, m2) => {
+        return m1.match_time - m2.match_time;
+      });
+    }
   }
 
   openPronoDialog(match): void {

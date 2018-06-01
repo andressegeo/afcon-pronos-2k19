@@ -12,14 +12,9 @@ export class StageService {
   constructor(private apiService: ApiService, private fakeService: FakeService) { }
 
   getStagesWithMatches() {
-    if(!environment.production) { // TODO: remove
-      return this.fakeService.getStages();
-    } else {
-      /* matches are actually returned contained in their stage */
-      return this.apiService.getMatches().map(data => {
-        return data.items;
-      });
-    }
+    return this.apiService.getMatches().map(data => {
+      return data.items;
+    });
   }
 
 }
