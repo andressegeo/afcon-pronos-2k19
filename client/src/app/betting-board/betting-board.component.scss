@@ -215,6 +215,11 @@ mat-option {
 
       margin: 25px 0;
       height: 150px;
+      padding: 10px 0;
+
+      &.darker-row {
+        background-color: rgba(15, 63, 121, 0.03);
+      }
 
       .col-content {
         color: #808080;

@@ -113,7 +113,8 @@
 
     </div>
 
-    <div class="row-match" fxLayout="row" fxLayoutGap="20px" *ngFor="let match of selectedMatches">
+    <div class="row-match" fxLayout="row" fxLayoutGap="20px" *ngFor="let match of selectedMatches; odd as isOdd"
+         [ngClass]="{'darker-row': isOdd}">
 
       <div class="teams-match" fxFlex fxLayout="row">
         <div class="team" fxLayout="column" fxFlex>

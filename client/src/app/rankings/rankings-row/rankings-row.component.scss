@@ -3,12 +3,20 @@
 .row {
   padding: 10px 50px;
 
+  @media screen and (max-width: 599px) {
+    padding: 10px;
+  }
+
   &.highlighted {
     background-color: rgba($app-blue, 0.1)
   }
 
   .item-picture {
     width: 100px;
+
+    @media screen and (max-width: 599px) {
+      width: 60px;
+    }
 
     div {
       border-radius: 25px;
@@ -36,9 +44,13 @@
   }
 
   .item-medal {
-    width: 100px;
+    width: 80px;
     height: 40px;
     text-align: center;
+
+    @media screen and (max-width: 599px) {
+      width: 50px;
+    }
 
     img {
       height: 100%;
