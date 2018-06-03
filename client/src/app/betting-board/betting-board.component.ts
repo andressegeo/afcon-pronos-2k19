@@ -9,8 +9,8 @@ import { AreYouSureDialogComponent } from './../are-you-sure-dialog/are-you-sure
 import { PronoDialogComponent } from "../prono-dialog/prono-dialog.component";
 import { MatchResultEntryComponent } from "../match-result-entry/match-result-entry.component";
 
-import { PredictionService } from "../api/prediction.service";
-import {Match} from "../api/match.service";
+import { PredictionService } from "./../api/prediction.service";
+import { Match } from "./../api/match.service";
 
 @Component({
   selector: 'app-betting-board',
@@ -48,7 +48,7 @@ export class BettingBoardComponent implements OnInit {
       this.teams = teams;
       this.stageSelected = undefined;
 
-      this.stageService.getStagesWithMatches().subscribe(stages => {
+      this.stageService.stagesSubject.subscribe(stages => {
         if(stages && stages.length) {
           this.stageSelected = 'all';
         }
@@ -163,23 +163,37 @@ export class BettingBoardComponent implements OnInit {
     });
   }
 
-  canPredict(match): boolean {
-    return true;
-   /*if (match.score) {
+  getMatchStage(match: Match): Stage {
+    if(this.stageSelected && this.stageSelected !== 'all') {
+      return this.stageSelected;
+    } else {
+      return this.stages.find(s => s.id === match.stages_id);
+    }
+  }
+
+  canPredict(match: Match): boolean {
+    if (match.score) {
       return false;
     }
     if (!match.team_1 || !match.team_2) {
       return false;
     }
-    if (new Date(this.today) < new Date(this.stageSelected.opening_time)) {
+
+    let matchStage = this.getMatchStage(match);
+
+    if(!matchStage) {
+      throw 'No stage found for match ' + match.id;
+    }
+
+    if (this.today < matchStage.opening_time * 1000) {
       return false;
     } else {
-      if (this.stageSelected.closing_time) {
-        return this.today > this.stageSelected.closing_time;
+      if (matchStage.closing_time) {
+        return this.today < matchStage.closing_time * 1000;
       } else {
-        return (new Date(this.today)).toLocaleDateString() === (new Date(match.match_time)).toLocaleDateString()
+        return (new Date(this.today)).toLocaleDateString() === (new Date(match.match_time * 1000)).toLocaleDateString()
       }
-    }*/
+    }
   }
 
   getPrediction(match): any {

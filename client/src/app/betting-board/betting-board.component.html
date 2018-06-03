@@ -79,16 +79,29 @@
     </mat-form-field>
   </h2>
 
+  <div *ngIf="!stages || !stages.length">
+    <mat-spinner></mat-spinner>
+  </div>
+
   <div id="group-matches" *ngIf="stageSelected">
+
+    <div id="stage-rules">
+      <p>
+        1 point si tu as le bon vainqueur
+      </p>
+      <p>
+        3 points si tu as le bon vainqueur et le bon score!
+      </p>
+    </div>
 
     <div class="titles" fxLayout="row">
 
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-        <span class="col-content" *ngIf="today < stageSelected.opening_time">
-          Ouverture des pronos: {{ stageSelected.opening_time * 1000 | date }}
+        <span class="col-content" *ngIf="stageSelected !== 'all' && today < stageSelected.opening_time*1000">
+          Ouverture des pronos: {{ getDate(stageSelected.opening_time*1000) }}
         </span>
-        <span class="col-content" *ngIf="today > stageSelected.opening_time">
-          Fermeture des pronos: {{ stageSelected.closing_time * 1000 | date }}
+        <span class="col-content" *ngIf="stageSelected !== 'all' && today > stageSelected.opening_time*1000 && stageSelected.closing_time">
+          Fermeture des pronos: {{ getDate(stageSelected.closing_time*1000 - 3600000*24) }}
         </span>
       </div>
 
@@ -149,7 +162,7 @@
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="user-action-row">
 
         <div fxLayout="row" fxLayoutAlign="center center">
-          <div class="match-score" [ngClass]="{'unknown': getPrediction(match) == null,'clickable': canPredict(match)}"
+          <div class="match-score" [ngClass]="{'unknown': !getPrediction(match),'clickable': canPredict(match)}"
                (click)="canPredict(match) && openPronoDialog(match)">
             <img [src]="getWinnerFlagFromPrediction(match)" *ngIf="getPrediction(match)"/>
             <div>
@@ -159,9 +172,9 @@
         </div>
 
         <div fxLayout="row" fxLayoutAlign="center center">
-          <div (click)="setMatchResult(match)"
+          <div (click)="isAdmin() && canPredict(match) && setMatchResult(match)"
                class="match-score"
-               [ngClass]="{'empty': !match.score, 'clickable': isAdmin()}">
+               [ngClass]="{'empty': !match.score, 'clickable': isAdmin() && canPredict(match)}">
             <img [src]="getWinnerFlag(match)" *ngIf="match.winner"/>
             <div>
               {{ match.score ? match.score : '' }}

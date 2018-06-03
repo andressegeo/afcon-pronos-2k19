@@ -3,6 +3,7 @@ import { MatDialog, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { UserService } from './api/user.service';
+import { StageService } from './api/stage.service';
 import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
 
 @Component({
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
   magic = new Audio('/assets/jfhfjfhgugur.mp3')
 
   constructor(private userService: UserService,
+    private stageService: StageService,
     private matDialog: MatDialog,
     private matIconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer) {
@@ -24,6 +26,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrentUser();
     this.userService.getWorldcupWinner();
+    this.stageService.getStagesWithMatches();
+
     this.magic.volume = 0.2;
 
     if(localStorage.getItem('isFirstVisitGuuuuuys') !== 'yes') {

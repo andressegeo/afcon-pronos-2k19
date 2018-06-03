@@ -9,7 +9,8 @@ import {
   MatAutocompleteModule,
   MatInputModule,
   MatSnackBarModule,
-  MatDialogModule
+  MatDialogModule,
+  MatProgressSpinnerModule
 } from "@angular/material";
 
 import {
@@ -26,7 +27,8 @@ let materialModules = [
   MatAutocompleteModule,
   MatInputModule,
   MatDialogModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({

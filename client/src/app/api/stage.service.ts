@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
 import { environment } from './../../environments/environment';
@@ -9,11 +10,17 @@ import { FakeService } from './fake.service';
 @Injectable()
 export class StageService {
 
-  constructor(private apiService: ApiService, private fakeService: FakeService) { }
+  stages: Stage[];
+  stagesSubject: BehaviorSubject<Stage[]>;
+
+  constructor(private apiService: ApiService, private fakeService: FakeService) {
+    this.stagesSubject = new BehaviorSubject(undefined);
+  }
 
   getStagesWithMatches() {
-    return this.apiService.getMatches().map(data => {
-      return data.items;
+    this.apiService.getMatches().subscribe(data => {
+      this.stages = data.items;
+      this.stagesSubject.next(this.stages);
     });
   }
 

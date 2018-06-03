@@ -175,15 +175,40 @@ mat-option {
 
   }
 
-  #group-matches {
+  mat-spinner {
+    margin: auto;
 
-    margin: 50px 0;
+    circle {
+      stroke: $app-blue;
+    }
+  }
+
+  #stage-rules {
+    margin: 10px 0;
+
+    p {
+      font-family: 'Amatic SC', cursive;
+      font-size: 35px;
+      margin: 5px 0;
+
+
+      @media screen and (max-width: 1100px) {
+        font-size: 25px;
+      }
+    }
+  }
+
+  #group-matches {
 
     .col-title {
       color: #808080;
       font-size: 2em;
       text-align: center;
       width: 200px;
+    }
+
+    .titles .col-content {
+      color: #808080;
     }
 
     .row-match {
@@ -224,21 +249,19 @@ mat-option {
 
       .user-action-row {
 
-        .clickable, .points-container {
+        .match-score, .points-container {
           width: 100%;
           height: 100%;
+          color: #0f3f79;
+          text-align: center;
         }
 
         .points-container {
-          color: #0f3f79;
-          text-align: center;
           font-size: 3em;
           line-height: 150px;
         }
 
         .match-score {
-          color: #0f3f79;
-          text-align: center;
           font-size: 50px;
           line-height: 100px;
 
