@@ -16,6 +16,7 @@ export class MatchResultEntryComponent implements OnInit {
   team_1_score: number;
   team_2_score: number;
   winnerId: number;
+  final_score: string;
 
   ngOnInit() {
     if(this.data.match.score) {
@@ -23,6 +24,9 @@ export class MatchResultEntryComponent implements OnInit {
     }
     if(this.data.match.winner) {
       this.winnerId = this.data.match.winner;
+    }
+    if(this.data.match.final_score) {
+      this.final_score = this.data.match.final_score;
     }
   }
 
@@ -39,27 +43,46 @@ export class MatchResultEntryComponent implements OnInit {
     }
 
     if(this.team_1_score === this.team_2_score) {
-      this.winnerId = undefined;
+      if(!this.mustHaveWinner()) {
+        this.winnerId = undefined;
+      }
     } else {
       this.winnerId = this.team_1_score > this.team_2_score ? this.data.match.team_1.id : this.data.match.team_2.id;
     }
   }
 
-  validateScore(team_1_score, team_2_score) {
+  mustHaveWinner(): boolean {
+    return this.data.stage.must_have_winner === true;
+  }
+
+  needFinalScore(): boolean {
+    return this.team_1_score === this.team_2_score && this.mustHaveWinner();
+  }
+
+  validateScore() {
     let score = {
-      score: team_1_score + '-' + team_2_score
+      score: this.team_1_score + '-' + this.team_2_score
     };
-    if (team_1_score === team_2_score) {
-      score['winner'] = null;
+    if (this.team_1_score === this.team_2_score) {
+      if(!this.mustHaveWinner()) {
+        score['winner'] = null;
+      } else {
+        score['winner'] = this.winnerId;
+        score['final_score'] = this.final_score;
+      }
     } else {
-      score['winner'] = team_1_score > team_2_score ? this.data.match.team_1.id : this.data.match.team_2.id;
+      score['winner'] = this.winnerId;
     }
     this.dialogRef.close(score);
   }
 
   isValidScore() {
     if (typeof this.team_1_score === 'number' && typeof this.team_2_score === 'number') {
-      return true
+      if(this.mustHaveWinner()) {
+        return this.winnerId !== undefined && this.final_score !== undefined;
+      } else {
+        return true;
+      }
     }
   }
 

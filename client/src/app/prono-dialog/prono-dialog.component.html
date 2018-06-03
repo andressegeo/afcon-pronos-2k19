@@ -1,7 +1,9 @@
 <div fxLayout="column">
 
   <div fxLayout="row">
-    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center" class="teams">
+    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center"
+         class="team" [ngClass]="{'clickable': mustHaveWinner()}"
+         (click)="mustHaveWinner() && winnerId = data.match.team_1.id">
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
         <img [src]="data.match.team_1.flag_url">
       </div>
@@ -12,9 +14,13 @@
         </h3>
       </div>
     </div>
+
     <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
     </div>
-    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center" class="teams">
+
+    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center"
+         class="team" [ngClass]="{'clickable': mustHaveWinner()}"
+         (click)="mustHaveWinner() && winnerId = data.match.team_2.id">
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
         <img [src]="data.match.team_2.flag_url">
       </div>
@@ -37,8 +43,10 @@
         <input matInput type="number" [(ngModel)]="team_1_score" (ngModelChange)="scoreChanged()">
       </mat-form-field>
     </div>
+
     <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
     </div>
+
     <div fxFlex="40" fxLayout="row" fxLayoutAlign="center center">
       <mat-form-field class="example-full-width">
         <input matInput type="number" [(ngModel)]="team_2_score" (ngModelChange)="scoreChanged()">
@@ -46,8 +54,12 @@
     </div>
   </div>
 
+  <div fxLayout="column" fxLayoutAlign="center center" *ngIf="mustHaveWinner() && !winnerId">
+    <h4>Clique sur le pays qui gagnera après les prolongations / tirs au but.</h4>
+  </div>
+
   <div fxLayout="row" fxLayoutAlign="center center">
-    <button mat-raised-button (click)="validatePrediction(team_1_score, team_2_score)" [disabled]="!isValidPrediction()">Valider</button>
+    <button mat-raised-button (click)="validatePrediction()" [disabled]="!isValidPrediction()">Valider</button>
   </div>
 
   <div class="reminders" fxLayout fxLayoutAlign="center center">
@@ -58,6 +70,10 @@
       <p>
         Rappel: le score à pronostiquer est celui au bout du temps réglementaire (90min + temps additionnel).
         Pas après les prolongations ou les tirs aux but.
+      </p>
+      <p>
+        Rappel 2: pour les matches de la phase finale (1/8e de finale, 1/4...), il peut y avoir match nul après 90min
+        mais il y aura des prolongations voire tirs au but pour départager les deux équipes.
       </p>
     </div>
   </div>

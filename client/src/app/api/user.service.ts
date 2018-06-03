@@ -25,7 +25,6 @@ export class UserService {
     this.worldcupWinnerSubject = new BehaviorSubject(undefined);
   }
 
-
   getCurrentUser() {
     this.apiService.getCurrentUser().subscribe(user => {
       this.user = user;
@@ -55,11 +54,12 @@ export class UserService {
 
   }
 
-  enterMatchResult(match, score, winner): Observable<any> {
+  enterMatchResult(match, result): Observable<any> {
     if (this.isAdmin()) {
       return this.apiService.postFinalScore(match.id, {
-        score: score,
-        winner: winner
+        score: result.score,
+        winner: result.winner,
+        final_score: result.final_score
       });
     } else {
       return Observable.throw("You're not admin...");

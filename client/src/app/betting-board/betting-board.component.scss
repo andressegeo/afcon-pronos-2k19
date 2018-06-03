@@ -207,8 +207,15 @@ mat-option {
       width: 200px;
     }
 
-    .titles .col-content {
-      color: #808080;
+    .titles {
+
+      & > div:first-of-type {
+        min-width: 220px;
+      }
+
+      .col-content {
+        color: #808080;
+      }
     }
 
     .row-match {
@@ -267,8 +274,16 @@ mat-option {
         }
 
         .match-score {
-          font-size: 50px;
-          line-height: 100px;
+
+          .bigger {
+            font-size: 40px;
+            line-height: 60px;
+          }
+
+          .smaller {
+            font-size: 20px;
+            line-height: 30px;
+          }
 
           img {
             display: block;

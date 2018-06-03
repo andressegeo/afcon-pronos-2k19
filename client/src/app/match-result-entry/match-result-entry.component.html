@@ -1,7 +1,9 @@
 <div fxLayout="column" *ngIf="data.match.team_1 && data.match.team_2">
 
   <div fxLayout="row">
-    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center" class="teams">
+    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center"
+         class="team" [ngClass]="{'clickable': needFinalScore()}"
+         (click)="needFinalScore() && winnerId = data.match.team_1.id">
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
         <img [src]="data.match.team_1.flag_url">
       </div>
@@ -12,9 +14,13 @@
         </h3>
       </div>
     </div>
+
     <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
     </div>
-    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center" class="teams">
+
+    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center"
+         class="team" [ngClass]="{'clickable': needFinalScore()}"
+         (click)="needFinalScore() && winnerId = data.match.team_2.id">
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
         <img [src]="data.match.team_2.flag_url">
       </div>
@@ -28,7 +34,7 @@
   </div>
 
   <div fxLayout="row" fxLayoutAlign="center center">
-    <h4>Score final</h4>
+    <h4>Score après 90min (+ temps additionnel)</h4>
   </div>
 
   <div fxLayout="row" fxLayoutAlign="center center">
@@ -37,8 +43,10 @@
         <input matInput type="number" [(ngModel)]="team_1_score" (ngModelChange)="scoreChanged()">
       </mat-form-field>
     </div>
+
     <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
     </div>
+
     <div fxFlex="40" fxLayout="row" fxLayoutAlign="center center">
       <mat-form-field class="example-full-width">
         <input matInput type="number" [(ngModel)]="team_2_score" (ngModelChange)="scoreChanged()">
@@ -46,21 +54,20 @@
     </div>
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <button mat-raised-button (click)="validateScore(team_1_score, team_2_score)" [disabled]="!isValidScore()">Valider</button>
+  <div fxLayout="column" fxLayoutAlign="center center" *ngIf="needFinalScore()">
+    <h4>
+      Puisqu'il y a eu match nul, quel a été le score après prolongations / tirs aux but ?
+      (n'oublie pas de cliquer sur le pays qui a gagné aussi)
+    </h4>
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="final_score" placeholder="ex: 5-4 (t.a.b.) / 2-3 (a.p.)">
+    </mat-form-field>
   </div>
 
-  <div class="reminders" fxLayout fxLayoutAlign="center center">
-    <div>
-      <img src="/assets/referee.png">
-    </div>
-    <div>
-      <p>
-        Rappel 1: le score à pronostiquer est celui au bout du temps réglementaire (90min + temps additionnel).
-        Pas après les prolongations ou les tirs aux but.
-      </p>
-    </div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button (click)="validateScore()" [disabled]="!isValidScore()">Valider</button>
   </div>
+
 </div>
 
 <div *ngIf="!(data.match.team_1 && data.match.team_2)" fxLayout="row" fxLayoutAlign="center center">

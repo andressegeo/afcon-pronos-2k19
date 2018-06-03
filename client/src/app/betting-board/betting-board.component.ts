@@ -120,6 +120,7 @@ export class BettingBoardComponent implements OnInit {
             this.worldcupWinner = result;
             this.userService.enterWorldcupWinner(result).subscribe(winner => {
               this.worldcupWinner = winner;
+              this.userService.getCurrentUser();
             }, err => {
               console.error(err);
               this.matSnackBar.open('Erreur. Réessayez...', undefined, {
@@ -150,7 +151,7 @@ export class BettingBoardComponent implements OnInit {
   openPronoDialog(match): void {
     let currentPrediction = this.getPrediction(match);
     let dialogRef = this.matDialog.open(PronoDialogComponent, {
-      data: { match: match, prediction: currentPrediction },
+      data: { stage: this.getMatchStage(match), match: match, prediction: currentPrediction },
       height: '450px',
       width: '50%'
     });
@@ -208,7 +209,7 @@ export class BettingBoardComponent implements OnInit {
     }
 
     let dialogRef = this.matDialog.open(MatchResultEntryComponent, {
-      data: { match: match },
+      data: { match: match, stage: this.getMatchStage(match) },
       height: '450px',
       width: '50%'
     });
@@ -218,23 +219,15 @@ export class BettingBoardComponent implements OnInit {
         let otherDialogRef = this.matDialog.open(AreYouSureDialogComponent);
         otherDialogRef.afterClosed().subscribe(sure => {
           if(sure === true) {
-            this.userService.enterMatchResult(match, result.score, result.winner).subscribe(response => {
-              this.updateScoreMatch(match.id, result.score, result.winner);
+            this.userService.enterMatchResult(match, result).subscribe(response => {
+              match.score = response.score;
+              match.winner = response.winner;
+              match.final_score = response.final_score;
+              this.userService.getCurrentUser();
             });
           }
         })
       }
-    });
-  }
-
-  updateScoreMatch(match_id, score, winner) {
-    this.stages.forEach((stage, index_stage) => {
-      stage.matches.forEach((match, index_match) => {
-        if (match.id === match_id) {
-          this.stages[index_stage].matches[index_match].score = score;
-          this.stages[index_stage].matches[index_match].winner = winner;
-        }
-      })
     });
   }
 
@@ -260,9 +253,9 @@ export class BettingBoardComponent implements OnInit {
 
       if(this.worldcupWinnerPrediction.id === this.worldcupWinner.id) {
         if(this.currentUser.has_modified_worldcup_winner) {
-          return 5;
-        } else {
           return 10;
+        } else {
+          return 15;
         }
       } else {
         return 0;

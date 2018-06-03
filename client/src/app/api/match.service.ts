@@ -20,4 +20,5 @@ export interface Match {
   stadium: Stadium;
   score: string;
   winner: number;
+  final_score?: string;
 }

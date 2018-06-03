@@ -45,20 +45,31 @@ export class PronoDialogComponent implements OnInit {
     }
   }
 
-  validatePrediction(team_1_score, team_2_score) {
+  mustHaveWinner(): boolean {
+    return this.data.stage.must_have_winner === true;
+  }
+
+  validatePrediction() {
     let prediction = {
-      score: team_1_score + '-' + team_2_score
+      score: this.team_1_score + '-' + this.team_2_score
     };
-    if (team_1_score === team_2_score) {
-      prediction['winner'] = null;
+    if (this.team_1_score === this.team_2_score) {
+      if(!this.mustHaveWinner()) {
+        prediction['winner'] = null;
+      } else {
+        prediction['winner'] = this.winnerId
+      }
     } else {
-      prediction['winner'] = team_1_score > team_2_score ? this.data.match.team_1.id : this.data.match.team_2.id;
+      prediction['winner'] = this.winnerId
     }
     this.dialogRef.close(prediction);
   }
 
   isValidPrediction() {
     if (typeof this.team_1_score === 'number' && typeof this.team_2_score === 'number') {
+      if(this.mustHaveWinner()) {
+        return this.winnerId !== undefined;
+      }
       return true
     }
   }

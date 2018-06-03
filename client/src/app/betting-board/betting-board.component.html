@@ -163,23 +163,34 @@
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="user-action-row">
 
         <div fxLayout="row" fxLayoutAlign="center center">
-          <div class="match-score" [ngClass]="{'unknown': !getPrediction(match),'clickable': canPredict(match)}"
+          <div class="match-score" fxLayout="column" fxLayoutAlign="center center"
+               [ngClass]="{'unknown': !getPrediction(match),'clickable': canPredict(match)}"
                (click)="canPredict(match) && openPronoDialog(match)">
-            <img [src]="getWinnerFlagFromPrediction(match)" *ngIf="getPrediction(match)"/>
-            <div>
+
+            <img [src]="getWinnerFlagFromPrediction(match)" *ngIf="getPrediction(match) && getPrediction(match).winner"/>
+
+            <div class="bigger">
               {{ getPrediction(match) ? getPrediction(match).score : '' }}
             </div>
+
           </div>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="center center">
-          <div (click)="isAdmin() && canPredict(match) && setMatchResult(match)"
-               class="match-score"
-               [ngClass]="{'empty': !match.score, 'clickable': isAdmin() && canPredict(match)}">
+          <div (click)="isAdmin() && setMatchResult(match)"
+               class="match-score" fxLayout="column" fxLayoutAlign="center center"
+               [ngClass]="{'empty': !match.score, 'clickable': isAdmin()}">
+
             <img [src]="getWinnerFlag(match)" *ngIf="match.winner"/>
-            <div>
+
+            <div class="bigger">
               {{ match.score ? match.score : '' }}
             </div>
+
+            <div class="smaller" *ngIf="match.final_score">
+              {{ match.final_score }}
+            </div>
+
           </div>
         </div>
 
