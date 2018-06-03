@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
-import { UserService } from "./../api/user.service";
+import { User, UserService } from "./../api/user.service";
 
 @Component({
   selector: 'navbar',
@@ -9,7 +9,7 @@ import { UserService } from "./../api/user.service";
 })
 export class NavbarComponent implements OnInit {
 
-  user: any;
+  user: User;
 
   constructor(private userService: UserService) {}
 
