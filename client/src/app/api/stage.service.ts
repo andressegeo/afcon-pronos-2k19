@@ -25,4 +25,5 @@ export interface Stage {
   opening_time: number;
   closing_time: number;
   matches: Array<Match>;
+  must_have_winner: boolean;
 }

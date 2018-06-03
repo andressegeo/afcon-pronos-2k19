@@ -8,14 +8,18 @@ import { FakeService } from './fake.service';
 @Injectable()
 export class TeamService {
 
+  teams: Team[];
+
   constructor(private apiService: ApiService,
     private fakeService: FakeService) { }
 
   getTeams() {
     return this.apiService.getTeams().map(data => {
-      return data.items.sort((t1, t2) => {
+      this.teams = data.items.sort((t1, t2) => {
         return t1['name'] < t2['name'] ? -1 : 1;
       });
+
+      return this.teams;
     });
   }
 
@@ -29,6 +33,10 @@ export class TeamService {
     return this.apiService.getTeam(team_id).map(data => {
       return data.items;
     });
+  }
+
+  getLocalTeam(teamId: number): Team {
+    return this.teams.find(t => t.id === teamId)
   }
 
 }

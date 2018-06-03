@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Rank } from './../../api/ranking.service';
 
@@ -7,13 +7,9 @@ import { Rank } from './../../api/ranking.service';
   templateUrl: './rankings-row.component.html',
   styleUrls: ['./rankings-row.component.scss']
 })
-export class RankingsRowComponent implements OnInit {
+export class RankingsRowComponent {
 
   @Input() item: Rank;
 
   constructor() { }
-
-  ngOnInit() {
-  }
-
 }

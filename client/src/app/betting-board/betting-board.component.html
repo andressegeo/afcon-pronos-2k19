@@ -149,18 +149,24 @@
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="user-action-row">
 
         <div fxLayout="row" fxLayoutAlign="center center">
-          <div class="full-height" [ngClass]="{'unknown': getPrediction(match) == null,'clickable': canPredict(match)}"
+          <div class="full-height match-score" [ngClass]="{'unknown': getPrediction(match) == null,'clickable': canPredict(match)}"
                (click)="canPredict(match) && openPronoDialog(match)">
-            {{ getPrediction(match) ? getPrediction(match).score : '' }}
+            <img [src]="getWinnerFlagFromPrediction(match)" *ngIf="getPrediction(match)"/>
+            <div>
+              {{ getPrediction(match) ? getPrediction(match).score : '' }}
+            </div>
           </div>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="center center">
-          <div (click)="setMatchResult(match);"
-               class="full-height full-width"
+          <div (click)="setMatchResult(match)"
+               class="full-height full-width match-score"
                fxLayout="row" fxLayoutAlign="center center"
                [ngClass]="{'empty': !match.score, 'clickable': isAdmin()}">
-            {{ match.score }}
+            <img [src]="getWinnerFlag(match)" *ngIf="match.winner"/>
+            <div>
+              {{ match.score ? match.score : '' }}
+            </div>
           </div>
         </div>
 

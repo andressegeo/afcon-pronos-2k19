@@ -3,20 +3,26 @@
   <div fxLayout="row">
     <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center" class="teams">
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-        <img src="{{data.match.team_1.flag_url}}">
+        <img [src]="data.match.team_1.flag_url">
       </div>
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-        <h3>{{data.match.team_1.name}}</h3>
+        <h3>
+          {{data.match.team_1.name}}
+          <mat-icon svgIcon="trophy" *ngIf="winnerId === data.match.team_1.id"></mat-icon>
+        </h3>
       </div>
     </div>
     <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
     </div>
     <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center" class="teams">
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-        <img src="{{data.match.team_2.flag_url}}">
+        <img [src]="data.match.team_2.flag_url">
       </div>
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-        <h3>{{data.match.team_2.name}}</h3>
+        <h3>
+          {{data.match.team_2.name}}
+          <mat-icon svgIcon="trophy" *ngIf="winnerId === data.match.team_2.id"></mat-icon>
+        </h3>
       </div>
     </div>
   </div>
@@ -28,20 +34,32 @@
   <div fxLayout="row" fxLayoutAlign="center center">
     <div fxFlex="40" fxLayout="row" fxLayoutAlign="center center">
       <mat-form-field class="">
-        <input matInput type="number" [(ngModel)]="team_1_score">
+        <input matInput type="number" [(ngModel)]="team_1_score" (ngModelChange)="scoreChanged()">
       </mat-form-field>
     </div>
     <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
     </div>
     <div fxFlex="40" fxLayout="row" fxLayoutAlign="center center">
       <mat-form-field class="example-full-width">
-        <input matInput type="number" [(ngModel)]="team_2_score">
+        <input matInput type="number" [(ngModel)]="team_2_score" (ngModelChange)="scoreChanged()">
       </mat-form-field>
     </div>
   </div>
 
   <div fxLayout="row" fxLayoutAlign="center center">
     <button mat-raised-button (click)="validatePrediction(team_1_score, team_2_score)" [disabled]="!isValidPrediction()">Valider</button>
+  </div>
+
+  <div class="reminders" fxLayout fxLayoutAlign="center center">
+    <div>
+      <img src="/assets/referee.png">
+    </div>
+    <div>
+      <p>
+        Rappel: le score à pronostiquer est celui au bout du temps réglementaire (90min + temps additionnel).
+        Pas après les prolongations ou les tirs aux but.
+      </p>
+    </div>
   </div>
 
 </div>

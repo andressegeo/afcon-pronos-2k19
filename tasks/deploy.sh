@@ -21,35 +21,32 @@ then
     fi
     mkdir build
 
+    if [ $ENV != "dev" ]
+    then
+      ng build --env="$ENV"
+    else
+      ng build
+    fi
+
     cp appengine_config.py build/appengine_config.py
-    cp -r src build/
+    cp -r client build/
     cp -r config build/
+    cp -r dist build/
 
     if [ $ENV != "dev" ]
     then
         cp -r deployments/$ENV/config.py build/config/config.py
-        cp -r deployments/$ENV/service_account.json build/service_account.json
     fi
 
     cp -r lib/ build/lib
     cp app.yaml build/app.yaml
-    cp main.py build/main.py
+    cp app.py build/app.py
     cp dispatch.yaml build/dispatch.yaml
     cd build
 
-    if [ $ENV != "production" ]
-    then
-        sed -i -e "s/service: default/service: default-$ENV/g" app.yaml
-    fi
-
-    if [ $ENV != "dev" ]
-    then
-        sed -i -e "s/service: api/service: api-$ENV/g" dispatch.yaml
-    fi
-
     sanitized_version=$(echo $2 | tr . -)
     echo $sanitized_version
-    gcloud app deploy app.yaml --version=${sanitized_version} --project=$PROJECT --no-promote
+    gcloud app deploy app.yaml dispatch.yaml --version=${sanitized_version} --project=$PROJECT --no-promote
 
 
 else

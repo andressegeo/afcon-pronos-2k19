@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {environment} from "../../environments/environment";
+
+import { environment } from "../../environments/environment";
 import { ApiService } from "./api.service";
 import { FakeService } from "./fake.service";
 
@@ -8,15 +9,8 @@ export class PredictionService {
 
   constructor(private fakeService : FakeService, private apiService : ApiService) { }
 
-  postPredict(prediction) {
-    if(!environment.production) { // TODO: remove
-      return this.fakeService.predict(prediction);
-    } else {
-      /* matches are actually returned contained in their stage */
-      return this.apiService.postPrediction(prediction).map(data => {
-        return data;
-      });
-    }
+  postPredict(match, prediction) {
+    return this.apiService.postPrediction(match['id'], prediction['score'], prediction['winner']);
   }
 
   getPredictionsForUser(user_id) {

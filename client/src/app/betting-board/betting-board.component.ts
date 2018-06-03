@@ -55,6 +55,7 @@ export class BettingBoardComponent implements OnInit {
         this.stages = stages;
       });
     });
+
     this.userService.userSubject.subscribe(user => {
       this.currentUser = user;
       if(user && this.currentUser.worldcup_winner) {
@@ -66,6 +67,10 @@ export class BettingBoardComponent implements OnInit {
           })
         }
       }
+    });
+
+    this.userService.worldcupWinnerSubject.subscribe(winner => {
+      this.worldcupWinner = winner;
     });
   }
 
@@ -143,22 +148,16 @@ export class BettingBoardComponent implements OnInit {
   }
 
   openPronoDialog(match): void {
+    let currentPrediction = this.getPrediction(match);
     let dialogRef = this.matDialog.open(PronoDialogComponent, {
-      data: { match: match },
+      data: { match: match, prediction: currentPrediction },
       height: '450px',
       width: '50%'
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined) {
-        result['users_id'] = this.currentUser.id;
-        this.predictionService.postPredict(result).subscribe(prediction => {
-          this.userService.getCurrentUser();
-          /*if (this.getPrediction(match)) {
-            this.currentUser.predictions.forEach( (item, index) => {
-              if(item.matches_id === match.id) this.currentUser.predictions.splice(index,1);
-            });
-          }
-          this.currentUser.predictions.push(prediction);*/
+        this.predictionService.postPredict(match, result).subscribe(prediction => {
+          this.userService.updatePrediction(prediction);
         });
       }
     });
@@ -205,7 +204,7 @@ export class BettingBoardComponent implements OnInit {
         let otherDialogRef = this.matDialog.open(AreYouSureDialogComponent);
         otherDialogRef.afterClosed().subscribe(sure => {
           if(sure === true) {
-            this.userService.enterMatchResult(result, match.id).subscribe(response => {
+            this.userService.enterMatchResult(match, result.score, result.winner).subscribe(response => {
               this.updateScoreMatch(match.id, result.score, result.winner);
             });
           }
@@ -300,5 +299,29 @@ export class BettingBoardComponent implements OnInit {
     } else if(this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME) {
       return `Tu peux modifier ton prono jusqu'à minuit. Mais tu gagneras moitié moins de points.`
     }
+  }
+
+  getWinnerFlag(match: Match): string {
+    if(match.winner) {
+      if(match.team_1.id === match.winner) {
+        return match.team_1.flag_url;
+      } else if(match.team_2.id === match.winner) {
+        return match.team_2.flag_url;
+      }
+    }
+  }
+
+  getWinnerFlagFromPrediction(match: Match): string {
+    let prediction = this.getPrediction(match);
+
+    if(prediction && prediction.winner) {
+      if(match.team_1.id === prediction.winner) {
+        return match.team_1.flag_url;
+      } else if(match.team_2.id === prediction.winner) {
+        return match.team_2.flag_url;
+      }
+    }
+
+    return null;
   }
 }

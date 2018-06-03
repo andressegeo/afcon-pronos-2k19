@@ -36,7 +36,7 @@ export class ApiService {
   }
 
   getWorldcupWinner() {
-    let url = this.makeUrl('/winner/');
+    let url = this.makeUrl('winner/');
     return this.restService.get(url);
   }
 
@@ -45,15 +45,14 @@ export class ApiService {
     return this.restService.get(url);
   }
 
-  postPrediction(prediction) {
-    console.log('prediction', prediction);
-    let url = this.makeUrl(`matches/${prediction.matches_id}/predict`);
-    return this.restService.post(url, {prediction: prediction});
+  postPrediction(matchId, score, winner) {
+    let url = this.makeUrl(`matches/${matchId}/predict`);
+    return this.restService.post(url, {score: score, winner: winner});
   }
 
-  postFinalScore(score, match) {
-    let url = this.makeUrl(`matches/${match}/enter_score`);
-    return this.restService.post(url, {result: score});
+  postFinalScore(matchId, prediction) {
+    let url = this.makeUrl(`matches/${matchId}/enter_score`);
+    return this.restService.post(url, prediction);
   }
 
   enterWorldcupWinner(winner) {
@@ -73,6 +72,11 @@ export class ApiService {
 
   getTeam(team_id) {
     let url = this.makeUrl(`teams/${team_id}`);
+    return this.restService.get(url);
+  }
+
+  getGlobalRanking() {
+    let url = this.makeUrl(`ranking/`);
     return this.restService.get(url);
   }
 

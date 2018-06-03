@@ -15,12 +15,14 @@ export class UserService {
 
   user: User;
   userSubject: BehaviorSubject<User>;
+  worldcupWinnerSubject: BehaviorSubject<Team>;
 
   constructor(private apiService: ApiService, private fakeService: FakeService) {
     this.userSubject = new BehaviorSubject(undefined);
     this.userSubject.subscribe(newUser => {
       this.user = newUser;
-    })
+    });
+    this.worldcupWinnerSubject = new BehaviorSubject(undefined);
   }
 
 
@@ -31,6 +33,12 @@ export class UserService {
     }, err => {
       console.error('error fetching user', err);
     });
+  }
+
+  getWorldcupWinner() {
+    this.apiService.getWorldcupWinner().subscribe(data => {
+      this.worldcupWinnerSubject.next(data['winner']);
+    })
   }
 
   isAdmin(): boolean {
@@ -47,9 +55,12 @@ export class UserService {
 
   }
 
-  enterMatchResult(score, match): Observable<any> {
+  enterMatchResult(match, score, winner): Observable<any> {
     if (this.isAdmin()) {
-      return this.apiService.postFinalScore(score, match);
+      return this.apiService.postFinalScore(match.id, {
+        score: score,
+        winner: winner
+      });
     } else {
       return Observable.throw("You're not admin...");
     }
@@ -63,7 +74,22 @@ export class UserService {
     }
   }
 
+  updatePrediction(prediction) {
+    if(!this.user) {
+      return;
+    }
 
+    let existing = this.user.predictions.find(p => p.id === prediction.id);
+
+    if(existing) {
+      existing.winner = prediction.winner;
+      existing.score = prediction.score;
+    } else {
+      this.user.predictions.push(prediction);
+    }
+
+    this.userSubject.next(this.user);
+  }
 }
 
 export interface User {

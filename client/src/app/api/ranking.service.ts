@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { User } from './user.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { ApiService } from './api.service';
+import { User } from './user.service';
 
 @Injectable()
 export class RankingService {
@@ -15,7 +16,9 @@ export class RankingService {
   }
 
   getGlobalRanking() {
-    // TODO
+    return this.apiService.getGlobalRanking().subscribe(data => {
+      this.globalRanking.next(data.items);
+    });
   }
 
 }

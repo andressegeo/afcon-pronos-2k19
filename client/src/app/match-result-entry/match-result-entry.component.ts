@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -13,11 +13,36 @@ export class MatchResultEntryComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-  team_1_score: number;
-  team_2_score: number;
+  team_1_score: number = 0;
+  team_2_score: number = 0;
+  winnerId: number;
 
   ngOnInit() {
+    if(this.data.match.score) {
+      this.fillScores(this.data.match.score);
+    }
+    if(this.data.match.winner) {
+      this.winnerId = this.data.match.winner;
+    }
+  }
 
+  fillScores(score) {
+    let parts = score.split('-');
+    this.team_1_score = parseInt(parts[0]);
+    this.team_2_score = parseInt(parts[1]);
+  }
+
+  scoreChanged() {
+    if(!Number.isInteger(this.team_1_score) || !Number.isInteger(this.team_2_score)) {
+      this.winnerId = undefined;
+      return;
+    }
+
+    if(this.team_1_score === this.team_2_score) {
+      this.winnerId = undefined;
+    } else {
+      this.winnerId = this.team_1_score > this.team_2_score ? this.data.match.team_1.id : this.data.match.team_2.id;
+    }
   }
 
   validateScore(team_1_score, team_2_score) {

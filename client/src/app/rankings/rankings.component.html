@@ -1,4 +1,4 @@
-<div class="rankings-table mat-elevation-z3" *ngIf="ranking.length > 0">
+<div class="rankings-table mat-elevation-z3" *ngIf="ranking && ranking.length > 0">
     <div class="rows">
       <rankings-row [item]="item" *ngFor="let item of ranking"></rankings-row>
     </div>

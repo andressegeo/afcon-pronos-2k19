@@ -1,10 +1,10 @@
-@import "../../common/colors";
+@import "../../../colors";
 
 .row {
   padding: 10px 50px;
 
   &.highlighted {
-    background-color: rgba($app-cyan, 0.1)
+    background-color: rgba($app-blue, 0.1)
   }
 
   .item-picture {
@@ -32,7 +32,7 @@
     color: white;
     min-width: 70px;
     box-sizing: border-box;
-    background-color: $app-cyan;
+    background-color: $app-blue;
   }
 
   .item-medal {

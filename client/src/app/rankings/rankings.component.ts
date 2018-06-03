@@ -10,21 +10,29 @@ import { UserService, User } from '../api/user.service';
 })
 export class RankingsComponent implements OnInit {
 
-  ranking = [];
+  ranking: Rank[];
+  user: User;
 
   constructor(private rankingService: RankingService, private userService: UserService) { }
 
   ngOnInit() {
     this.userService.userSubject.subscribe(user => {
-      this.rankingService.globalRanking.subscribe(ranking => {
-        if(ranking) {
-          ranking.forEach(rank => {
-            rank.highlighted = rank.user.id == user.id;
-            this.ranking.push(rank);
-          });
-        }
-      });
+      this.user = user;
+      this.processRanking();
     });
+    this.rankingService.globalRanking.subscribe(ranking => {
+      this.ranking = ranking;
+      this.processRanking();
+    });
+
+  }
+
+  processRanking() {
+    if(this.user && this.ranking) {
+      this.ranking.forEach(rank => {
+        rank.highlighted = rank.user.id == this.user.id;
+      });
+    }
   }
 
 }

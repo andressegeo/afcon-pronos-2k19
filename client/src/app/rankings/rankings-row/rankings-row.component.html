@@ -13,7 +13,8 @@
 
   <div class="item-picture" fxLayout fxLayoutAlign="start center">
     <div>
-      <img [src]="item.user.picture_url" />
+      <img [src]="item.user.picture_url" *ngIf="item.user.picture_url" />
+      <img src="/assets/user.png" *ngIf="!item.user.picture_url" />
     </div>
   </div>
 
@@ -23,7 +24,8 @@
 
   <div class="item-picture" fxLayout fxLayoutAlign="start center">
     <div>
-      <img [src]="item.user.worldcup_winner.flag_url" />
+      <img [src]="item.user.worldcup_winner.flag_url" *ngIf="item.user.worldcup_winner" />
+      <img src="/assets/question-mark.png" *ngIf="!item.user.worldcup_winner" />
     </div>
   </div>
 

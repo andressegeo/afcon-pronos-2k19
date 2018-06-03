@@ -5,3 +5,17 @@
   }
 }
 
+.reminders {
+  color: grey;
+  text-align: justify;
+  font-size: 0.8em;
+
+  & > div {
+    padding: 20px 10px;
+  }
+
+  img {
+    height: 50px;
+  }
+}
+
