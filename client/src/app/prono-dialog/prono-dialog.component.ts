@@ -16,11 +16,13 @@ export class PronoDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    if(this.data.prediction.score) {
-      this.fillScores(this.data.prediction.score);
-    }
-    if(this.data.prediction.winner) {
-      this.winnerId = this.data.prediction.winner;
+    if(this.data.prediction) {
+      if(this.data.prediction.score) {
+        this.fillScores(this.data.prediction.score);
+      }
+      if(this.data.prediction.winner) {
+        this.winnerId = this.data.prediction.winner;
+      }
     }
   }
 

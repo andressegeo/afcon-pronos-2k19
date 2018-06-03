@@ -13,8 +13,8 @@ export class MatchResultEntryComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-  team_1_score: number = 0;
-  team_2_score: number = 0;
+  team_1_score: number;
+  team_2_score: number;
   winnerId: number;
 
   ngOnInit() {

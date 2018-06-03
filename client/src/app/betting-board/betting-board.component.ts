@@ -224,26 +224,19 @@ export class BettingBoardComponent implements OnInit {
     });
   }
 
-  calculatePoints(prediction, match) {
-    if (prediction) {
-      if (match.score) {
-        if (prediction.score === match.score) {
-          return 3;
-        }
+  calculatePoints(match) {
+    let prediction = this.getPrediction(match);
 
-        if (prediction.winner === match.winner) {
+    if (prediction) {
+      if(match.winner === prediction.winner) {
+        if(match.score === prediction.score) {
+          return 3;
+        } else {
           return 1;
         }
-
-        return 0;
-
-      } else {
-        return null;
       }
-    } else {
-      return null;
     }
-
+    return 0;
   }
 
   get worldcupWinnerPredictionPoints(): number {
