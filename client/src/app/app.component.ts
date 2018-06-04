@@ -13,7 +13,10 @@ import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.componen
 })
 export class AppComponent implements OnInit {
 
-  magic = new Audio('/assets/jfhfjfhgugur.mp3')
+  magic = new Audio('/assets/magic.mp3')
+  vuvu = new Audio('/assets/vuvu.mp3')
+  vuvuPlaying: boolean = false;
+  self = this;
 
   constructor(private userService: UserService,
     private stageService: StageService,
@@ -29,6 +32,7 @@ export class AppComponent implements OnInit {
     this.stageService.getStagesWithMatches();
 
     this.magic.volume = 0.2;
+    this.vuvu.volume = 0.1;
 
     if(localStorage.getItem('isFirstVisitGuuuuuys') !== 'yes') {
        let dialogRef = this.matDialog.open(WelcomeDialogComponent, {
@@ -45,6 +49,25 @@ export class AppComponent implements OnInit {
       dialogRef.afterClosed().subscribe(() => {
         this.magic.pause();
         localStorage.setItem('isFirstVisitGuuuuuys', 'yes');
+      });
+    }
+  }
+
+  vuvuListener() {
+    console.log('vuvu stopped playing');
+
+  }
+
+  playVuvu() {
+    if(this.vuvu.currentTime > 0) {
+      this.vuvu.pause();
+      this.vuvu.currentTime = 0;
+      this.vuvuPlaying = false;
+    } else {
+      this.vuvu.play();
+      this.vuvuPlaying = true;
+      this.vuvu.addEventListener('ended', () => {
+        this.vuvuPlaying = false;
       });
     }
   }

@@ -3,4 +3,7 @@
 </header>
 <main>
   <router-outlet></router-outlet>
+  <div id="vuvuzela">
+    <img src="/assets/vuvuzela.jpg" (click)="playVuvu()" [ngClass]="{'playing': vuvuPlaying}" />
+  </div>
 </main>
