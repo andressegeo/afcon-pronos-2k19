@@ -66,7 +66,8 @@ export class PronoDialogComponent implements OnInit {
   }
 
   isValidPrediction() {
-    if (typeof this.team_1_score === 'number' && typeof this.team_2_score === 'number') {
+    if (typeof this.team_1_score === 'number' && typeof this.team_2_score === 'number'
+    && this.team_1_score >= 0 && this.team_2_score >= 0) {
       if(this.mustHaveWinner()) {
         return this.winnerId !== undefined;
       }

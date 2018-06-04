@@ -198,9 +198,12 @@ export class BettingBoardComponent implements OnInit {
   }
 
   getPrediction(match): any {
-    return this.currentUser.predictions.find(pred => {
-      return pred.matches_id === match.id;
-    });
+    if(this.currentUser) {
+      return this.currentUser.predictions.find(pred => {
+        return pred.matches_id === match.id;
+      });
+    }
+    return undefined;
   }
 
   setMatchResult(match) {
@@ -247,9 +250,9 @@ export class BettingBoardComponent implements OnInit {
   }
 
   get worldcupWinnerPredictionPoints(): number {
-    if(this.currentUser !== undefined
-      && this.worldcupWinnerPrediction !== undefined
-      && this.worldcupWinner !== undefined) {
+    if(this.currentUser != null
+      && this.worldcupWinnerPrediction != null
+      && this.worldcupWinner != null) {
 
       if(this.worldcupWinnerPrediction.id === this.worldcupWinner.id) {
         if(this.currentUser.has_modified_worldcup_winner) {
