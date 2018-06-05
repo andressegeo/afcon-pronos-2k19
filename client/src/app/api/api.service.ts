@@ -71,8 +71,13 @@ export class ApiService {
   }
 
   getGlobalRanking() {
-    let url = this.makeUrl(`ranking/`);
+    let url = this.makeUrl('ranking/');
     return this.restService.get(url);
+  }
+
+  randomPredict() {
+    let url = this.makeUrl('matches/random_predict');
+    return this.restService.post(url);
   }
 
 }

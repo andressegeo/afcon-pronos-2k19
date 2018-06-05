@@ -85,13 +85,19 @@
 
   <div id="group-matches" *ngIf="stageSelected">
 
-    <div id="stage-rules">
-      <p>
-        1 point si tu as le bon vainqueur
-      </p>
-      <p>
-        3 points si tu as le bon vainqueur et le bon score!
-      </p>
+    <div fxLayout fxLayoutAlign="start center">
+      <div fxFlex id="stage-rules">
+        <p>
+          1 point si tu as le bon vainqueur
+        </p>
+        <p>
+          3 points si tu as le bon vainqueur et le bon score!
+        </p>
+      </div>
+      <div id="rollDices" class="clickable"
+           (mouseenter)="shakeDices(true)" (mouseleave)="shakeDices(false)" (click)="rollDices()">
+        <img src="/assets/dices.png"><span>Aléatoire</span>
+      </div>
     </div>
 
     <div class="titles" fxLayout="row">

@@ -12,6 +12,10 @@ export class PredictionService {
     return this.apiService.postPrediction(match['id'], prediction['score'], prediction['winner']);
   }
 
+  randomPredict() {
+    return this.apiService.randomPredict();
+  }
+
 }
 
 export interface Prediction {

@@ -29,6 +29,7 @@ import { AreYouSureDialogComponent } from './are-you-sure-dialog/are-you-sure-di
 import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.component';
 import { PronoDialogComponent } from './prono-dialog/prono-dialog.component';
 import { MatchResultEntryComponent } from './match-result-entry/match-result-entry.component';
+import { RandomPredictionsComponent } from './random-predictions/random-predictions.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     WelcomeDialogComponent,
     RankingsRowComponent,
     PronoDialogComponent,
-    MatchResultEntryComponent
+    MatchResultEntryComponent,
+    RandomPredictionsComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ const appRoutes: Routes = [
     WelcomeDialogComponent,
     TeamPickerDialogComponent,
     PronoDialogComponent,
-    MatchResultEntryComponent
+    MatchResultEntryComponent,
+    RandomPredictionsComponent
   ],
   bootstrap: [AppComponent]
 })

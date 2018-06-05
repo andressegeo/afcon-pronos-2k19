@@ -9,6 +9,7 @@ import { UserService, User } from './../api/user.service';
 import { AreYouSureDialogComponent } from './../are-you-sure-dialog/are-you-sure-dialog.component';
 import { PronoDialogComponent } from "../prono-dialog/prono-dialog.component";
 import { MatchResultEntryComponent } from "../match-result-entry/match-result-entry.component";
+import { RandomPredictionsComponent } from "../random-predictions/random-predictions.component";
 
 import { PredictionService } from "./../api/prediction.service";
 import { Match } from "./../api/match.service";
@@ -31,6 +32,7 @@ export class BettingBoardComponent implements OnInit {
   currentUser: User;
   projectSound = new Audio('/assets/lkfjeff54df5d4f2.mp3');
   whistleSound = new Audio('/assets/whistle.mp3');
+  dicesSound = new Audio('/assets/dices.mp3');
   stageSelected;
   today: number = new Date().valueOf();
 
@@ -44,7 +46,6 @@ export class BettingBoardComponent implements OnInit {
 
   ngOnInit() {
     this.projectSound.volume = 0.2;
-    this.whistleSound.volume = 0.2;
 
     this.teamService.getTeams().subscribe(teams => {
       this.teams = teams;
@@ -334,5 +335,27 @@ export class BettingBoardComponent implements OnInit {
     }
 
     return null;
+  }
+
+  shakeDices(doShake: boolean) {
+    if(doShake) {
+      this.dicesSound.play();
+    } else {
+      this.dicesSound.pause();
+      this.dicesSound.currentTime = 0;
+    }
+  }
+
+  rollDices() {
+    let ref = this.matDialog.open(RandomPredictionsComponent, {
+      maxWidth: '500px',
+      minHeight: '300px',
+      scrollStrategy: this.overlay.scrollStrategies.block()
+    });
+    ref.afterClosed().subscribe(result => {
+      if(result) {
+        this.userService.getCurrentUser();
+      }
+    })
   }
 }

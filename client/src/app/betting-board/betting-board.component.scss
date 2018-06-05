@@ -184,6 +184,32 @@ mat-option {
     }
   }
 
+  #rollDices {
+    background: url('/assets/darkbluebg.png');
+    background-position-y: -5px;
+    padding: 15px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    img {
+      width: 48px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &:hover img {
+      animation: shake 0.5s;
+      animation-iteration-count: infinite;
+    }
+  }
+
   #group-matches {
 
     .col-title {
