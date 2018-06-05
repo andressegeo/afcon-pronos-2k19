@@ -13,10 +13,8 @@ import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.componen
 })
 export class AppComponent implements OnInit {
 
-  magic = new Audio('/assets/magic.mp3')
   vuvu = new Audio('/assets/vuvu.mp3')
   vuvuPlaying: boolean = false;
-  self = this;
 
   constructor(private userService: UserService,
     private stageService: StageService,
@@ -31,31 +29,25 @@ export class AppComponent implements OnInit {
     this.userService.getWorldcupWinner();
     this.stageService.getStagesWithMatches();
 
-    this.magic.volume = 0.2;
     this.vuvu.volume = 0.1;
 
     if(localStorage.getItem('isFirstVisitGuuuuuys') !== 'yes') {
-       let dialogRef = this.matDialog.open(WelcomeDialogComponent, {
-        height: '90%',
-        minHeight: '400px',
-        width: '35%',
-        minWidth: '500px',
-        panelClass: 'dialog-without-padding',
-        backdropClass: 'darker-backdrop'
-      });
+      setTimeout(() => {
+        let dialogRef = this.matDialog.open(WelcomeDialogComponent, {
+          height: '90%',
+          minHeight: '400px',
+          width: '35%',
+          minWidth: '500px',
+          panelClass: 'dialog-without-padding',
+          backdropClass: 'darker-backdrop'
+        });
 
-      this.magic.play();
+        dialogRef.afterClosed().subscribe(() => {
+          localStorage.setItem('isFirstVisitGuuuuuys', 'yes');
+        });
+      })
 
-      dialogRef.afterClosed().subscribe(() => {
-        this.magic.pause();
-        localStorage.setItem('isFirstVisitGuuuuuys', 'yes');
-      });
     }
-  }
-
-  vuvuListener() {
-    console.log('vuvu stopped playing');
-
   }
 
   playVuvu() {

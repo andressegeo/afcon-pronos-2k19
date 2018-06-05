@@ -48,4 +48,46 @@ div.with-background {
       text-decoration: none;
     }
   }
+
+  #bars {
+    height: 30px;
+    margin: -30px 0 0 -20px;
+    width: 40px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    left: initial;
+    top: initial;
+    cursor: pointer;
+
+    &.mute .bar {
+      display: none;
+    }
+  }
+
+  .bar {
+      background: white;
+      bottom: 1px;
+      height: 3px;
+      position: absolute;
+      width: 5px;
+      animation: sound 0ms -800ms linear infinite alternate;
+  }
+
+  @keyframes sound {
+      0% {
+         opacity: .35;
+          height: 3px;
+      }
+      100% {
+          opacity: 1;
+          height: 50px;
+      }
+  }
+
+  .bar:nth-child(2)  { left: 7px; animation-duration: 474ms; }
+  .bar:nth-child(3)  { left: 13px; animation-duration: 433ms; }
+  .bar:nth-child(4)  { left: 19px; animation-duration: 407ms; }
+  .bar:nth-child(5)  { left: 25px; animation-duration: 458ms; }
+  .bar:nth-child(6)  { left: 1px; animation-duration: 400ms; }
 }
