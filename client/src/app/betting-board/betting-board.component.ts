@@ -59,13 +59,7 @@ export class BettingBoardComponent implements OnInit {
     this.userService.userSubject.subscribe(user => {
       this.currentUser = user;
       if(user && this.currentUser.worldcup_winner) {
-        if (typeof this.currentUser.worldcup_winner !== 'number') {
-          this.worldcupWinnerPrediction = this.currentUser.worldcup_winner;
-        } else {
-          this.predictionService.getWordcupWinnerPrediction(user.id).subscribe(team => {
-            this.worldcupWinnerPrediction = team;
-          })
-        }
+        this.worldcupWinnerPrediction = this.currentUser.worldcup_winner;
       }
     });
 

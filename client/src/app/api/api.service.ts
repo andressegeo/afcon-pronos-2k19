@@ -65,11 +65,6 @@ export class ApiService {
     return this.restService.post(url, {winner: winner});
   }
 
-  getWorldcupWinnerPrediction(user) {
-    let url = this.makeUrl(`winner_prediction/${user}`);
-    return this.restService.get(url);
-  }
-
   getTeam(team_id) {
     let url = this.makeUrl(`teams/${team_id}`);
     return this.restService.get(url);
