@@ -10,7 +10,7 @@ div.with-background {
     background: url('/assets/darkbluebg.png') -5px;
     cursor: pointer;
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     width: 25%;
     min-width: 200px;
     height: 80px;
@@ -38,16 +38,31 @@ div.with-background {
       line-height: 50px;
       font-size: 1.5em;
     }
-  }
 
-  a {
-    text-decoration: none;
-    color: white;
-
-    &:hover {
+    a {
       text-decoration: none;
+      color: white;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
+
+  #rules {
+    position: absolute;
+    bottom: 0px;
+    background: black;
+    color: white;
+    font-size: 0.8em;
+    padding: 3px;
+
+    a {
+      color: white;
+    }
+  }
+
+
 
   #bars {
     height: 30px;

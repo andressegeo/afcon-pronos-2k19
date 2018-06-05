@@ -1,18 +1,23 @@
 <div class="with-background" (mouseenter)="test()">
    <div class="action-button left" (click)="close()">
-      Go go go !
+      Coup d'envoi!
     </div>
     <a class="action-button right" (click)="close()"
-       href="https://docs.google.com/document/d/1LcIlcV-xp078Im1b-ks6DUtkCz5fegglGiM1L4IPxqg/edit"
+       href="https://docs.google.com/document/d/1LcIlcV-xp078Im1b-ks6DUtkCz5fegglGiM1L4IPxqg"
        target="_blank" rel="noopener noreferrer">
       Les règles
     </a>
-    <div id="bars" [ngClass]="{'mute': !isMagicPlaying}" (click)="pause()">
-        <audio id="magic-player" #magicPlayer src="/assets/magic.mp3"></audio>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-    </div>
+  <div id="rules">
+    En entrant dans la compétition, tu acceptes implicitement le réglement disponible à
+    <a href="https://docs.google.com/document/d/1GpwRyTqMGFLwmgdcR-0ldc42zaVIkE8N037rnTvPZGA">cette adresse</a>.
+    Si tu n'es pas d'accord, tu peux quitter le site.
+  </div>
+  <div id="bars" [ngClass]="{'mute': !isMagicPlaying}" (click)="pause()">
+      <audio id="magic-player" #magicPlayer src="/assets/magic.mp3"></audio>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+  </div>
 </div>
