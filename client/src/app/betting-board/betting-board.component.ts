@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { Overlay } from '@angular/cdk/overlay';
 
 import { TeamPickerDialogComponent } from './../team-picker-dialog/team-picker-dialog.component';
 import { StageService, Stage } from './../api/stage.service';
@@ -38,7 +39,8 @@ export class BettingBoardComponent implements OnInit {
               private teamService: TeamService,
               private userService: UserService,
               private predictionService: PredictionService,
-              private matSnackBar: MatSnackBar) { }
+              private matSnackBar: MatSnackBar,
+              private overlay: Overlay) { }
 
   ngOnInit() {
     this.projectSound.volume = 0.2;
@@ -72,21 +74,26 @@ export class BettingBoardComponent implements OnInit {
     let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
       data: { teams: this.teams },
       height: '600px',
-      maxWidth: '1400px'
+      maxWidth: '90%',
+      width: '50%',
+      minWidth: '400px',
+      scrollStrategy: this.overlay.scrollStrategies.block()
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      let previousPrediction = this.worldcupWinnerPrediction;
-      this.worldcupWinnerPrediction = result;
-      this.userService.predictWorldcupWinner(result).subscribe(winner => {
-        this.worldcupWinnerPrediction = winner;
-      }, err => {
-        console.error(err);
-        this.matSnackBar.open('Erreur. Réessayez...', undefined, {
-          duration: 3000
+      if(result) {
+        let previousPrediction = this.worldcupWinnerPrediction;
+        this.worldcupWinnerPrediction = result;
+        this.userService.predictWorldcupWinner(result).subscribe(winner => {
+          this.worldcupWinnerPrediction = winner;
+        }, err => {
+          console.error(err);
+          this.matSnackBar.open('Erreur. Réessayez...', undefined, {
+            duration: 3000
+          });
+          this.worldcupWinnerPrediction = previousPrediction;
         });
-        this.worldcupWinnerPrediction = previousPrediction;
-      });
+      }
     });
   }
 
@@ -102,7 +109,10 @@ export class BettingBoardComponent implements OnInit {
     let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
       data: { teams: this.teams },
       height: '600px',
-      maxWidth: '1400px'
+      maxWidth: '90%',
+      width: '50%',
+      minWidth: '400px',
+      scrollStrategy: this.overlay.scrollStrategies.block()
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -147,7 +157,9 @@ export class BettingBoardComponent implements OnInit {
     let dialogRef = this.matDialog.open(PronoDialogComponent, {
       data: { stage: this.getMatchStage(match), match: match, prediction: currentPrediction },
       height: '450px',
-      width: '50%'
+      width: '50%',
+      minWidth: '400px',
+      scrollStrategy: this.overlay.scrollStrategies.block()
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined) {
@@ -208,7 +220,9 @@ export class BettingBoardComponent implements OnInit {
     let dialogRef = this.matDialog.open(MatchResultEntryComponent, {
       data: { match: match, stage: this.getMatchStage(match) },
       height: '450px',
-      width: '50%'
+      width: '50%',
+      minWidth: '400px',
+      scrollStrategy: this.overlay.scrollStrategies.block()
     });
 
     dialogRef.afterClosed().subscribe(result => {

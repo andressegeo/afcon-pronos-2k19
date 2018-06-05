@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Overlay } from '@angular/cdk/overlay';
 
 import { UserService } from './api/user.service';
 import { StageService } from './api/stage.service';
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit {
     private stageService: StageService,
     private matDialog: MatDialog,
     private matIconRegistry: MatIconRegistry,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private overlay: Overlay) {
       matIconRegistry.addSvgIcon('trophy', sanitizer.bypassSecurityTrustResourceUrl('/assets/trophy.svg'))
     }
 
@@ -39,7 +41,8 @@ export class AppComponent implements OnInit {
           width: '35%',
           minWidth: '500px',
           panelClass: 'dialog-without-padding',
-          backdropClass: 'darker-backdrop'
+          backdropClass: 'darker-backdrop',
+          scrollStrategy: this.overlay.scrollStrategies.block()
         });
 
         dialogRef.afterClosed().subscribe(() => {
