@@ -24,6 +24,7 @@ export class RankingsComponent implements OnInit {
       this.ranking = ranking;
       this.processRanking();
     });
+    this.rankingService.getGlobalRanking();
 
   }
 

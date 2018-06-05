@@ -11,8 +11,6 @@ export class RankingService {
 
   constructor(private apiService: ApiService) {
     this.globalRanking = new BehaviorSubject(undefined);
-
-    this.getGlobalRanking();
   }
 
   getGlobalRanking() {
