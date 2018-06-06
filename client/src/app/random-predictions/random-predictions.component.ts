@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 import { PredictionService } from './../api/prediction.service';
@@ -8,15 +8,12 @@ import { PredictionService } from './../api/prediction.service';
   templateUrl: './random-predictions.component.html',
   styleUrls: ['./random-predictions.component.scss']
 })
-export class RandomPredictionsComponent implements OnInit {
+export class RandomPredictionsComponent {
 
   isLoading: boolean = false;
 
   constructor(private predictionService : PredictionService,
   public dialogRef: MatDialogRef<RandomPredictionsComponent>) { }
-
-  ngOnInit() {
-  }
 
   randomPredict() {
     this.isLoading = true;

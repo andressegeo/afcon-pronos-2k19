@@ -8,7 +8,7 @@
   </div>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 </mat-dialog-content>
-<mat-dialog-actions>
+<mat-dialog-actions *ngIf="!isLoading">
   <button mat-button mat-dialog-close>Annuler</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <button mat-button (click)="randomPredict()">OK</button>
