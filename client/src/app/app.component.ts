@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 
     this.vuvu.volume = 0.1;
 
-    if(localStorage.getItem('isFirstVisitGuuuuuys') !== 'yes') {
+    if(localStorage.getItem('acceptanceGuys') !== 'yes') {
       setTimeout(() => {
         let dialogRef = this.matDialog.open(WelcomeDialogComponent, {
           height: '90%',
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(() => {
-          localStorage.setItem('isFirstVisitGuuuuuys', 'yes');
+          localStorage.setItem('acceptanceGuys', 'yes');
         });
       })
 

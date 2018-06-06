@@ -337,6 +337,12 @@ export class BettingBoardComponent implements OnInit {
     return null;
   }
 
+  canRollDices(): boolean {
+    return this.today < this.OPENING_TIME
+      && stageSelected != null
+      && (stageSelected === 'all' || !stageSelected.must_have_winner);
+  }
+
   shakeDices(doShake: boolean) {
     if(doShake) {
       this.dicesSound.play();

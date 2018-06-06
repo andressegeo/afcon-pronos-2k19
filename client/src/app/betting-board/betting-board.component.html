@@ -94,7 +94,7 @@
           3 points si tu as le bon vainqueur et le bon score!
         </p>
       </div>
-      <div id="rollDices" class="clickable"
+      <div id="rollDices" class="clickable" *ngIf="canRollDices()"
            (mouseenter)="shakeDices(true)" (mouseleave)="shakeDices(false)" (click)="rollDices()">
         <img src="/assets/dices.png"><span>Aléatoire</span>
       </div>
