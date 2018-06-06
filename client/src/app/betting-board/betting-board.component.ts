@@ -339,8 +339,8 @@ export class BettingBoardComponent implements OnInit {
 
   canRollDices(): boolean {
     return this.today < this.OPENING_TIME
-      && stageSelected != null
-      && (stageSelected === 'all' || !stageSelected.must_have_winner);
+      && this.stageSelected != null
+      && (this.stageSelected === 'all' || !this.stageSelected.must_have_winner);
   }
 
   shakeDices(doShake: boolean) {
@@ -355,7 +355,7 @@ export class BettingBoardComponent implements OnInit {
   rollDices() {
     let ref = this.matDialog.open(RandomPredictionsComponent, {
       maxWidth: '500px',
-      minHeight: '300px',
+      minHeight: '400px',
       scrollStrategy: this.overlay.scrollStrategies.block()
     });
     ref.afterClosed().subscribe(result => {

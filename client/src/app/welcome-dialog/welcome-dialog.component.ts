@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -6,31 +6,15 @@ import { MatDialogRef } from '@angular/material';
   templateUrl: './welcome-dialog.component.html',
   styleUrls: ['./welcome-dialog.component.scss']
 })
-export class WelcomeDialogComponent implements AfterViewInit {
+export class WelcomeDialogComponent {
 
   isMagicPlaying = false;
-  @ViewChild('magicPlayer') magic;
+  magic = new Audio('/assets/magic.mp3');
 
   constructor(public dialogRef: MatDialogRef<WelcomeDialogComponent>) {}
 
-  ngAfterViewInit() {
-    if(window.confirm("Augmente le son Jacky!")) {
-      this.magic.nativeElement.play().then(() => {
-        this.isMagicPlaying = true;
-      });
-    }
-    this.magic.nativeElement.addEventListener('ended', () => {
-      this.isMagicPlaying = false;
-    });
-  }
-
-  pause() {
-    this.magic.nativeElement.pause();
-    this.magic.nativeElement.currentDuration = 0;
-    this.isMagicPlaying = false;
-  }
-
   close() {
+    this.magic.play();
     this.dialogRef.close();
   }
 
