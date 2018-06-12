@@ -30,19 +30,6 @@ for f in os.listdir('./dist'):
     if fnmatch.fnmatch(f, 'dev-index.html') or fnmatch.fnmatch(f, 'index.html'):
         INDEX_FILE = u"/".join([u"dist", f])
 
-@APP.route('/login_url')
-def get_login_url():
-  user = users.get_current_user()
-
-  if not user:
-    return jsonify({
-      u"login_url": users.create_login_url('/')
-    })
-  else:
-    return jsonify({
-      u"current_user": user.email()
-    }), 520
-
 @APP.route('/<path:path>')
 def send_client(path):
     """
