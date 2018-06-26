@@ -69,8 +69,11 @@
     <mat-form-field *ngIf="stages && stages.length">
       <mat-label></mat-label>
       <mat-select placeholder="Choisis un groupe" [(ngModel)]="stageSelected">
-        <mat-option [value]="'all'">
+        <mat-option value="all">
           Tous les matches
+        </mat-option>
+        <mat-option value="knockout_stage_only">
+          Matches éliminatoires
         </mat-option>
         <mat-option *ngFor="let stage of stages" [value]="stage">
           {{ stage.name }}

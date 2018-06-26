@@ -3,7 +3,7 @@
 import os
 import fnmatch
 import logging
-from flask import Flask, send_from_directory, send_file, jsonify
+from flask import Flask, send_from_directory, send_file, jsonify, redirect
 from google.appengine.api import users
 
 from config import CONFIG
@@ -30,12 +30,20 @@ for f in os.listdir('./dist'):
     if fnmatch.fnmatch(f, 'dev-index.html') or fnmatch.fnmatch(f, 'index.html'):
         INDEX_FILE = u"/".join([u"dist", f])
 
+
+@APP.route('/logout')
+def force_logout():
+  logout_url = users.create_logout_url('/')
+  return redirect(logout_url)
+
+
 @APP.route('/<path:path>')
 def send_client(path):
     """
     Handles client resources.
     """
     return send_from_directory('dist/', path)
+
 
 @APP.errorhandler(404)
 def send_index(e):

@@ -53,7 +53,11 @@ export class BettingBoardComponent implements OnInit {
 
       this.stageService.stagesSubject.subscribe(stages => {
         if(stages && stages.length) {
-          this.stageSelected = 'all';
+          if(this.today < this.END_OF_GROUPS_TIME) {
+            this.stageSelected = 'all';
+          } else {
+            this.stageSelected = 'knockout_stage_only';
+          }
         }
         this.stages = stages;
       });
@@ -140,8 +144,18 @@ export class BettingBoardComponent implements OnInit {
   }
 
   get selectedMatches() {
-    if(this.stageSelected !== 'all') {
+    if(this.stageSelected !== 'all' && this.stageSelected !== 'knockout_stage_only') {
       return this.stageSelected.matches;
+    } else if(this.stageSelected === 'knockout_stage_only') {
+      let knockoutList = [];
+      this.stages.forEach(stage => {
+        if(stage.must_have_winner) {
+          knockoutList.push(...stage.matches);
+        }
+      });
+      return knockoutList.sort((m1, m2) => {
+        return m1.match_time - m2.match_time;
+      });
     } else {
       let fullList = [];
       this.stages.forEach(stage => {
@@ -172,7 +186,7 @@ export class BettingBoardComponent implements OnInit {
   }
 
   getMatchStage(match: Match): Stage {
-    if(this.stageSelected && this.stageSelected !== 'all') {
+    if(this.stageSelected && this.stageSelected !== 'all' && this.stageSelected !== 'knockout_stage_only') {
       return this.stageSelected;
     } else {
       return this.stages.find(s => s.id === match.stages_id);
@@ -199,7 +213,8 @@ export class BettingBoardComponent implements OnInit {
       if (matchStage.closing_time) {
         return this.today < matchStage.closing_time * 1000;
       } else {
-        return (new Date(this.today)).toLocaleDateString() === (new Date(match.match_time * 1000)).toLocaleDateString()
+        return (new Date(this.today)).toLocaleDateString() !== (new Date(match.match_time * 1000)).toLocaleDateString()
+          && this.today < match.match_time * 1000;
       }
     }
   }
@@ -309,7 +324,7 @@ export class BettingBoardComponent implements OnInit {
     if(this.today < this.OPENING_TIME) {
       return `Jusqu'à la veille du premier match, pronostique qui va gagner la coupe !`;
     } else if(this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME) {
-      return `Tu peux modifier ton prono jusqu'à minuit. Mais tu gagneras moitié moins de points.`
+      return `Tu peux modifier ton prono jusqu'à minuit. Mais tu ne gagneras que 10 points (contre 15).`
     }
   }
 
