@@ -18,18 +18,21 @@ export class RankingsComponent implements OnInit {
   ngOnInit() {
     this.userService.userSubject.subscribe(user => {
       this.user = user;
+      console.log("USER: ", this.user)
       this.processRanking();
     });
     this.rankingService.globalRanking.subscribe(ranking => {
       this.ranking = ranking;
+      console.log("RANKing: ", this.ranking)
       this.processRanking();
     });
     this.rankingService.getGlobalRanking();
-
+    
   }
 
   processRanking() {
     if(this.user && this.ranking) {
+      console.log("here");
       this.ranking.forEach(rank => {
         rank.highlighted = rank.user.id == this.user.id;
       });

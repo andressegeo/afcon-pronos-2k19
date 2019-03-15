@@ -12,7 +12,7 @@ export class RestService {
    * @param options Optional options given to httpClient.
    */
   get(url: string, options?: any): Observable<any> {
-    return this.http.get(url, options);
+    return this.http.get(url);
   }
 
   /**
@@ -22,6 +22,6 @@ export class RestService {
    * @param options Optional options given to httpClient.
    */
   post(url: string, body?: any, options?: any): Observable<any> {
-    return this.http.post(url, body, options);
+    return this.http.post(url, body);
   }
 }

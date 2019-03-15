@@ -13,15 +13,18 @@ export class TeamService {
   constructor(private apiService: ApiService,
     private fakeService: FakeService) { }
 
-  getTeams() {
-    return this.apiService.getTeams().map(data => {
-      this.teams = data.items.sort((t1, t2) => {
-        return t1['name'] < t2['name'] ? -1 : 1;
+    getTeams() {
+      return this.apiService.getTeams().map(data => {
+        console.log("data: ", data)
+        console.log("type ", typeof(data));
+        
+        this.teams = data.items.sort((t1, t2) => {
+          return t1['name'] < t2['name'] ? -1 : 1;
+        });
+  
+        return this.teams;
       });
-
-      return this.teams;
-    });
-  }
+    }
 
   getWorldcupWinner() {
     return this.apiService.getWorldcupWinner().map(data => {
@@ -36,7 +39,7 @@ export class TeamService {
   }
 
   getLocalTeam(teamId: number): Team {
-    return this.teams.find(t => t.id === teamId)
+    return this.teams.find(t => t.id === teamId);
   }
 
 }

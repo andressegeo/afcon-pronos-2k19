@@ -3,7 +3,7 @@
      [ngClass]="{highlighted: item.highlighted}">
 
   <div class="item-medal">
-    <img src="/assets/worldcup_trophy.svg" *ngIf="item.rank === 1"/>
+    <img src="/assets/worldcup_trophy.png" *ngIf="item.rank === 1"/>
     <img src="/assets/silver-medal.svg" *ngIf="item.rank === 2"/>
     <img src="/assets/bronze-medal.svg" *ngIf="item.rank === 3"/>
     <div class="no-medal-rank" *ngIf="item.rank > 3">
@@ -13,24 +13,24 @@
 
   <div class="item-picture" fxLayout fxLayoutAlign="start center">
     <div>
-      <img [src]="item.user.picture_url" *ngIf="item.user.picture_url" />
-      <img src="/assets/user.png" *ngIf="!item.user.picture_url" />
+      <img [src]="item.picture_url" *ngIf="item.picture_url" />
+      <img src="/assets/user.png" *ngIf="!item.picture_url" />
     </div>
   </div>
 
   <div fxFlex class="item-name">
-    {{ item.user.name }}
+    {{ item.name }}
   </div>
 
   <div class="item-picture" fxLayout fxLayoutAlign="start center">
     <div>
-      <img [src]="item.user.worldcup_winner.flag_url" *ngIf="item.user.worldcup_winner" />
-      <img src="/assets/question-mark.png" *ngIf="!item.user.worldcup_winner" />
+      <img [src]="item.worldcup_winner.flag_url" *ngIf="item.worldcup_winner" />
+      <img src="/assets/question-mark.png" *ngIf="!item.worldcup_winner" />
     </div>
   </div>
 
   <div class="item-score">
-    {{ item.user.points }}
+    {{ item.points }}
   </div>
 
 </div>

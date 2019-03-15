@@ -7,12 +7,12 @@ import { StageService, Stage } from './../api/stage.service';
 import { TeamService, Team } from './../api/team.service';
 import { UserService, User } from './../api/user.service';
 import { AreYouSureDialogComponent } from './../are-you-sure-dialog/are-you-sure-dialog.component';
-import { PronoDialogComponent } from "../prono-dialog/prono-dialog.component";
-import { MatchResultEntryComponent } from "../match-result-entry/match-result-entry.component";
-import { RandomPredictionsComponent } from "../random-predictions/random-predictions.component";
+import { PronoDialogComponent } from '../prono-dialog/prono-dialog.component';
+import { MatchResultEntryComponent } from '../match-result-entry/match-result-entry.component';
+import { RandomPredictionsComponent } from '../random-predictions/random-predictions.component';
 
-import { PredictionService } from "./../api/prediction.service";
-import { Match } from "./../api/match.service";
+import { PredictionService } from './../api/prediction.service';
+import { Match } from './../api/match.service';
 
 @Component({
   selector: 'app-betting-board',
@@ -67,11 +67,14 @@ export class BettingBoardComponent implements OnInit {
       this.currentUser = user;
       if(user && this.currentUser.worldcup_winner) {
         this.worldcupWinnerPrediction = this.currentUser.worldcup_winner;
+        console.log("check: ", this.worldcupWinnerPrediction)
       }
     });
 
+    //Don't forget flag_url for worldcup winner
     this.userService.worldcupWinnerSubject.subscribe(winner => {
       this.worldcupWinner = winner;
+      console.log("worldcupWinner: ", winner)
     });
   }
 
@@ -260,7 +263,6 @@ export class BettingBoardComponent implements OnInit {
 
   calculatePoints(match) {
     let prediction = this.getPrediction(match);
-
     if (prediction) {
       if(match.winner === prediction.winner) {
         if(match.score === prediction.score) {
@@ -330,22 +332,23 @@ export class BettingBoardComponent implements OnInit {
 
   getWinnerFlag(match: Match): string {
     if(match.winner) {
-      if(match.team_1.id === match.winner) {
-        return match.team_1.flag_url;
-      } else if(match.team_2.id === match.winner) {
-        return match.team_2.flag_url;
+      if(match.team_1[0].id === match.winner) {
+        return match.team_1[0].flag_url;
+      } else if(match.team_2[0].id === match.winner) {
+        return match.team_2[0].flag_url;
       }
     }
   }
 
   getWinnerFlagFromPrediction(match: Match): string {
     let prediction = this.getPrediction(match);
-
+    //console.log("predictionWinner: ", prediction.winner)
+    //console.log("matchId: ", match.team_1[0].id)
     if(prediction && prediction.winner) {
-      if(match.team_1.id === prediction.winner) {
-        return match.team_1.flag_url;
-      } else if(match.team_2.id === prediction.winner) {
-        return match.team_2.flag_url;
+      if(match.team_1[0].id === prediction.winner) {
+        return match.team_1[0].flag_url;
+      } else if(match.team_2[0].id === prediction.winner) {
+        return match.team_2[0].flag_url;
       }
     }
 

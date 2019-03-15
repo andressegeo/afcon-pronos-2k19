@@ -49,7 +49,6 @@ export class FakeService {
   }
 
   predict(prediction) {
-    console.log('prediction is', prediction);
     this.nbFakePred++;
     const pred: Prediction = {
       id: this.nbFakePred,

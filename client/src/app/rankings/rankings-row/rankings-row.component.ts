@@ -8,8 +8,12 @@ import { Rank } from './../../api/ranking.service';
   styleUrls: ['./rankings-row.component.scss']
 })
 export class RankingsRowComponent {
+  
+  @Input() 
+  public item: Rank;
 
-  @Input() item: Rank;
-
-  constructor() { }
+  constructor() {}
+  ngOnInit() {
+    console.log("qsdSS: ", this.item.user)
+  }
 }

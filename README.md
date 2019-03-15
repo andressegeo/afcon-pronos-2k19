@@ -1,13 +1,12 @@
-# DGC Worldcup
+# AFCON 2K19 Pronos
 
 ## General
-- gPXXX
-- CdP: No one !
-- dev: Andresse Njeungoue, Valentin Coudert, Vincent Tertre
-- Dossier Drive: https://drive.google.com/drive/folders/1-psHxL-PypzUXhjdlc7iAzrZ39G1tLzY
+- CdP: Andresse Njeungoue
+- dev: Andresse Njeungoue
+- Dossier Drive: https://drive.google.com/drive/u/0/folders/1Khcp_gIlSocjNAhD36Rxcoda5jYrnUsL
 
 ## GCP
-- project: https://console.cloud.google.com/home/dashboard?project=dgc-worldcup-russia-2018
+- project: https://console.cloud.google.com/home/dashboard?project=pronos-can-2019
 - scope:
   - https://www.googleapis.com/auth/admin.directory.user.readonly
   - https://www.googleapis.com/auth/admin.directory.group.readonly
@@ -30,7 +29,7 @@ cf specs dans le dossier Drive.
 
 ```bash
 source venv/bin/activate
-dev_appserver.py app.yaml ../dgc-worldcup-api/api.yaml dispatch.yaml
+dev_appserver.py app.yaml ../dgc-worldcup-russia-2018-api/api.yaml dispatch.yaml
 # ... then
 deactivate
 ```
@@ -40,4 +39,3 @@ deactivate
 ```bash
 ./tasks/deploy.sh <dev|production|acceptance> <version>
 ```
-

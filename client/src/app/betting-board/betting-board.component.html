@@ -11,7 +11,7 @@
 
 <section id="worldcup-winner">
   <h2>
-    Vainqueur de la Coupe
+    <b>Vainqueur de la Coupe</b>
   </h2>
 
 <div class="betting-row" fxLayout fxLayoutGap="20px">
@@ -129,10 +129,10 @@
         <div class="team" fxLayout="column" fxFlex>
 
           <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-            <img *ngIf="match.team_1" src="{{ match.team_1.flag_url }}">
+            <img *ngIf="match.team_1" src="{{ match.team_1[0].flag_url }}">
           </div>
           <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-            <span *ngIf="match.team_1" class="col-content">{{ match.team_1.name }}</span>
+            <span *ngIf="match.team_1" class="col-content">{{ match.team_1[0].name }}</span>
             <span *ngIf="!match.team_1" class="col-content">{{ match.placeholder_1 }}</span>
           </div>
 
@@ -141,10 +141,10 @@
         <div class="team" fxLayout="column" fxFlex>
 
           <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-            <img *ngIf="match.team_2" src="{{ match.team_2.flag_url }}">
+            <img *ngIf="match.team_2" src="{{ match.team_2[0].flag_url }}">
           </div>
           <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-            <span *ngIf="match.team_2" class="col-content">{{ match.team_2.name }}</span>
+            <span *ngIf="match.team_2" class="col-content">{{ match.team_2[0].name }}</span>
             <span *ngIf="!match.team_2" class="col-content">{{ match.placeholder_2 }}</span>
           </div>
 
@@ -162,8 +162,8 @@
         </div>
 
         <div>
-          <a href="https://www.google.com/maps/?q={{ match.stadium.lat }},{{ match.stadium.lng }}" target="_blank" class="col-content">
-            {{ match.stadium.name }}
+          <a href="https://www.google.com/maps/?q={{ match.stadiums_id[0].lat }},{{ match.stadiums_id[0].lng }}" target="_blank" class="col-content">
+            {{ match.stadiums_id[0].name }}
           </a>
         </div>
 
