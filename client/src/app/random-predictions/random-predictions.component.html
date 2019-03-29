@@ -1,14 +1,14 @@
 <mat-dialog-content>
   <div *ngIf="!isLoading">
-    <img src="https://i.giphy.com/GaowgyGT643xm.gif">
-    <p>
+    <img src="https://media.giphy.com/media/26xBRMl2GJSvdzKuI/giphy.gif">
+    <p style="text-align:center">
       Cela va pronostiquer un score au hasard pour tous les matches de groupe,
-      sauf ceux pour lesquels tu as déjà fait un pronostic.
+      sauf ceux pour lesquels tu as déjà fait un pronostic🤪.
     </p>
   </div>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 </mat-dialog-content>
-<mat-dialog-actions *ngIf="!isLoading">
+<mat-dialog-actions *ngIf="!isLoading" style="text-align:center">
   <button mat-button mat-dialog-close>Annuler</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <button mat-button (click)="randomPredict()">OK</button>
