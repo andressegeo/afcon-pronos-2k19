@@ -12,9 +12,9 @@ export class ApiService {
   constructor(private restService: RestService) { }
 
   makeUrl(endpoint) {
-    console.log('Base url: ' + this.API_BASE_URL);
+    // console.log('Base url: ' + this.API_BASE_URL);
     const url = `${this.API_BASE_URL}${endpoint}`;
-    console.log('url complete: ' + url);
+    // console.log('url complete: ' + url);
     return url;
   }
 

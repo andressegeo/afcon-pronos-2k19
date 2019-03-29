@@ -75,18 +75,14 @@ export class FakeService {
   }
 
   postFinalScore(score, match) {
-    console.log('score', score);
-    console.log('match', match);
     return Observable.of('ok');
   }
 
   postWorldcupWinner(winner) {
-    console.log('winner');
     return Observable.of('ok');
   }
 
   postWorldcupWinnerPrediction(winner) {
-    console.log('winner');
     return Observable.of('ok');
   }
 }
