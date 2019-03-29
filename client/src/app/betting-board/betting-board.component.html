@@ -16,8 +16,8 @@
 
 <div class="betting-row" fxLayout fxLayoutGap="20px">
     <div id="team-picker-col" fxFlex>
-      <div class="strut"></div><!--
-      --><div class="need-strut clickable" (click)="openTeamPickerDialog()" *ngIf="isWorldcupWinnerPredictionOpen()">
+      <div class="strut"></div>
+        <div class="need-strut clickable" (click)="openTeamPickerDialog()" *ngIf="isWorldcupWinnerPredictionOpen()">
         {{ teamPickerLabel }}
       </div>
     </div>
@@ -30,10 +30,10 @@
            (click)="isWorldcupWinnerPredictionOpen() && openTeamPickerDialog()" fxFlex>
         <div class="flag-content">
 
-          <img [src]="worldcupWinnerPrediction.flag_url" *ngIf="worldcupWinnerPrediction">
+          <img [src]="worldcupWinnerPrediction.flag_url">
 
           <button mat-icon-button id="glloq"
-                  *ngIf="worldcupWinnerPrediction && worldcupWinnerPrediction.name === 'France'"
+                  *ngIf="worldcupWinnerPrediction && worldcupWinnerPrediction.name === 'Cameroun'"
                   (click)="playProject($event)">
             <mat-icon>audiotrack</mat-icon>
           </button>
@@ -129,11 +129,11 @@
         <div class="team" fxLayout="column" fxFlex>
 
           <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-            <img *ngIf="match.team_1" src="{{ match.team_1[0].flag_url }}">
+            <img *ngIf="match.team_1.name !== undefined" src="{{ match.team_1.flag_url }}">
           </div>
           <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-            <span *ngIf="match.team_1" class="col-content">{{ match.team_1[0].name }}</span>
-            <span *ngIf="!match.team_1" class="col-content">{{ match.placeholder_1 }}</span>
+            <span *ngIf="match.team_1.name !== undefined" class="col-content">{{ match.team_1.name }}</span>
+            <span *ngIf="match.team_1.name === undefined" class="col-content">{{ match.placeholder_1 }}</span>
           </div>
 
         </div>
@@ -141,11 +141,11 @@
         <div class="team" fxLayout="column" fxFlex>
 
           <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-            <img *ngIf="match.team_2" src="{{ match.team_2[0].flag_url }}">
+            <img *ngIf="match.team_2.name !== undefined" src="{{ match.team_2.flag_url }}">
           </div>
           <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-            <span *ngIf="match.team_2" class="col-content">{{ match.team_2[0].name }}</span>
-            <span *ngIf="!match.team_2" class="col-content">{{ match.placeholder_2 }}</span>
+            <span *ngIf="match.team_2.name !== undefined" class="col-content">{{ match.team_2.name }}</span>
+            <span *ngIf="match.team_2.name === undefined" class="col-content">{{ match.placeholder_2 }}</span>
           </div>
 
         </div>
@@ -162,8 +162,8 @@
         </div>
 
         <div>
-          <a href="https://www.google.com/maps/?q={{ match.stadiums_id[0].lat }},{{ match.stadiums_id[0].lng }}" target="_blank" class="col-content">
-            {{ match.stadiums_id[0].name }}
+          <a href="https://www.google.com/maps/?q={{ match.stadiums_id.lat }},{{ match.stadiums_id.lng }}" target="_blank" class="col-content">
+            {{ match.stadiums_id.name }}
           </a>
         </div>
 

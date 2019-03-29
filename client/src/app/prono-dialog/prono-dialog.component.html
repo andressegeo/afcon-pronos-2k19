@@ -3,14 +3,14 @@
   <div fxLayout="row">
     <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center"
          class="team" [ngClass]="{'clickable': mustHaveWinner()}"
-         (click)="mustHaveWinner() && winnerId = data.match.team_1[0].id">
+         (click)="mustHaveWinner() && winnerId = data.match.team_1.id">
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-        <img [src]="data.match.team_1[0].flag_url">
+        <img [src]="data.match.team_1.flag_url">
       </div>
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
         <h3>
-          {{data.match.team_1[0].name}}
-          <mat-icon svgIcon="trophy" *ngIf="winnerId === data.match.team_1[0].id"></mat-icon>
+          {{data.match.team_1.name}}
+          <mat-icon svgIcon="trophy" *ngIf="winnerId === data.match.team_1.id"></mat-icon>
         </h3>
       </div>
     </div>
@@ -20,14 +20,14 @@
 
     <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center"
          class="team" [ngClass]="{'clickable': mustHaveWinner()}"
-         (click)="mustHaveWinner() && winnerId = data.match.team_2[0].id">
+         (click)="mustHaveWinner() && winnerId = data.match.team_2.id">
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-        <img [src]="data.match.team_2[0].flag_url">
+        <img [src]="data.match.team_2.flag_url">
       </div>
       <div fxFlex fxLayout="row" fxLayoutAlign="center center">
         <h3>
-          {{data.match.team_2[0].name}}
-          <mat-icon svgIcon="trophy" *ngIf="winnerId === data.match.team_2[0].id"></mat-icon>
+          {{data.match.team_2.name}}
+          <mat-icon svgIcon="trophy" *ngIf="winnerId === data.match.team_2.id"></mat-icon>
         </h3>
       </div>
     </div>

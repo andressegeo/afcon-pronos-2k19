@@ -21,9 +21,12 @@ import { Match } from './../api/match.service';
 })
 export class BettingBoardComponent implements OnInit {
 
-  OPENING_TIME: number = 1528927200000;
-  END_OF_GROUPS_TIME: number = 1530223200000;
-  START_OF_FINAL_PHASE_TIME: number = 1530309600000;
+  // OPENING_TIME: number = 1528927200000;
+  // END_OF_GROUPS_TIME: number = 1530223200000;
+  // START_OF_FINAL_PHASE_TIME: number = 1530309600000;
+  OPENING_TIME: number = 1554047190000;
+  END_OF_GROUPS_TIME: number = 1555343190000;
+  START_OF_FINAL_PHASE_TIME: number = 1555429590000;
 
   stages: Stage[];
   teams: Team[];
@@ -51,6 +54,7 @@ export class BettingBoardComponent implements OnInit {
       this.teams = teams;
       this.stageSelected = undefined;
 
+      // Get all stages in databases
       this.stageService.stagesSubject.subscribe(stages => {
         if(stages && stages.length) {
           if(this.today < this.END_OF_GROUPS_TIME) {
@@ -60,21 +64,22 @@ export class BettingBoardComponent implements OnInit {
           }
         }
         this.stages = stages;
+        // console.log("Stages: ", this.stages);
       });
     });
-
+    // console.log("stage select: ", this.stageSelected)
     this.userService.userSubject.subscribe(user => {
       this.currentUser = user;
       if(user && this.currentUser.worldcup_winner) {
         this.worldcupWinnerPrediction = this.currentUser.worldcup_winner;
-        console.log("check: ", this.worldcupWinnerPrediction)
+        console.log("worldcupWinnerPrediction: ", this.worldcupWinnerPrediction)
       }
     });
 
     //Don't forget flag_url for worldcup winner
     this.userService.worldcupWinnerSubject.subscribe(winner => {
       this.worldcupWinner = winner;
-      console.log("worldcupWinner: ", winner)
+      // console.log("worldcupWinner: ", winner)
     });
   }
 
@@ -147,23 +152,32 @@ export class BettingBoardComponent implements OnInit {
   }
 
   get selectedMatches() {
+    // console.log('select: ',this.stageSelected);
     if(this.stageSelected !== 'all' && this.stageSelected !== 'knockout_stage_only') {
+      // console.log("Nous soe dans les groupes")
+      // console.log(this.stageSelected)
       return this.stageSelected.matches;
     } else if(this.stageSelected === 'knockout_stage_only') {
+      // console.log("Nous soe dans les phases éliminatoires!");
       let knockoutList = [];
       this.stages.forEach(stage => {
+        // console.log(stage);
         if(stage.must_have_winner) {
           knockoutList.push(...stage.matches);
         }
       });
+      // console.log("knockoutList: ",knockoutList);
       return knockoutList.sort((m1, m2) => {
         return m1.match_time - m2.match_time;
       });
     } else {
+      // console.log("Nous soe dans All")
       let fullList = [];
       this.stages.forEach(stage => {
+        // console.log(stage)
         fullList.push(...stage.matches);
       });
+      // console.log("fullList: ",fullList);
       return fullList.sort((m1, m2) => {
         return m1.match_time - m2.match_time;
       });
@@ -332,10 +346,10 @@ export class BettingBoardComponent implements OnInit {
 
   getWinnerFlag(match: Match): string {
     if(match.winner) {
-      if(match.team_1[0].id === match.winner) {
-        return match.team_1[0].flag_url;
-      } else if(match.team_2[0].id === match.winner) {
-        return match.team_2[0].flag_url;
+      if(match.team_1.id === match.winner) {
+        return match.team_1.flag_url;
+      } else if(match.team_2.id === match.winner) {
+        return match.team_2.flag_url;
       }
     }
   }
@@ -343,12 +357,12 @@ export class BettingBoardComponent implements OnInit {
   getWinnerFlagFromPrediction(match: Match): string {
     let prediction = this.getPrediction(match);
     //console.log("predictionWinner: ", prediction.winner)
-    //console.log("matchId: ", match.team_1[0].id)
+    //console.log("matchId: ", match.team_1.id)
     if(prediction && prediction.winner) {
-      if(match.team_1[0].id === prediction.winner) {
-        return match.team_1[0].flag_url;
-      } else if(match.team_2[0].id === prediction.winner) {
-        return match.team_2[0].flag_url;
+      if(match.team_1.id === prediction.winner) {
+        return match.team_1.flag_url;
+      } else if(match.team_2.id === prediction.winner) {
+        return match.team_2.flag_url;
       }
     }
 
