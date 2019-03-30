@@ -10,6 +10,7 @@ export class AreYouSureDialogComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    //reload /matches url
   }
 
 }
