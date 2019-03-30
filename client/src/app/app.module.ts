@@ -30,6 +30,8 @@ import { WelcomeDialogComponent } from './welcome-dialog/welcome-dialog.componen
 import { PronoDialogComponent } from './prono-dialog/prono-dialog.component';
 import { MatchResultEntryComponent } from './match-result-entry/match-result-entry.component';
 import { RandomPredictionsComponent } from './random-predictions/random-predictions.component';
+import { TournamentComponent } from './tournament/tournament.component';
+import { PubDialogComponent } from './pub-dialog/pub-dialog.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -41,6 +43,10 @@ const appRoutes: Routes = [
   {
     path: 'matches',
     component: BettingBoardComponent
+  },
+  {
+    path: 'tournament',
+    component: TournamentComponent
   },
   {
     path: '',
@@ -59,10 +65,13 @@ const appRoutes: Routes = [
     RankingsRowComponent,
     AreYouSureDialogComponent,
     WelcomeDialogComponent,
+    PubDialogComponent,
     RankingsRowComponent,
     PronoDialogComponent,
     MatchResultEntryComponent,
-    RandomPredictionsComponent
+    RandomPredictionsComponent,
+    TournamentComponent,
+    PubDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +100,7 @@ const appRoutes: Routes = [
     TeamPickerDialogComponent,
     AreYouSureDialogComponent,
     WelcomeDialogComponent,
+    PubDialogComponent,
     TeamPickerDialogComponent,
     PronoDialogComponent,
     MatchResultEntryComponent,
