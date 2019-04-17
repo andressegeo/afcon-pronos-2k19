@@ -13,24 +13,24 @@
 
   <div class="item-picture" fxLayout fxLayoutAlign="start center">
     <div>
-      <img [src]="item.picture_url" *ngIf="item.picture_url" />
-      <img src="/assets/user.png" *ngIf="!item.picture_url" />
+      <img [src]="item.user.picture_url" *ngIf="item.user.picture_url" />
+      <img src="/assets/user.png" *ngIf="!item.user.picture_url" />
     </div>
   </div>
 
   <div fxFlex class="item-name">
-    {{ item.name }}
+    {{ item.user.name }}
   </div>
 
   <div class="item-picture" fxLayout fxLayoutAlign="start center">
     <div>
-      <img [src]="item.worldcup_winner.flag_url" *ngIf="item.worldcup_winner" />
-      <img src="/assets/question-mark.png" *ngIf="!item.worldcup_winner" />
+      <img [src]="item.user.worldcup_winner.flag_url" *ngIf="item.user.worldcup_winner.flag_url != null" />
+      <img src="/assets/question-mark.png" *ngIf="item.user.worldcup_winner.flag_url == null" />
     </div>
   </div>
 
   <div class="item-score">
-    {{ item.points }}
+    {{ item.user.points }}
   </div>
 
 </div>

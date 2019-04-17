@@ -14,6 +14,5 @@ export class RankingsRowComponent {
 
   constructor() {}
   ngOnInit() {
-    console.log("qsdSS: ", this.item.user)
   }
 }
