@@ -24,9 +24,9 @@ export class BettingBoardComponent implements OnInit {
   // OPENING_TIME: number = 1528927200000;
   // END_OF_GROUPS_TIME: number = 1530223200000;
   // START_OF_FINAL_PHASE_TIME: number = 1530309600000;
-  OPENING_TIME: number = 1554047190000;
-  END_OF_GROUPS_TIME: number = 1555343190000;
-  START_OF_FINAL_PHASE_TIME: number = 1555429590000;
+  OPENING_TIME: number = 1555717004000;
+  END_OF_GROUPS_TIME: number = 1555743190000;
+  START_OF_FINAL_PHASE_TIME: number = 1555829590000;
 
   stages: Stage[];
   teams: Team[];
@@ -72,40 +72,18 @@ export class BettingBoardComponent implements OnInit {
       this.currentUser = user;
       if(user && this.currentUser.worldcup_winner) {
         this.worldcupWinnerPrediction = this.currentUser.worldcup_winner;
-        console.log("worldcupWinnerPrediction: ", this.worldcupWinnerPrediction)
+        console.log("worldcupWinnerPrediction: ", this.worldcupWinnerPrediction.flag_url)
+      }else{
+        console.log("ndem: ", this.worldcupWinnerPrediction)
       }
     });
 
     //Don't forget flag_url for worldcup winner
     this.userService.worldcupWinnerSubject.subscribe(winner => {
-      this.worldcupWinner = winner;
-      // console.log("worldcupWinner: ", winner)
-    });
-  }
-
-  openTeamPickerDialog(): void {
-    let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
-      data: { teams: this.teams },
-      height: '600px',
-      maxWidth: '90%',
-      width: '50%',
-      minWidth: '400px',
-      scrollStrategy: this.overlay.scrollStrategies.block()
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-        let previousPrediction = this.worldcupWinnerPrediction;
-        this.worldcupWinnerPrediction = result;
-        this.userService.predictWorldcupWinner(result).subscribe(winner => {
-          this.worldcupWinnerPrediction = winner;
-        }, err => {
-          console.error(err);
-          this.matSnackBar.open('Erreur. Réessayez...', undefined, {
-            duration: 3000
-          });
-          this.worldcupWinnerPrediction = previousPrediction;
-        });
+      if(winner && winner.flag_url){
+        this.worldcupWinner = winner
+      }else{
+        console.log("NOTHING//")
       }
     });
   }
@@ -183,7 +161,33 @@ export class BettingBoardComponent implements OnInit {
       });
     }
   }
+  openTeamPickerDialog(): void {
+    let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
+      data: { teams: this.teams },
+      height: '600px',
+      maxWidth: '90%',
+      width: '50%',
+      minWidth: '400px',
+      scrollStrategy: this.overlay.scrollStrategies.block()
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        let previousPrediction = this.worldcupWinnerPrediction;
+        this.worldcupWinnerPrediction = result;
+        this.userService.predictWorldcupWinner(result).subscribe(winner => {
+          this.worldcupWinnerPrediction = winner;
+        }, err => {
+          console.error(err);
+          this.matSnackBar.open('Erreur. Réessayez...', undefined, {
+            duration: 3000
+          });
+          this.worldcupWinnerPrediction = previousPrediction;
+        });
+      }
+    });
+  }
+  
   openPronoDialog(match): void {
     let currentPrediction = this.getPrediction(match);
     let dialogRef = this.matDialog.open(PronoDialogComponent, {
@@ -196,6 +200,7 @@ export class BettingBoardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined) {
         this.predictionService.postPredict(match, result).subscribe(prediction => {
+          console.log("prediction: ",prediction)
           this.userService.updatePrediction(prediction);
         });
       }
@@ -275,15 +280,19 @@ export class BettingBoardComponent implements OnInit {
     });
   }
 
+  // don't forget 1 pt  for user who have not pronostic the right score
+  // 0 pt for person who doesn't pronostic 
   calculatePoints(match) {
     let prediction = this.getPrediction(match);
     if (prediction) {
       if(match.winner === prediction.winner) {
         if(match.score === prediction.score) {
-          return 3;
+          return 5;
         } else {
-          return 1;
+          return 3;
         }
+      }else{
+        return 1;
       }
     }
     return 0;
@@ -338,7 +347,7 @@ export class BettingBoardComponent implements OnInit {
 
   get teamPickerLabel(): string {
     if(this.today < this.OPENING_TIME) {
-      return `Jusqu'à la veille du premier match, pronostique qui va gagner la coupe !`;
+      return `Jusqu'à la veille du premier match, pronostique qui va gagner la coupe ici 👉🏽`;
     } else if(this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME) {
       return `Tu peux modifier ton prono jusqu'à minuit. Mais tu ne gagneras que 10 points (contre 15).`
     }
@@ -360,6 +369,7 @@ export class BettingBoardComponent implements OnInit {
     //console.log("matchId: ", match.team_1.id)
     if(prediction && prediction.winner) {
       if(match.team_1.id === prediction.winner) {
+        // console.log("matchId: ", match.team_1.flag_url)
         return match.team_1.flag_url;
       } else if(match.team_2.id === prediction.winner) {
         return match.team_2.flag_url;

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT="dgc-worldcup-russia-2018"
+PROJECT="pronos-can-2019"
 
 if [ -z $1 ] || [ -z $2 ] ; then
 	echo "Usage: $0 <dev|production|acceptance> <version>"

@@ -60,6 +60,9 @@ mat-option {
     vertical-align: middle;
   }
 }
+.need-strut{
+  margin-top: -200px;
+}
 
 .betting-row {
 
@@ -267,7 +270,7 @@ mat-option {
         }
 
         .team div {
-          margin: 5px 0;
+          margin-left: 10px;
         }
       }
 
