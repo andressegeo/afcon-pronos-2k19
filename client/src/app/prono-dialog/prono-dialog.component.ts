@@ -1,5 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-prono-dialog',
@@ -11,7 +13,7 @@ export class PronoDialogComponent implements OnInit {
   team_1_score: number;
   team_2_score: number;
   winnerId: number;
-
+  rateControl;
   constructor(public dialogRef: MatDialogRef<PronoDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -24,6 +26,8 @@ export class PronoDialogComponent implements OnInit {
         this.winnerId = this.data.prediction.winner;
       }
     }
+    this.rateControl = new FormControl("", [Validators.max(20), Validators.min(0)])
+
   }
 
   fillScores(score) {
@@ -67,7 +71,7 @@ export class PronoDialogComponent implements OnInit {
 
   isValidPrediction() {
     if (typeof this.team_1_score === 'number' && typeof this.team_2_score === 'number'
-    && this.team_1_score >= 0 && this.team_2_score >= 0) {
+    && (0 <= this.team_1_score && this.team_1_score <= 20) && (0 <= this.team_2_score && this.team_2_score <= 20)) {
       if(this.mustHaveWinner()) {
         return this.winnerId !== undefined;
       }

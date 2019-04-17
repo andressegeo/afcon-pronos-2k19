@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule }   from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { registerLocaleData } from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
 
@@ -82,7 +82,8 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: !environment.production }
     ),
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     RestService,
