@@ -27,7 +27,7 @@ export class UserService {
 
   getCurrentUser() {
     this.apiService.getCurrentUser().subscribe(user => {
-      // console.log("user: ", user)
+      console.log("user: ", user)
       this.user = user;
       this.userSubject.next(this.user);
     }, err => {
@@ -47,9 +47,10 @@ export class UserService {
 
   predictWorldcupWinner(team) {
     return this.apiService.predictWorldcupWinner(team).map(data => {
-      let winner = data.winner;
-      this.user.worldcup_winner = winner;
+      let winner = data.worldcup_winner;
+      this.user.worldcup_winner = winner.worldcup_winner;
       this.userSubject.next(this.user) ;
+      // console.log("WINNERR: ", winner)
       return winner;
     });
 
