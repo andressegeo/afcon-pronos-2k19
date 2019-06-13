@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
           height: '90%',
           minHeight: '400px',
           width: '35%',
-          minWidth: '500px',
+          minWidth: '450px',
           panelClass: 'dialog-without-padding',
           backdropClass: 'darker-backdrop',
           scrollStrategy: this.overlay.scrollStrategies.block()

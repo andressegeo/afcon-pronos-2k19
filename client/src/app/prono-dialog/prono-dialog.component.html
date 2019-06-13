@@ -39,7 +39,7 @@
 
   <div fxLayout="row" fxLayoutAlign="center center">
     <div fxFlex="40" fxLayout="row" fxLayoutAlign="center center">
-      <mat-form-field class="">
+      <mat-form-field class="" style="text-align: right">
         <input matInput  min="0" max="20" [formControl]="rateControl" type="number" [(ngModel)]="team_1_score" (ngModelChange)="scoreChanged()">
         <mat-error>Please enter a value between 0 and 20</mat-error>
       </mat-form-field>

@@ -32,6 +32,7 @@ import { MatchResultEntryComponent } from './match-result-entry/match-result-ent
 import { RandomPredictionsComponent } from './random-predictions/random-predictions.component';
 import { TournamentComponent } from './tournament/tournament.component';
 import { PubDialogComponent } from './pub-dialog/pub-dialog.component';
+import { HomeComponent } from './home/home.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -49,8 +50,16 @@ const appRoutes: Routes = [
     component: TournamentComponent
   },
   {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
     path: '',
-    redirectTo: '/matches',
+    component: HomeComponent
+  },
+  {
+    path: '',
+    redirectTo: 'home',
     pathMatch: 'full'
   }
 ];
@@ -62,7 +71,6 @@ const appRoutes: Routes = [
     RankingsComponent,
     BettingBoardComponent,
     TeamPickerDialogComponent,
-    RankingsRowComponent,
     AreYouSureDialogComponent,
     WelcomeDialogComponent,
     PubDialogComponent,
@@ -71,7 +79,7 @@ const appRoutes: Routes = [
     MatchResultEntryComponent,
     RandomPredictionsComponent,
     TournamentComponent,
-    PubDialogComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
