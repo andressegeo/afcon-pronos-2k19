@@ -22,11 +22,11 @@ import { Match } from './../api/match.service';
 export class BettingBoardComponent implements OnInit {
 
   // OPENING_TIME: number = 1528927200000;
-  // END_OF_GROUPS_TIME: number = 1530223200000;
+  // END_OF_GROUPS_TIME: number = 1530223200000; 28juin(fini 1 jour avant la vrai ouverture qui était le 30juin)
   // START_OF_FINAL_PHASE_TIME: number = 1530309600000;
-  OPENING_TIME: number = 1555717004000;
-  END_OF_GROUPS_TIME: number = 1555743190000;
-  START_OF_FINAL_PHASE_TIME: number = 1555829590000;
+  OPENING_TIME: number = 1560376800000;
+  END_OF_GROUPS_TIME: number = 1562277600000;
+  START_OF_FINAL_PHASE_TIME: number = 1562284800000;
 
   stages: Stage[];
   teams: Team[];
@@ -165,9 +165,9 @@ export class BettingBoardComponent implements OnInit {
     let dialogRef = this.matDialog.open(TeamPickerDialogComponent, {
       data: { teams: this.teams },
       height: '600px',
-      maxWidth: '90%',
+      maxWidth: '80%',
       width: '50%',
-      minWidth: '400px',
+      minWidth: '300px',
       scrollStrategy: this.overlay.scrollStrategies.block()
     });
 
@@ -194,7 +194,7 @@ export class BettingBoardComponent implements OnInit {
       data: { stage: this.getMatchStage(match), match: match, prediction: currentPrediction },
       height: '450px',
       width: '50%',
-      minWidth: '400px',
+      minWidth: '300px',
       scrollStrategy: this.overlay.scrollStrategies.block()
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -1,8 +1,10 @@
-<div id="ranking-spinner" *ngIf="!ranking">
-  <mat-spinner></mat-spinner>
-</div>
-<div class="rankings-table mat-elevation-z3" *ngIf="ranking && ranking.length > 0">
-    <div class="rows">
-      <rankings-row [item]="item" *ngFor="let item of ranking"></rankings-row>
-    </div>
+<div id="main">
+  <div id="ranking-spinner" *ngIf="!ranking">
+    <mat-spinner></mat-spinner>
   </div>
+  <div class="rankings-table mat-elevation-z3" *ngIf="ranking && ranking.length > 0">
+      <div class="rows">
+        <rankings-row [item]="item" *ngFor="let item of ranking"></rankings-row>
+      </div>
+  </div>
+</div>
