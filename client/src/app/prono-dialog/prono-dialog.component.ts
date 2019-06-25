@@ -13,7 +13,8 @@ export class PronoDialogComponent implements OnInit {
   team_1_score: number;
   team_2_score: number;
   winnerId: number;
-  rateControl;
+  rateControl1;
+  rateControl2;
   constructor(public dialogRef: MatDialogRef<PronoDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -26,8 +27,8 @@ export class PronoDialogComponent implements OnInit {
         this.winnerId = this.data.prediction.winner;
       }
     }
-    this.rateControl = new FormControl("", [Validators.max(20), Validators.min(0)])
-
+    this.rateControl1 = new FormControl("", [Validators.max(20), Validators.min(0)])
+    this.rateControl2 = new FormControl("", [Validators.max(20), Validators.min(0)])
   }
 
   fillScores(score) {
