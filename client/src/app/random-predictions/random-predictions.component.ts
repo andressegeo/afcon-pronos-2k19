@@ -17,7 +17,8 @@ export class RandomPredictionsComponent {
 
   randomPredict() {
     this.isLoading = true;
-    this.predictionService.randomPredict().subscribe(() => {
+    this.predictionService.randomPredict().subscribe(resp => {
+      // console.log('response: ', resp)
       this.isLoading = false;
       this.dialogRef.close(true);
     }, err => {

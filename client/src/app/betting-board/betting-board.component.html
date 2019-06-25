@@ -2,10 +2,10 @@
   <h1>
     <div (mouseenter)="whistle(true)" (mouseleave)="whistle(false)">
       <a rel="noopener noreferrer" target="_blank"
-            href="https://docs.google.com/document/d/1LcIlcV-xp078Im1b-ks6DUtkCz5fegglGiM1L4IPxqg/edit">
+            href="https://docs.google.com/document/d/1lIPmas3zxpS3f7AMyV1LkipY9CRU6JLJGYfSqkLXM8c">
         <img src="/assets/yellow-card.png"></a>
       <a rel="noopener noreferrer" target="_blank"
-          href="https://docs.google.com/document/d/1LcIlcV-xp078Im1b-ks6DUtkCz5fegglGiM1L4IPxqg/edit">Les règles !
+          href="https://docs.google.com/document/d/1lIPmas3zxpS3f7AMyV1LkipY9CRU6JLJGYfSqkLXM8c">Les règles !
       </a>
     </div>
   </h1>
@@ -108,16 +108,19 @@
       <div fxLayout fxLayoutAlign="start center">
         <div fxFlex id="stage-rules">
           <p>
-            1 point si tu as le bon vainqueur
+            1 point si tu n'as pas le bon résultat
           </p>
           <p>
-            3 points si tu as le bon vainqueur et le bon score!
+            3 points si tu as le bon vainqueur
+          </p>
+          <p>
+            5 points si tu as le vainqueur et le bon score!
           </p>
         </div>
-        <div id="rollDices" class="clickable" *ngIf="canRollDices()"
+        <!-- <div id="rollDices" class="clickable" *ngIf="canRollDices()"
             (mouseenter)="shakeDices(true)" (mouseleave)="shakeDices(false)" (click)="rollDices()">
           <img src="/assets/dices.png"><span>Aléatoire</span>
-        </div>
+        </div> -->
       </div>
 
       <div class="titles" fxLayout="row">
@@ -127,15 +130,16 @@
             Ouverture des pronos: {{ getDate(stageSelected.opening_time*1000) }}
           </span>
           <span class="col-content" *ngIf="stageSelected !== 'all' && today > stageSelected.opening_time*1000 && stageSelected.closing_time">
-            Fermeture des pronos: {{ getDate(stageSelected.closing_time*1000 - 3600000*24) }}
+            <!-- Fermeture des pronos: {{ getDate(stageSelected.closing_time*1000 - 3600000*24) }} -->
+            NB: <b>Fermeture des pronos 1h avant le début de chaque rencontre.</b>
           </span>
         </div>
 
-        <!-- <div fxFlex fxLayout="row" fxLayoutGap="20px">
-          <div class="col-title">Pronostic</div>
+        <div fxFlex fxLayout="row" fxLayoutGap="20px">
+          <div class="col-title">Votre pronostic</div>
           <div class="col-title">Résultat</div>
           <div class="col-title">Points</div>
-        </div> -->
+        </div>
 
       </div>
 
