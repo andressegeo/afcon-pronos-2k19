@@ -24,9 +24,10 @@ export class BettingBoardComponent implements OnInit {
   // OPENING_TIME: number = 1528927200000;
   // END_OF_GROUPS_TIME: number = 1530223200000; 28juin(fini 1 jour avant la vrai ouverture qui était le 30juin)
   // START_OF_FINAL_PHASE_TIME: number = 1530309600000;
-  OPENING_TIME: number = 1560376800000;
-  END_OF_GROUPS_TIME: number = 1562277600000;
-  START_OF_FINAL_PHASE_TIME: number = 1562284800000;
+  // all those times help to know when user could bet worldcup winner
+  OPENING_TIME: number = 1561111200000;
+  END_OF_GROUPS_TIME: number = 1561932000000;
+  START_OF_FINAL_PHASE_TIME: number = 1562184000000;
 
   stages: Stage[];
   teams: Team[];
@@ -72,9 +73,9 @@ export class BettingBoardComponent implements OnInit {
       this.currentUser = user;
       if(user && this.currentUser.worldcup_winner) {
         this.worldcupWinnerPrediction = this.currentUser.worldcup_winner;
-        console.log("worldcupWinnerPrediction: ", this.worldcupWinnerPrediction.flag_url)
+        // console.log("worldcupWinnerPrediction: ", this.worldcupWinnerPrediction.flag_url)
       }else{
-        console.log("ndem: ", this.worldcupWinnerPrediction)
+        // console.log("ndem: ", this.worldcupWinnerPrediction)
       }
     });
 
@@ -83,7 +84,7 @@ export class BettingBoardComponent implements OnInit {
       if(winner && winner.flag_url){
         this.worldcupWinner = winner
       }else{
-        console.log("NOTHING//")
+        // console.log("NOTHING//")
       }
     });
   }
@@ -190,17 +191,18 @@ export class BettingBoardComponent implements OnInit {
   
   openPronoDialog(match): void {
     let currentPrediction = this.getPrediction(match);
+    // console.log("currentPrediction: ", currentPrediction)
     let dialogRef = this.matDialog.open(PronoDialogComponent, {
       data: { stage: this.getMatchStage(match), match: match, prediction: currentPrediction },
       height: '450px',
       width: '50%',
-      minWidth: '300px',
+      minWidth: '400px',
       scrollStrategy: this.overlay.scrollStrategies.block()
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined) {
         this.predictionService.postPredict(match, result).subscribe(prediction => {
-          console.log("prediction: ",prediction)
+          // console.log("prediction: ",prediction)
           this.userService.updatePrediction(prediction);
         });
       }
@@ -216,6 +218,7 @@ export class BettingBoardComponent implements OnInit {
   }
 
   canPredict(match: Match): boolean {
+    // console.log("match details: ", match)
     if (match.score) {
       return false;
     }
@@ -224,16 +227,20 @@ export class BettingBoardComponent implements OnInit {
     }
 
     let matchStage = this.getMatchStage(match);
-
+    // console.log("matchStage: ", matchStage)
     if(!matchStage) {
       throw 'No stage found for match ' + match.id;
     }
 
+    // if opening time of stages is not arrived today? return false
     if (this.today < matchStage.opening_time * 1000) {
       return false;
     } else {
-      if (matchStage.closing_time) {
-        return this.today < matchStage.closing_time * 1000;
+      if (match.match_time) {
+        // console.log("Here")
+        // console.log("today: ", this.today)
+        // console.log("time match: ", ((match.match_time - 3600) * 1000))
+        return this.today < ((match.match_time - 3600) * 1000);
       } else {
         return (new Date(this.today)).toLocaleDateString() !== (new Date(match.match_time * 1000)).toLocaleDateString()
           && this.today < match.match_time * 1000;
@@ -339,7 +346,7 @@ export class BettingBoardComponent implements OnInit {
   getTime(time) {
     return new Date(time).toLocaleTimeString();
   }
-
+// Help to check if user can betting
   isWorldcupWinnerPredictionOpen(): boolean {
     return this.today < this.OPENING_TIME ||
       (this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME);
