@@ -26,7 +26,7 @@ export class BettingBoardComponent implements OnInit {
   // START_OF_FINAL_PHASE_TIME: number = 1530309600000;
   // all those times help to know when user could bet worldcup winner
   OPENING_TIME: number = 1561111200000;
-  END_OF_GROUPS_TIME: number = 1561932000000;
+  END_OF_GROUPS_TIME: number = 1562104800000;
   START_OF_FINAL_PHASE_TIME: number = 1562184000000;
 
   stages: Stage[];
