@@ -26,8 +26,8 @@ export class BettingBoardComponent implements OnInit {
   // START_OF_FINAL_PHASE_TIME: number = 1530309600000;
   // all those times help to know when user could bet worldcup winner
   OPENING_TIME: number = 1561111200000;
-  END_OF_GROUPS_TIME: number = 1561932000000;
-  START_OF_FINAL_PHASE_TIME: number = 1562184000000;
+  END_OF_GROUPS_TIME: number = 1562101200000; // 2 juillet à 21h, heure de fin du dernier match(21+2h);
+  START_OF_FINAL_PHASE_TIME: number = 1562346000000; // Fermeture 2nd prono vainqueur au debut du premier match de 8ième
 
   stages: Stage[];
   teams: Team[];
@@ -49,6 +49,8 @@ export class BettingBoardComponent implements OnInit {
               private overlay: Overlay) { }
 
   ngOnInit() {
+    // console.log("today: ", this.today)
+    // console.log("END_OF_GROUPS_TIME: ", this.END_OF_GROUPS_TIME)
     this.projectSound.volume = 0.2;
 
     this.teamService.getTeams().subscribe(teams => {
@@ -227,6 +229,8 @@ export class BettingBoardComponent implements OnInit {
     }
 
     let matchStage = this.getMatchStage(match);
+    // console.log("today: ", this.today )
+    // console.log("open staging", matchStage.opening_time * 1000)
     // console.log("matchStage: ", matchStage)
     if(!matchStage) {
       throw 'No stage found for match ' + match.id;
@@ -356,7 +360,7 @@ export class BettingBoardComponent implements OnInit {
     if(this.today < this.OPENING_TIME) {
       return `Jusqu'à la veille du premier match, pronostique qui va gagner la coupe ici 👉🏽`;
     } else if(this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME) {
-      return `Tu peux modifier ton prono jusqu'à minuit. Mais tu ne gagneras que 10 points (contre 15).`
+      return `Tu peux modifier ton prono pour le vainqueur de la coupe jusqu'au 5 juillet avant 17h. Mais tu ne gagneras que 10 points (contre 15).`
     }
   }
 

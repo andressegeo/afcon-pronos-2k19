@@ -27,7 +27,7 @@ export class UserService {
 
   getCurrentUser() {
     this.apiService.getCurrentUser().subscribe(user => {
-      console.log("user: ", user)
+      // console.log("user: ", user)
       this.user = user;
       this.userSubject.next(this.user);
     }, err => {
