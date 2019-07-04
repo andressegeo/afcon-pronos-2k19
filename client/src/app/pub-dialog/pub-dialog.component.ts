@@ -16,7 +16,7 @@ export class PubDialogComponent implements OnInit {
   ngOnInit() {
     setTimeout(()=>{
       this.dialogRef.close();
-    }, 6000);
+    }, 18000);
   }
 
 }

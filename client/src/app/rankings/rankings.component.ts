@@ -16,19 +16,20 @@ export class RankingsComponent implements OnInit {
   user: User;
 
   constructor(
-    private rankingService: RankingService, 
+    private rankingService: RankingService,
     private userService: UserService,
     private matDialog: MatDialog,
     private overlay: Overlay
   ) { }
 
   ngOnInit() {
-    if(localStorage.getItem('addsConsumes') !== 'yes') {
+
+    if(localStorage.getItem('vsm') !== 'yes') {
       setTimeout(() => {
         let dialogRef = this.matDialog.open(PubDialogComponent, {
           height: '70%',
           minHeight: '350px',
-          width: '40%',
+          width: '50%',
           minWidth: '500px',
           panelClass: 'dialog-without-padding',
           backdropClass: 'darker-backdrop',
@@ -36,11 +37,28 @@ export class RankingsComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(() => {
-          localStorage.setItem('addsConsumes', 'yes');
+          localStorage.setItem('vsm', 'yes');
         });
+        localStorage.setItem('count_queue', '0')
       })
-
     }
+        var count_queue = parseInt(localStorage.getItem('count_queue')) + 1
+        console.log("count_queue_first: ", count_queue)
+        localStorage.setItem('count_queue', count_queue.toString())
+
+        if(parseInt(localStorage.getItem('count_queue')) % 4 == 0) {
+          setTimeout(() => {
+            let dialogRef = this.matDialog.open(PubDialogComponent, {
+              height: '70%',
+              minHeight: '350px',
+              width: '50%',
+              minWidth: '500px',
+              panelClass: 'dialog-without-padding',
+              backdropClass: 'darker-backdrop',
+              scrollStrategy: this.overlay.scrollStrategies.block()
+            });
+          })
+        }
 
     this.userService.userSubject.subscribe(user => {
       this.user = user;
@@ -53,7 +71,7 @@ export class RankingsComponent implements OnInit {
       this.processRanking();
     });
     this.rankingService.getGlobalRanking();
-    
+
   }
 
   processRanking() {
