@@ -42,9 +42,9 @@ export class RankingsComponent implements OnInit {
         localStorage.setItem('count_queue', '0')
       })
     }
-        var count_queue = parseInt(localStorage.getItem('count_queue')) + 1
-        console.log("count_queue_first: ", count_queue)
-        localStorage.setItem('count_queue', count_queue.toString())
+        var count_queue = parseInt(localStorage.getItem('count_queue')) + 1;
+        // console.log("count_queue_first: ", count_queue);
+        localStorage.setItem('count_queue', count_queue.toString());
 
         if(parseInt(localStorage.getItem('count_queue')) % 4 == 0) {
           setTimeout(() => {
