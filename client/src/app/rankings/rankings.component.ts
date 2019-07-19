@@ -46,7 +46,7 @@ export class RankingsComponent implements OnInit {
         // console.log("count_queue_first: ", count_queue);
         localStorage.setItem('count_queue', count_queue.toString());
 
-        if(parseInt(localStorage.getItem('count_queue')) % 4 == 0) {
+        if(parseInt(localStorage.getItem('count_queue')) % 2 == 0) {
           setTimeout(() => {
             let dialogRef = this.matDialog.open(PubDialogComponent, {
               height: '70%',
