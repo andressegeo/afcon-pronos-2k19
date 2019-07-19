@@ -313,7 +313,7 @@ export class BettingBoardComponent implements OnInit {
     if(this.currentUser != null
       && this.worldcupWinnerPrediction != null
       && this.worldcupWinner != null) {
-
+      
       if(this.worldcupWinnerPrediction.id === this.worldcupWinner.id) {
         if(this.currentUser.has_modified_worldcup_winner) {
           return 10;
