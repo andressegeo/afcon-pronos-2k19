@@ -1,15 +1,13 @@
-# AFCON 2K19 Pronos
+# NEW DEAL FOUNDERS
 
 ## General
+- PO: Luc Olivier
 - CdP: Andresse Njeungoue
 - dev: Andresse Njeungoue
-- Dossier Drive: https://drive.google.com/drive/u/0/folders/1Khcp_gIlSocjNAhD36Rxcoda5jYrnUsL
+- Dossier Drive:
 
 ## GCP
-- project: https://console.cloud.google.com/home/dashboard?project=pronos-can-2019
-- scope:
-  - https://www.googleapis.com/auth/admin.directory.user.readonly
-  - https://www.googleapis.com/auth/admin.directory.group.readonly
+- project: https://console.cloud.google.com/home/dashboard?project=new-deal-founders
 
 # Qu'est ce que c'est (technos)
 
@@ -28,8 +26,8 @@ cf specs dans le dossier Drive.
 # Execution
 
 ```bash
-source venv/bin/activate
-dev_appserver.py app.yaml ../dgc-worldcup-russia-2018-api/api.yaml dispatch.yaml
+source env/bin/activate
+dev_appserver.py app.yaml
 # ... then
 deactivate
 ```
