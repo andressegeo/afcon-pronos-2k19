@@ -1,10 +1,11 @@
 # coding: utf-8
 
 import os
+import logging
 import fnmatch
 import logging
 from flask import Flask, send_from_directory, send_file, jsonify, redirect
-from google.appengine.api import users
+# from google.appengine.api import users
 
 from config import CONFIG
 
@@ -31,14 +32,16 @@ for f in os.listdir('./dist'):
         INDEX_FILE = u"/".join([u"dist", f])
 
 
-@APP.route('/logout')
-def force_logout():
-  logout_url = users.create_logout_url('/')
-  return redirect(logout_url)
+# @APP.route('/logout')
+# def force_logout():
+#   logout_url = users.create_logout_url('/')
+#   return redirect(logout_url)
 
 
 @APP.route('/<path:path>')
 def send_client(path):
+    logging.info("path: %s", path)
+    # logging.info("je viens d'etre appele")
     """
     Handles client resources.
     """

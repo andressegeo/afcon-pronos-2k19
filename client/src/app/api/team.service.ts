@@ -25,8 +25,8 @@ export class TeamService {
       });
     }
 
-  getWorldcupWinner() {
-    return this.apiService.getWorldcupWinner().map(data => {
+  getAfconWinner() {
+    return this.apiService.getAfconWinner().map(data => {
       return data.items;
     });
   }

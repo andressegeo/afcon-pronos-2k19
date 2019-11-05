@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getCurrentUser();
-    this.userService.getWorldcupWinner();
+    this.userService.getAfconWinner();
     this.stageService.getStagesWithMatches();
 
     this.vuvu.volume = 0.1;

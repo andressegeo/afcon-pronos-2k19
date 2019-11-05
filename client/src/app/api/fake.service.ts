@@ -44,7 +44,7 @@ export class FakeService {
     }));
   }
 
-  getWorldcupWinner() {
+  getAfconWinner() {
     return Observable.of({winner: 1, opening_time:1528988400, closing_time: 1531686600})
   }
 
@@ -66,9 +66,9 @@ export class FakeService {
       name: 'DGC',
       entity: 'devoteamgcloud.com',
       picture_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0_2nqm0H20gpO-Pf9BsBwuAYt3McWcb-6rFs37i244h71Lyrnkg',
-      worldcup_winner: null,
+      afcon_winner: null,
       predictions: [],
-      has_modified_worldcup_winner: false,
+      has_modified_afcon_winner: false,
       points: 0,
       is_admin: true
     });
@@ -78,11 +78,11 @@ export class FakeService {
     return Observable.of('ok');
   }
 
-  postWorldcupWinner(winner) {
+  postAfconWinner(winner) {
     return Observable.of('ok');
   }
 
-  postWorldcupWinnerPrediction(winner) {
+  postAfconWinnerPrediction(winner) {
     return Observable.of('ok');
   }
 }

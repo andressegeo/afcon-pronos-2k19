@@ -1,13 +1,15 @@
-# NEW DEAL FOUNDERS
+# AFCON 2K19 Pronos
 
 ## General
-- PO: Luc Olivier
 - CdP: Andresse Njeungoue
 - dev: Andresse Njeungoue
-- Dossier Drive:
+- Dossier Drive: https://drive.google.com/drive/u/0/folders/1Khcp_gIlSocjNAhD36Rxcoda5jYrnUsL
 
 ## GCP
-- project: https://console.cloud.google.com/home/dashboard?project=new-deal-founders
+- project: https://console.cloud.google.com/home/dashboard?project=pronos-can-2019
+- scope:
+  - https://www.googleapis.com/auth/admin.directory.user.readonly
+  - https://www.googleapis.com/auth/admin.directory.group.readonly
 
 # Qu'est ce que c'est (technos)
 
@@ -26,8 +28,8 @@ cf specs dans le dossier Drive.
 # Execution
 
 ```bash
-source env/bin/activate
-dev_appserver.py app.yaml
+source venv/bin/activate
+dev_appserver.py app.yaml ../afcon-egyptia-2019-api/api.yaml dispatch.yaml
 # ... then
 deactivate
 ```

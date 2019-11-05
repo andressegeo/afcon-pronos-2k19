@@ -11,6 +11,9 @@ handlers:
   login: required
   secure: always
 
+env_variables:
+  AFCON_PWD_PROD: "Namesgeo2k19"
+
 skip_files:
   - ^(.*/)?#.*#$
   - ^(.*/)?.*~$

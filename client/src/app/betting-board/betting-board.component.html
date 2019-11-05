@@ -10,7 +10,7 @@
     </div>
   </h1>
 
-  <section id="worldcup-winner">
+  <section id="afcon-winner">
     <h2>
       <b>Vainqueur de la Coupe</b>
     </h2>
@@ -18,7 +18,7 @@
   <div class="betting-row" fxLayout fxLayoutGap="20px">
       <div id="team-picker-col" fxFlex>
         <div class="strut"></div>
-          <div class="need-strut clickable" (click)="openTeamPickerDialog()" *ngIf="isWorldcupWinnerPredictionOpen()">
+          <div class="need-strut clickable" (click)="openTeamPickerDialog()" *ngIf="isAfconWinnerPredictionOpen()">
           {{ teamPickerLabel }}
         </div>
       </div>
@@ -42,14 +42,14 @@
         </div> -->
         
         <div class="col-content"
-            [ngClass]="{'unknown': !worldcupWinnerPrediction, 'clickable': isWorldcupWinnerPredictionOpen()}"
-            (click)="isWorldcupWinnerPredictionOpen() && openTeamPickerDialog()" fxFlex>
+            [ngClass]="{'unknown': !afconWinnerPrediction, 'clickable': isAfconWinnerPredictionOpen()}"
+            (click)="isAfconWinnerPredictionOpen() && openTeamPickerDialog()" fxFlex>
           <div class="flag-content">
 
-            <img [src]="worldcupWinnerPrediction.flag_url" *ngIf="worldcupWinnerPrediction">
+            <img [src]="afconWinnerPrediction.flag_url" *ngIf="afconWinnerPrediction">
 
             <button mat-icon-button id="glloq"
-                    *ngIf="worldcupWinnerPrediction && worldcupWinnerPrediction.name === 'Cameroun'"
+                    *ngIf="afconWinnerPrediction && afconWinnerPrediction.name === 'Cameroun'"
                     (click)="playProject($event)">
               <mat-icon>audiotrack</mat-icon>
             </button>
@@ -61,10 +61,10 @@
           Résultat
         </div>
         <div class="col-content"
-            [ngClass]="{'empty': !worldcupWinner, clickable: isAdmin()}"
-            (click)="selectWorldcupWinner()" fxFlex>
+            [ngClass]="{'empty': !afconWinner, clickable: isAdmin()}"
+            (click)="selectAfconWinner()" fxFlex>
           <div class="flag-content">
-            <img *ngIf="worldcupWinner" [src]="worldcupWinner.flag_url">
+            <img *ngIf="afconWinner" [src]="afconWinner.flag_url">
           </div>
         </div>
       </div>
@@ -72,8 +72,8 @@
         <div class="col-title">
           Points
         </div>
-        <div class="col-content points" [ngClass]="{empty: worldcupWinnerPredictionPoints == null}" fxFlex>
-          {{ worldcupWinnerPredictionPoints }}
+        <div class="col-content points" [ngClass]="{empty: afconWinnerPredictionPoints == null}" fxFlex>
+          {{ afconWinnerPredictionPoints }}
         </div>
       </div>
     </div>

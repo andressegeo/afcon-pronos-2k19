@@ -15,14 +15,14 @@ export class UserService {
 
   user: User;
   userSubject: BehaviorSubject<User>;
-  worldcupWinnerSubject: BehaviorSubject<Team>;
+  afconWinnerSubject: BehaviorSubject<Team>;
 
   constructor(private apiService: ApiService, private fakeService: FakeService) {
     this.userSubject = new BehaviorSubject(undefined);
     this.userSubject.subscribe(newUser => {
       this.user = newUser;
     });
-    this.worldcupWinnerSubject = new BehaviorSubject(undefined);
+    this.afconWinnerSubject = new BehaviorSubject(undefined);
   }
 
   getCurrentUser() {
@@ -35,9 +35,9 @@ export class UserService {
     });
   }
 
-  getWorldcupWinner() {
-    this.apiService.getWorldcupWinner().subscribe(data => {
-      this.worldcupWinnerSubject.next(data['winner']);
+  getAfconWinner() {
+    this.apiService.getAfconWinner().subscribe(data => {
+      this.afconWinnerSubject.next(data['winner']);
     })
   }
 
@@ -45,10 +45,10 @@ export class UserService {
     return this.user !== undefined && this.user.is_admin;
   }
 
-  predictWorldcupWinner(team) {
-    return this.apiService.predictWorldcupWinner(team).map(data => {
-      let winner = data.worldcup_winner;
-      this.user.worldcup_winner = winner.worldcup_winner;
+  predictAfconWinner(team) {
+    return this.apiService.predictAfconWinner(team).map(data => {
+      let winner = data.afcon_winner;
+      this.user.afcon_winner = winner.afcon_winner;
       this.userSubject.next(this.user) ;
       // console.log("WINNERR: ", winner)
       return winner;
@@ -68,9 +68,9 @@ export class UserService {
     }
   }
 
-  enterWorldcupWinner(winner): Observable<any> {
+  enterAfconWinner(winner): Observable<any> {
     if (this.isAdmin()) {
-      return this.apiService.enterWorldcupWinner(winner).map(data => data.winner);
+      return this.apiService.enterAfconWinner(winner).map(data => data.winner);
     } else {
       return  Observable.throw("You're not admin...");
     }
@@ -101,8 +101,8 @@ export interface User {
   entity: string;
   picture_url: string;
   predictions?: Array<Prediction>;
-  worldcup_winner: Team;
-  has_modified_worldcup_winner: boolean;
+  afcon_winner: Team;
+  has_modified_afcon_winner: boolean;
   points: number;
   is_admin?: boolean;
 }

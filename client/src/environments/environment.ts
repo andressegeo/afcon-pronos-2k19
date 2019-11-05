@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  // apiBaseUrl: 'https://pronos-can-2019.appspot.com/api/'
+  // apiBaseUrl: 'https://can-2k19.appspot.com/api/'
   apiBaseUrl: 'http://localhost:8080/api/'
 };

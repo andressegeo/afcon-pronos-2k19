@@ -24,15 +24,15 @@ export class BettingBoardComponent implements OnInit {
   // OPENING_TIME: number = 1528927200000;
   // END_OF_GROUPS_TIME: number = 1530223200000; 28juin(fini 1 jour avant la vrai ouverture qui était le 30juin)
   // START_OF_FINAL_PHASE_TIME: number = 1530309600000;
-  // all those times help to know when user could bet worldcup winner
+  // all those times help to know when user could bet afcon winner
   OPENING_TIME: number = 1561111200000;
   END_OF_GROUPS_TIME: number = 1562101200000; // 2 juillet à 21h, heure de fin du dernier match(21+2h);
   START_OF_FINAL_PHASE_TIME: number = 1562346000000; // Fermeture 2nd prono vainqueur au debut du premier match de 8ième
 
   stages: Stage[];
   teams: Team[];
-  worldcupWinnerPrediction: Team;
-  worldcupWinner: Team;
+  afconWinnerPrediction: Team;
+  afconWinner: Team;
   currentUser: User;
   projectSound = new Audio('/assets/lkfjeff54df5d4f2.mp3');
   whistleSound = new Audio('/assets/whistle.mp3');
@@ -73,18 +73,18 @@ export class BettingBoardComponent implements OnInit {
     // console.log("stage select: ", this.stageSelected)
     this.userService.userSubject.subscribe(user => {
       this.currentUser = user;
-      if(user && this.currentUser.worldcup_winner) {
-        this.worldcupWinnerPrediction = this.currentUser.worldcup_winner;
-        // console.log("worldcupWinnerPrediction: ", this.worldcupWinnerPrediction.flag_url)
+      if(user && this.currentUser.afcon_winner) {
+        this.afconWinnerPrediction = this.currentUser.afcon_winner;
+        // console.log("afconWinnerPrediction: ", this.afconWinnerPrediction.flag_url)
       }else{
-        // console.log("ndem: ", this.worldcupWinnerPrediction)
+        // console.log("ndem: ", this.afconWinnerPrediction)
       }
     });
 
-    //Don't forget flag_url for worldcup winner
-    this.userService.worldcupWinnerSubject.subscribe(winner => {
+    //Don't forget flag_url for afcon winner
+    this.userService.afconWinnerSubject.subscribe(winner => {
       if(winner && winner.flag_url){
-        this.worldcupWinner = winner
+        this.afconWinner = winner
       }else{
         // console.log("NOTHING//")
       }
@@ -95,7 +95,7 @@ export class BettingBoardComponent implements OnInit {
     return this.userService.isAdmin();
   }
 
-  selectWorldcupWinner() {
+  selectAfconWinner() {
     if(!this.isAdmin()) {
       return;
     }
@@ -114,17 +114,17 @@ export class BettingBoardComponent implements OnInit {
         let otherDialogRef = this.matDialog.open(AreYouSureDialogComponent);
         otherDialogRef.afterClosed().subscribe(sure => {
           if(sure === true) {
-            let previousWinner = this.worldcupWinner;
-            this.worldcupWinner = result;
-            this.userService.enterWorldcupWinner(result).subscribe(winner => {
-              this.worldcupWinner = winner;
+            let previousWinner = this.afconWinner;
+            this.afconWinner = result;
+            this.userService.enterAfconWinner(result).subscribe(winner => {
+              this.afconWinner = winner;
               this.userService.getCurrentUser();
             }, err => {
               console.error(err);
               this.matSnackBar.open('Erreur. Réessayez...', undefined, {
                 duration: 3000
               });
-              this.worldcupWinner = previousWinner;
+              this.afconWinner = previousWinner;
             });
           }
         });
@@ -176,16 +176,16 @@ export class BettingBoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        let previousPrediction = this.worldcupWinnerPrediction;
-        this.worldcupWinnerPrediction = result;
-        this.userService.predictWorldcupWinner(result).subscribe(winner => {
-          this.worldcupWinnerPrediction = winner;
+        let previousPrediction = this.afconWinnerPrediction;
+        this.afconWinnerPrediction = result;
+        this.userService.predictAfconWinner(result).subscribe(winner => {
+          this.afconWinnerPrediction = winner;
         }, err => {
           console.error(err);
           this.matSnackBar.open('Erreur. Réessayez...', undefined, {
             duration: 3000
           });
-          this.worldcupWinnerPrediction = previousPrediction;
+          this.afconWinnerPrediction = previousPrediction;
         });
       }
     });
@@ -309,13 +309,13 @@ export class BettingBoardComponent implements OnInit {
     return 0;
   }
 
-  get worldcupWinnerPredictionPoints(): number {
+  get afconWinnerPredictionPoints(): number {
     if(this.currentUser != null
-      && this.worldcupWinnerPrediction != null
-      && this.worldcupWinner != null) {
+      && this.afconWinnerPrediction != null
+      && this.afconWinner != null) {
       
-      if(this.worldcupWinnerPrediction.id === this.worldcupWinner.id) {
-        if(this.currentUser.has_modified_worldcup_winner) {
+      if(this.afconWinnerPrediction.id === this.afconWinner.id) {
+        if(this.currentUser.has_modified_afcon_winner) {
           return 10;
         } else {
           return 15;
@@ -351,7 +351,7 @@ export class BettingBoardComponent implements OnInit {
     return new Date(time).toLocaleTimeString();
   }
 // Help to check if user can betting
-  isWorldcupWinnerPredictionOpen(): boolean {
+  isAfconWinnerPredictionOpen(): boolean {
     return this.today < this.OPENING_TIME ||
       (this.today >= this.END_OF_GROUPS_TIME && this.today < this.START_OF_FINAL_PHASE_TIME);
   }

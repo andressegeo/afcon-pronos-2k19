@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('DGC Worldcup App', () => {
+describe('Afcon App', () => {
   let page: AppPage;
 
   beforeEach(() => {
